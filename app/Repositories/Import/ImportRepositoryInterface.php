@@ -7,4 +7,5 @@ interface ImportRepositoryInterface extends RepositoryInterface
 {
     public function getSupplier();
     public function getStaff();
+    public function getProductExceptInMonth();
 }

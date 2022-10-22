@@ -90,7 +90,7 @@ class ProductController extends Controller
         $statusProduct = $this->productRepo->getStatusProduct($id);
         $anotherStatus = $this->productRepo->getStatusProductExceptStatus($product->product_status);
         $category_id = $product->get_category->id;
-        $attributeNews = $this->productRepo->getAttributesNews($category_id);
+        $attributeNews = $this->productRepo->getAttributesNews($category_id,$id);
         $families = $this->productRepo->getFamilyExceptId($product->product_family_id);
         // dd($product->product_status);
         return view('Admin.dist.creative.product.edit', [

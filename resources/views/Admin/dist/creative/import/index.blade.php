@@ -49,10 +49,17 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="text-lg-end">
-                                            <a href="{{ route('import.create') }}"
-                                                class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
-                                                    class="mdi mdi-tag me-1"></i>Thêm Thông Tin Nhập Hàng Mới</a>
-                                            <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
+                                            @if ($products->isNotEmpty())
+                                                <a href="{{ route('import.create') }}"
+                                                    class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
+                                                        class="mdi mdi-tag me-1"></i>Thêm Thông Tin Nhập Hàng Mới</a>
+                                            @else
+                                                <a href="{{ route('import.create') }}"
+                                                    class="btn btn-danger waves-effect waves-light mb-2 me-2 disabled"><i
+                                                        class="mdi mdi-tag me-1"></i>Thêm Thông Tin Nhập Hàng Mới</a>
+                                            @endif
+                                                <button type="button"
+                                                    class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->
                                 </div>
@@ -104,11 +111,11 @@
                                                     white-space: normal;">
                                                         {{ $import->get_staff->staff_name }}
                                                     </td>
-                                                   
+
                                                     <td>
                                                         <div style="display:flex">
-                                                            <a href="{{route('import.details.index',['id'=>$import->id])}}" class="action-icon"> <i
-                                                                class="mdi mdi-eye"></i></a>
+                                                            <a href="{{ route('import.details.index', ['id' => $import->id]) }}"
+                                                                class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                                             <a href="{{ route('import.edit', $import->id) }}"
                                                                 class="action-icon">
                                                                 <i class="mdi mdi-pencil-outline me-1"></i></a>

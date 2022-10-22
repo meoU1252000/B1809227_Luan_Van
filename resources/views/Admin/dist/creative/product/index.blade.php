@@ -63,7 +63,6 @@
                                                 <th style="width: 150px;">Thương Hiệu</th>
                                                 <th style="width: 150px;">Nhóm</th>
                                                 <th  style="width: 200px;">Hình Ảnh Sản Phẩm</th>
-                                                <th>Miêu Tả Sản Phẩm</th>
                                                 <th style="width: 125px;">Tương Tác</th>
                                             </tr>
                                         </thead>
@@ -96,14 +95,9 @@
                                                             style="width:150px;height:200px;object-fit: contain;">
                                                     </td>
 
-                                                    <td style="white-space: inherit;">
-                                                        {{ $product->product_description }}
-                                                    </td>
-
-
                                                     <td>
                                                         <div style="display:flex">
-                                                            <a href="{{ route('product.edit', $product->id) }}"
+                                                            <a href="{{ route('image.index', ['id'=>$product->id]) }}"
                                                                 class="action-icon">
                                                                 <i class="mdi mdi-eye me-1"></i></a>
                                                             <a href="{{ route('product.edit', $product->id) }}"

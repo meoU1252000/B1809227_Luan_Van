@@ -29,10 +29,10 @@ class ImportController extends Controller
     {
         //
         $imports = $this->importRepo->getAll();
-
+        $products = $this->importRepo->getProductExceptInMonth();
         return view('Admin.dist.creative.import.index',[
             'title'=>'Trang Quản Lý Nhập Hàng'
-        ],compact('imports'));
+        ],compact('imports','products'));
     }
 
     /**

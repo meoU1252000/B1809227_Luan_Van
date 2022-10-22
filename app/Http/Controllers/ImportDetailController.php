@@ -29,6 +29,7 @@ class ImportDetailController extends Controller
         //
         // $import_details = $this->importDetailsRepo->getAll();
         $import = $this->importDetailsRepo->getImport($id);
+        // dd($import);
         return view('Admin.dist.creative.import.details.index',[
             'title'=>'Trang Quản Lý Chi Tiết Nhập Hàng'
         ],compact('import'));
@@ -42,7 +43,7 @@ class ImportDetailController extends Controller
     public function create($id)
     {
         //
-        $products = $this->importDetailsRepo->getProduct();
+        $products = $this->importDetailsRepo->getProductExceptInMonth();
         $import = $this->importDetailsRepo->getImport($id);
         return view('Admin.dist.creative.import.details.add',[
             'title'=>'Trang Quản Lý Chi Tiết Nhập Hàng'

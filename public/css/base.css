@@ -57,7 +57,7 @@
   }
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   width: 20px;
 }
 
@@ -70,4 +70,8 @@ body::-webkit-scrollbar-thumb {
   border-radius: 100rem;
   background-image: linear-gradient(to bottom, #063547, #44b89d);
   height: 200px;
-}
+} */
+
+
+
+

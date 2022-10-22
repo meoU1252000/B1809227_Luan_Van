@@ -49,9 +49,15 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="text-lg-end">
+                                            @if ($import->get_import_details->isNotEmpty())
+                                                <a href="{{ route('import.details.create', ['id' => $import->id]) }}"
+                                                    class="btn btn-danger waves-effect waves-light mb-2 me-2 disabled"><i
+                                                        class="mdi mdi-tag me-1"></i>Thêm Thông Tin Nhập Hàng Mới</a>
+                                            @else
                                             <a href="{{ route('import.details.create', ['id' => $import->id]) }}"
                                                 class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
                                                     class="mdi mdi-tag me-1"></i>Thêm Thông Tin Nhập Hàng Mới</a>
+                                            @endif
                                             <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->

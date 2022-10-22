@@ -15,7 +15,7 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getBrandExceptId($id);
     public function getFamilyExceptId($id);
     public function getAttributesByCategoryId($id);
-    public function getAttributesNews($category_id);
+    public function getAttributesNews($category_id,$product_id);
     public function addAttributes($product_id, $attributes_id, $attributes_value);
     public function updateAttributes($product_id, $attribute_old, $attribute_new, $attributes_value);
     public function getBrandAll();

@@ -14,6 +14,7 @@ use App\Http\Controllers\ImportDetailController;
 use App\Http\Controllers\ProductFamilyController;
 use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageController;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,6 +55,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/getImport/{id}', [ProductController::class, 'getImport'])->name('price.getImport');
                 Route::post('/getProduct/{id}', [ProductController::class, 'getProduct'])->name('price.getProduct');
                 Route::post('/getImportProductPrice', [ProductController::class, 'getImportProductPrice'])->name('price.getImportProductPrice');
+            });
+            Route::prefix('/{id}/image')->group(function(){
+                Route::get('/',[ImageController::class,'index'])->name('image.index');
+                Route::get('/add',[ImageController::class,'create'])->name('image.create');
+                Route::post('/store',[ImageController::class,'store'])->name('image.store');
+                Route::get('/edit/{image}',[ImageController::class,'edit'])->name('image.edit');
+                Route::post('/update/{image}',[ImageController::class,'update'])->name('image.update');
+                Route::post('/delete/{image}',[ImageController::class,'destroy'])->name('image.delete');
+
             });
         });
 
@@ -131,22 +141,22 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/delete/{id}', [ImportController::class, 'destroy'])->name('import.delete');
             Route::prefix('{id}/details')->group(function () {
                 Route::get('/', [ImportDetailController::class, 'index'])->name('import.details.index');
-                Route::get('/add/}', [ImportDetailController::class, 'create'])->name('import.details.create');
+                Route::get('/add', [ImportDetailController::class, 'create'])->name('import.details.create');
                 Route::post('/store', [ImportDetailController::class, 'store'])->name('import.details.store');
             });
         });
     });
 });
 //Client
-Route::prefix('/thanh-dat-store')->group(function () {
-    Route::get('/', [ProductController::class, 'indexClient'])->name('client.index');
-    Route::get('/{slug}/{id}', [ProductController::class, 'get_detail_product'])->name('client.detail');
+// Route::prefix('/thanh-dat-store')->group(function () {
+//     Route::get('/', [ProductController::class, 'indexClient'])->name('client.index');
+//     Route::get('/{slug}/{id}', [ProductController::class, 'get_detail_product'])->name('client.detail');
 
-    //Giỏ hàng
-    Route::prefix('/cart')->group(function () {
-        Route::get('/', [CartController::class, 'index'])->name('cart.index');
-        Route::post('/add/{id}', [CartController::class, 'store'])->name('cart.store')->middleware('check.quantity');
-        Route::post('/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-        Route::post('/edit', [CartController::class, 'edit_cart'])->name('cart.edit')->middleware('check.quantity');
-    });
-});
+//     //Giỏ hàng
+//     Route::prefix('/cart')->group(function () {
+//         Route::get('/', [CartController::class, 'index'])->name('cart.index');
+//         Route::post('/add/{id}', [CartController::class, 'store'])->name('cart.store')->middleware('check.quantity');
+//         Route::post('/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+//         Route::post('/edit', [CartController::class, 'edit_cart'])->name('cart.edit')->middleware('check.quantity');
+//     });
+// });

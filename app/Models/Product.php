@@ -13,6 +13,7 @@ class Product extends Model
     protected $fillable = [
         'brand_id',
         'product_family_id',
+        'category_id',
         'product_name',
         'product_description',
         'main_image_src',
@@ -39,5 +40,9 @@ class Product extends Model
 
     public function get_import(){
         return $this->belongsToMany(Import::class,'import_details','product_id','import_id');
+    }
+
+    public function get_images(){
+        return $this->hasMany(Image::class,'product_id','id');
     }
 }

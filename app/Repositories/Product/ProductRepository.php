@@ -105,10 +105,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return response()->json(['code' => 200, 'data' => $attributes]);
     }
 
-    public function getAttributesNews($category_id)
+    public function getAttributesNews($category_id,$product_id)
     {
-        $attributeNews = CategoryAttribute::whereNotIn('id', function ($query) {
-            $query->select('attribute_id')->from('attribute_param');
+        $attributeNews = CategoryAttribute::whereNotIn('id', function ($query) use ($product_id) {
+            $query->select('attribute_id')->from('attribute_param')->where('product_id',$product_id);
         })->where('category_id', $category_id)->get();
         return $attributeNews;
     }
@@ -124,7 +124,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             array_push($arrayAttributesId, $attribute_id);
         }
         for ($i = 0; $i < count($arrayAttributesId); $i++) {
-            $updateValue = AttributeParams::where('attribute_id', $arrayAttributesId[$i])->update([
+            $updateValue = AttributeParams::where('attribute_id', $arrayAttributesId[$i])->where('product_id','=',$product_id)->update([
                 'param_value' => $attributes_value[$i]
             ]);
         }
@@ -149,7 +149,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
             $arrayAttributesId = array_merge($arrayAttributesIdOld, $arrayAttributesIdNew);
             for ($i = 0; $i < count($arrayAttributesId); $i++) {
-                $updateValue = AttributeParams::where('attribute_id', $arrayAttributesId[$i])->update([
+                $updateValue = AttributeParams::where('attribute_id', $arrayAttributesId[$i])->where('product_id','=',$product_id)->update([
                     'param_value' => $attributes_value[$i]
                 ]);
             }
