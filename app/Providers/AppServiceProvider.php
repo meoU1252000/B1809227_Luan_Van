@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
+            \App\Repositories\Customer\CustomerRepositoryInterface::class,
+            \App\Repositories\Customer\CustomerRepository::class
+        );
+
+        $this->app->singleton(
             \App\Repositories\Image\ImageRepositoryInterface::class,
             \App\Repositories\Image\ImageRepository::class
         );

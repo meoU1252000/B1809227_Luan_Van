@@ -10,7 +10,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-
+use App\Repositories\Customer\CustomerRepositoryInterface;
 class ClientPageController extends AbstractApiController
 {
     /**
@@ -18,6 +18,10 @@ class ClientPageController extends AbstractApiController
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(CustomerRepositoryInterface $cusRepo)
+    {
+        $this->cusRepo = $cusRepo;
+    }
     public function getListProducts()
     {
         //
@@ -66,7 +70,28 @@ class ClientPageController extends AbstractApiController
         $this->setData($product);
         return $this->respond();
     }
-    
+
+    public function register(Request $request){
+        $data = $request->all();
+        $validated = Validator::make($data,[
+            'email' => 'required|unique:customer,email',
+            'password' => 'required|max:255',
+        ]);
+        if($validated === false){
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->message()->all());
+        }else{
+            $customer_store = $this->cusRepo->create($data);
+            $this->setStatusCode(JsonResponse::HTTP_OK);
+            $this->setStatus('success');
+            $this->setMessage('Create customer successful');
+            $this->setData($customer_store);
+        }
+        return $this->respond();
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
