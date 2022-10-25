@@ -11,6 +11,10 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\Customer\CustomerRepositoryInterface;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use \Illuminate\Contracts\Auth\Authenticatable;
 class ClientPageController extends AbstractApiController
 {
     /**
@@ -73,15 +77,18 @@ class ClientPageController extends AbstractApiController
 
     public function register(Request $request){
         $data = $request->all();
-        $validated = Validator::make($data,[
+        $validated =  Validator::make($data,[
+            'customer_name' => 'required|',
+            'customer_phone' => 'required|max:10',
             'email' => 'required|unique:customer,email',
             'password' => 'required|max:255',
         ]);
-        if($validated === false){
+        if($validated->fails()) {
             $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
             $this->setStatus('error');
-            $this->setMessage($validated->message()->all());
+            $this->setMessage($validated->errors());
         }else{
+            $data['password'] = Hash::make($data['password']);
             $customer_store = $this->cusRepo->create($data);
             $this->setStatusCode(JsonResponse::HTTP_OK);
             $this->setStatus('success');
@@ -89,9 +96,38 @@ class ClientPageController extends AbstractApiController
             $this->setData($customer_store);
         }
         return $this->respond();
-
     }
 
+    public function login(Request $request){
+        $validated =  Validator::make($request->all(), [
+            'email' => 'required|email:filter|max:255|',
+            'password' => 'required|max:255|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
+        ]);
+        if($validated->fails()) {
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->errors());
+            return $this->respond();
+        }
+
+        if (Auth::guard('api')->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ])) {
+            $user = Auth::guard('api')->user();
+            $this->setStatusCode(JsonResponse::HTTP_OK);
+            $this->setStatus('success');
+            $this->setMessage('Login successful');
+            $this->setData($user);
+            return $this->respond();
+        };
+    }
+
+    public function logout()
+    {
+        Auth::guard('api')
+            ->logout();
+    }
 
     /**
      * Show the form for creating a new resource.
