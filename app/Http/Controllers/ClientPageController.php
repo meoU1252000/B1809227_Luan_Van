@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\CategoryResource;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\Customer\CustomerRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use \Illuminate\Contracts\Auth\Authenticatable;
 class ClientPageController extends AbstractApiController
 {
     /**
@@ -98,35 +100,54 @@ class ClientPageController extends AbstractApiController
         return $this->respond();
     }
 
-    public function login(Request $request){
-        $validated =  Validator::make($request->all(), [
-            'email' => 'required|email:filter|max:255|',
-            'password' => 'required|max:255|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
-        ]);
-        if($validated->fails()) {
+    public function login(AuthRequest $request){
+        // $validated =  Validator::make($request->all(), [
+        //     'email' => 'required|email:filter|max:255|',
+        //     'password' => 'required|max:255|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
+        // ]);
+        // if($validated->fails()) {
+        //     $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+        //     $this->setStatus('error');
+        //     $this->setMessage($validated->errors());
+        //     return $this->respond();
+        // }
+
+        if (!$token = Auth::guard('api')->attempt($request->validated())) {
             $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
             $this->setStatus('error');
-            $this->setMessage($validated->errors());
-            return $this->respond();
-        }
-
-        if (Auth::guard('api')->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ])) {
-            $user = Auth::guard('api')->user();
-            $this->setStatusCode(JsonResponse::HTTP_OK);
-            $this->setStatus('success');
-            $this->setMessage('Login successful');
-            $this->setData($user);
+            $this->setMessage('Wrong username or password');
             return $this->respond();
         };
+        $this->setStatusCode(JsonResponse::HTTP_OK);
+        $this->setStatus('success');
+        $this->setMessage('Login successful');
+        $this->setData($this->createNewToken($token));
+        return $this->respond();
     }
 
     public function logout()
     {
-        Auth::guard('api')
-            ->logout();
+        User::where('id', Auth::guard('api')->user()->id)->update(['remember_token' => null]);
+        $user = User::where('id', Auth::guard('api')->user()->id)->first();
+        $this->setStatusCode(200);
+        $this->setStatus('ok');
+        $this->setMessage('logged_out');
+        Auth::guard('api')->logout();
+        return response()->json([
+            'msg' => 'logged out',
+            'user' => $user,
+            'remember_token' => $user['remember_token']
+        ]);
+    }
+
+     protected function createNewToken($token)
+    {
+        $user = Customer::findOrFail(Auth::guard('api')->id());
+        return [
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'bearer',
+        ];
     }
 
     /**
