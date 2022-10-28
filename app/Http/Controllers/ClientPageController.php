@@ -127,16 +127,12 @@ class ClientPageController extends AbstractApiController
 
     public function logout()
     {
-        User::where('id', Auth::guard('api')->user()->id)->update(['remember_token' => null]);
-        $user = User::where('id', Auth::guard('api')->user()->id)->first();
         $this->setStatusCode(200);
         $this->setStatus('ok');
         $this->setMessage('logged_out');
         Auth::guard('api')->logout();
         return response()->json([
-            'msg' => 'logged out',
-            'user' => $user,
-            'remember_token' => $user['remember_token']
+            'msg' => 'logged out'
         ]);
     }
 

@@ -27,7 +27,7 @@ Route::prefix('/client')->group(function () {
     Route::get('/get-product/{id}',[ClientPageController::class,'getProduct'])->name('client.getProduct');
     Route::post('/register',[ClientPageController::class,'register'])->name('client.register');
     Route::post('/login',[ClientPageController::class,'login'])->name('client.login');
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['api'])->group(function () {
         Route::post('/logout',[ClientPageController::class,'logout'])->name('client.logout');
     });
 });
