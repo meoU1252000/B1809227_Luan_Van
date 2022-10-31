@@ -9,6 +9,7 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Customer_Address;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -148,6 +149,15 @@ class ClientPageController extends AbstractApiController
             'access_token' => $token,
             'token_type' => 'bearer',
         ];
+    }
+
+    public function getCustomerAddress(){
+        $id = Auth::guard('api')->user()->id;
+        $address = Customer_Address::where('customer_id',$id)->get();
+        $this->setStatusCode(JsonResponse::HTTP_OK);
+        $this->setStatus('success');
+        $this->setMessage('Get customer address successful');
+        $this->setData($address);
     }
 
     /**

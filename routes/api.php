@@ -28,6 +28,7 @@ Route::prefix('/client')->group(function () {
     Route::post('/register',[ClientPageController::class,'register'])->name('client.register');
     Route::post('/login',[ClientPageController::class,'login'])->name('client.login');
     Route::middleware(['auth'])->group(function () {
+        Route::post('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');
         Route::post('/logout',[ClientPageController::class,'logout'])->name('client.logout');
     });
 });
