@@ -27,9 +27,10 @@ Route::prefix('/client')->group(function () {
     Route::get('/get-product/{id}',[ClientPageController::class,'getProduct'])->name('client.getProduct');
     Route::post('/register',[ClientPageController::class,'register'])->name('client.register');
     Route::post('/login',[ClientPageController::class,'login'])->name('client.login');
-
+    Route::get('/get-list-city',[ClientPageController::class,'getListCity'])->name('client.getListCity');
     Route::middleware(['api'])->group(function () {
         Route::post('/logout',[ClientPageController::class,'logout'])->name('client.logout');
-        Route::get('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');
+        Route::post('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');
+        Route::post('/createAddress',[ClientPageController::class,'createCustomerAddress'])->name('client.createCustomerAddress');
     });
 });

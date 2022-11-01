@@ -6,12 +6,15 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProvinceResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Customer_Address;
 use App\Models\Product;
+use App\Models\Province;
 use App\Models\User;
+use App\Repositories\Address\AddressRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\Customer\CustomerRepositoryInterface;
@@ -25,9 +28,11 @@ class ClientPageController extends AbstractApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CustomerRepositoryInterface $cusRepo)
+    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo)
     {
         $this->cusRepo = $cusRepo;
+        $this->addressRepo = $addressRepo;
+
     }
     public function getListProducts()
     {
@@ -154,6 +159,40 @@ class ClientPageController extends AbstractApiController
         $this->setStatus('success');
         $this->setMessage('Get customer address successful');
         $this->setData($address);
+        return $this->respond();
+
+    }
+
+    public function getListCity(){
+        $cities = ProvinceResource::collection(Province::all());
+        $this->setStatusCode(JsonResponse::HTTP_OK);
+        $this->setStatus('success');
+        $this->setMessage('Get list province successful');
+        $this->setData($cities);
+        return $this->respond();
+    }
+
+    public function createCustomerAddress(Request $request){
+        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $data = $request->all();
+        $validated =  Validator::make($data,[
+            'receiver_name' => 'required|max:255',
+            'receiver_address' => 'required|max:255',
+            'receiver_phone' => 'required|max:10',
+        ]);
+        if($validated->fails()) {
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->errors());
+        }else{
+            $data['customer_id'] = $customer->id;
+            $addressStore = $this->addressRepo->create($data);
+            $this->setStatusCode(JsonResponse::HTTP_OK);
+            $this->setStatus('success');
+            $this->setMessage('Create customer address successful');
+            $this->setData($addressStore);
+        }
+        return $this->respond();
     }
 
     /**
