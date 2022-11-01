@@ -148,7 +148,7 @@ class ClientPageController extends AbstractApiController
     }
 
     public function getCustomerAddress(){
-        $id = Auth::guard('api')->user()->id;
+        $id = Auth::guard('api')->id();
         $address = Customer_Address::where('customer_id',$id)->get();
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');

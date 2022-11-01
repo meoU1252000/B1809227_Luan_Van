@@ -30,6 +30,6 @@ Route::prefix('/client')->group(function () {
 
     Route::middleware(['api'])->group(function () {
         Route::post('/logout',[ClientPageController::class,'logout'])->name('client.logout');
-        Route::post('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');
+        Route::get('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');
     });
 });
