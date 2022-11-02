@@ -32,5 +32,7 @@ Route::prefix('/client')->group(function () {
         Route::post('/logout',[ClientPageController::class,'logout'])->name('client.logout');
         Route::post('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');
         Route::post('/createAddress',[ClientPageController::class,'createCustomerAddress'])->name('client.createCustomerAddress');
+        Route::post('/updateAddress',[ClientPageController::class,'updateCustomerAddress'])->name('client.updateCustomerAddress');
+        Route::post('/deleteAddress',[ClientPageController::class,'deleteCustomerAddress'])->name('client.deleteCustomerAddress');
     });
 });

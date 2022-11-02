@@ -187,12 +187,45 @@ class ClientPageController extends AbstractApiController
         }else{
             $data['customer_id'] = $customer->id;
             $addressStore = $this->addressRepo->create($data);
-            $this->setStatusCode(JsonResponse::HTTP_OK);
+            $this->setStatusCode(JsonResponse::HTTP_CREATED);
             $this->setStatus('success');
             $this->setMessage('Create customer address successful');
             $this->setData($addressStore);
         }
         return $this->respond();
+    }
+
+    public function updateCustomerAddress(Request $request){
+        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $data = $request->all();
+        $validated =  Validator::make($data,[
+            'address_id' => 'required|exists:customer_address,id',
+            'receiver_name' => 'required|max:255',
+            'receiver_address' => 'required|max:255',
+            'receiver_phone' => 'required|max:10',
+        ]);
+        if($validated->fails()) {
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->errors());
+        }else{
+            $data['customer_id'] = $customer->id;
+            $addressStore = $this->addressRepo->update($request->address_id,$data);
+            $this->setStatusCode(JsonResponse::HTTP_CREATED);
+            $this->setStatus('success');
+            $this->setMessage('Update customer address successful');
+            $this->setData($addressStore);
+        }
+        return $this->respond();
+    }
+
+    public function deleteCustomerAddress(Request $request){
+        $address = $this->addressRepo->delete($request->address_id);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Delete customer address successful');
+        return $this->respond();
+
     }
 
     /**
