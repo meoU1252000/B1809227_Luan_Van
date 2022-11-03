@@ -18,6 +18,8 @@ class Product extends Model
         'product_description',
         'main_image_src',
         'product_price',
+        'product_quantity_stock',
+        'product_sold',
         'product_status'
     ];
 
@@ -32,7 +34,7 @@ class Product extends Model
     public function get_category(){
         return $this->belongsToMany(CategoryAttribute::class,'attribute_param','product_id','attribute_id')->first()->belongsTo(Category::class,'category_id','id');
     }
-    
+
 
     public function get_attribute(){
         return $this->belongsToMany(CategoryAttribute::class,'attribute_param','product_id','attribute_id');

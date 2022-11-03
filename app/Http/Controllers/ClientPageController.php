@@ -18,6 +18,10 @@ use App\Repositories\Address\AddressRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\Customer\CustomerRepositoryInterface;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderDetails\OrderDetailsRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -28,11 +32,13 @@ class ClientPageController extends AbstractApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo)
+    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo)
     {
         $this->cusRepo = $cusRepo;
         $this->addressRepo = $addressRepo;
-
+        $this->orderDetailsRepo = $orderDetailsRepo;
+        $this->orderRepo = $orderRepo;
+        $this->productRepo = $productRepo;
     }
     public function getListProducts()
     {
@@ -107,17 +113,6 @@ class ClientPageController extends AbstractApiController
     }
 
     public function login(AuthRequest $request){
-        // $validated =  Validator::make($request->all(), [
-        //     'email' => 'required|email:filter|max:255|',
-        //     'password' => 'required|max:255|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
-        // ]);
-        // if($validated->fails()) {
-        //     $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
-        //     $this->setStatus('error');
-        //     $this->setMessage($validated->errors());
-        //     return $this->respond();
-        // }
-
         if (!$token = Auth::guard('api')->attempt($request->validated())) {
             $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
             $this->setStatus('error');
@@ -225,7 +220,42 @@ class ClientPageController extends AbstractApiController
         $this->setStatus('success');
         $this->setMessage('Delete customer address successful');
         return $this->respond();
+    }
 
+    public function createOrder(Request $request){
+        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $data = $request->all();
+        $validated =  Validator::make($data,[
+            'address_id' => 'required|exists:customer_address,id',
+            'total_price' => 'required|numeric',
+            'cart_list' => 'array',
+        ]);
+        if($validated->fails()) {
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->errors());
+        }else{
+            $data['receive_date'] = Carbon::now()->format('Y-m-d');
+            $data['order_status'] = 'Chưa Xử Lý';
+            $orderStore = $this->orderRepo->create($data);
+            $value = array();
+            $updateProduct = array();
+            foreach($data['cart_list'] as $cart){
+                $value['order_id'] = $orderStore->id;
+                $product = Product::find($cart['productId']);
+                $value['product_price'] = $product->product_price;
+                $value['product_number'] = $cart['quantity'];
+                $orderDetailStore = $this->orderDetailsRepo->create($value);
+                $updateProduct['product_quantity_stock'] = $product->product_quantity_stock - $value['product_number'];
+                $updateProduct['product_sold'] = $product->product_sold + $value['product_number'];
+                $updateProductNumber = $this->productRepo->update($product->id,$updateProduct);
+            }
+            $this->setStatusCode(JsonResponse::HTTP_CREATED);
+            $this->setStatus('success');
+            $this->setMessage('Create order successful');
+            $this->setData($orderStore);
+        }
+        return $this->respond();
     }
 
     /**
