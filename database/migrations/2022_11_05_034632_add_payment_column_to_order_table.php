@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('memory', function (Blueprint $table) {
-            $table->id();
-            $table->integer('memory_size');
-            $table->string('memory_unit');
-            $table->timestamps();
+        Schema::table('order', function (Blueprint $table) {
+            //
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('memory');
+        Schema::table('order', function (Blueprint $table) {
+            //
+        });
     }
 };

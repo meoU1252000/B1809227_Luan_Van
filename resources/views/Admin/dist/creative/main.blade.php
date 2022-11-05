@@ -719,6 +719,13 @@
                         </li>
 
                         <li>
+                            <a href="{{ route('order.index') }}">
+                                <i class="mdi mdi-package"></i>
+                                <span> Quản Lý Đơn Hàng </span>
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('event.index') }}">
                                 <i class="mdi mdi-gift"></i>
                                 <span> Quản Lý Sự Kiện </span>

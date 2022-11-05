@@ -14,6 +14,8 @@ use App\Http\Controllers\ImportDetailController;
 use App\Http\Controllers\ProductFamilyController;
 use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+
 use App\Http\Controllers\ImageController;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
@@ -144,6 +146,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/add', [ImportDetailController::class, 'create'])->name('import.details.create');
                 Route::post('/store', [ImportDetailController::class, 'store'])->name('import.details.store');
             });
+        });
+
+        Route::prefix('order')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('order.index');
+            Route::get('/add', [OrderController::class, 'create'])->name('order.create');
+            Route::post('/store', [OrderController::class, 'store'])->name('order.store');
+            Route::get('/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
+            Route::post('/update/{id}', [OrderController::class, 'update'])->name('order.update');
+            Route::post('/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');
         });
     });
 });

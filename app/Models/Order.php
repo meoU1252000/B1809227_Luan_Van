@@ -16,6 +16,7 @@ class Order extends Model
         'event_id',
         'receive_date',
         'order_status',
-        'total_price'
+        'total_price',
+        'note'
     ];
 }

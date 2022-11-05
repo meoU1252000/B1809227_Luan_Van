@@ -7,10 +7,12 @@ use App\Http\Resources\BrandResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ProvinceResource;
+use App\Http\Resources\UserResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Customer_Address;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
@@ -141,7 +143,7 @@ class ClientPageController extends AbstractApiController
     {
         $user = Customer::findOrFail(Auth::guard('api')->id());
         return [
-            'user' => $user,
+            'user' => new UserResource($user),
             'access_token' => $token,
             'token_type' => 'bearer',
         ];
@@ -235,7 +237,6 @@ class ClientPageController extends AbstractApiController
             $this->setStatus('error');
             $this->setMessage($validated->errors());
         }else{
-            $data['receive_date'] = Carbon::now()->format('Y-m-d');
             $data['order_status'] = 'Chưa Xử Lý';
             $orderStore = $this->orderRepo->create($data);
             $value = array();
@@ -255,6 +256,17 @@ class ClientPageController extends AbstractApiController
             $this->setMessage('Create order successful');
             $this->setData($orderStore);
         }
+        return $this->respond();
+    }
+
+    public function getOrders(){
+        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $customer_address = Customer_Address::where('customer_id',$customer->id)->get(['id']);
+        $orders = Order::whereIn('address_id',$customer_address)->get();
+        $this->setStatusCode(JsonResponse::HTTP_OK);
+        $this->setStatus('success');
+        $this->setMessage('Get list province successful');
+        $this->setData($orders);
         return $this->respond();
     }
 
