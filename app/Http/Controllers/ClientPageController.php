@@ -243,6 +243,7 @@ class ClientPageController extends AbstractApiController
             $updateProduct = array();
             foreach($data['cart_list'] as $cart){
                 $value['order_id'] = $orderStore->id;
+                $value['product_id'] = $cart['productId'];
                 $product = Product::find($cart['productId']);
                 $value['product_price'] = $product->product_price;
                 $value['product_number'] = $cart['quantity'];
