@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('product_price', function (Blueprint $table) {
             $table->id();
             $table->foreignId('import_id')->constrained('import')->onDelete('cascade');
-            $table->foreignId('product_memory_id')->constrained('product_memory')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('product')->onDelete('cascade');
             $table->double('product_price');
             $table->dateTime('date_start');
             $table->dateTime('date_end');
