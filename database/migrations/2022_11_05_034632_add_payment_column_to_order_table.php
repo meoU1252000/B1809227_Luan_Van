@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('order', function (Blueprint $table) {
             //
+            $table->string('note',255);
         });
     }
 
