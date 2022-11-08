@@ -25,6 +25,6 @@ class OrderDetailsResource extends JsonResource
     }
 
     public function getProduct($id){
-        return Product::find($id);
+        return new ProductResource(Product::find($id));
     }
 }
