@@ -6,6 +6,7 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\OrderResource;
 use App\Http\Resources\ProvinceResource;
 use App\Http\Resources\UserResource;
 use App\Models\Brand;
@@ -266,8 +267,8 @@ class ClientPageController extends AbstractApiController
         $orders = Order::whereIn('address_id',$customer_address)->get();
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
-        $this->setMessage('Get list province successful');
-        $this->setData($orders);
+        $this->setMessage('Get list order successful');
+        $this->setData(OrderResource::collection($orders));
         return $this->respond();
     }
 

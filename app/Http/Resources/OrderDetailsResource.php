@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderDetailsResource extends JsonResource
@@ -16,8 +17,14 @@ class OrderDetailsResource extends JsonResource
     {
         $data =[
             "order_id" => $this->order_id,
-            "product" => $this->customer_name,
+            "product" => $this->getProduct($this->product_id),
+            "product_price" => $this->product_price,
+            "product_number" => $this->product_number,
         ];
         return $data;
+    }
+
+    public function getProduct($id){
+        return Product::find($id);
     }
 }
