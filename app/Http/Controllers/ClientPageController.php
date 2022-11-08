@@ -277,6 +277,7 @@ class ClientPageController extends AbstractApiController
         $data = $request->all();
         // $order = Order::find($data['id']);
         $order_details = OrderDetail::where('order_id',$data['id'])->get();
+        $data['order_status'] = "Đã Hủy";
         $updateProduct = array();
         foreach($order_details as $order){
             $product_in_order = $order->product_number;
@@ -286,9 +287,10 @@ class ClientPageController extends AbstractApiController
             $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
             $update_product = $this->productRepo->update($product->id,$updateProduct);
         }
+        $updateOrderStatus = $this->orderRepo->update($data['id'],$data);
         $this->setStatusCode(JsonResponse::HTTP_CREATED);
         $this->setStatus('success');
-        $this->setMessage('Create order successful');
+        $this->setMessage('Cancel order successful');
         $this->setData('');
         return $this->respond();
 
