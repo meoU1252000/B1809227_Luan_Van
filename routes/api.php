@@ -35,5 +35,6 @@ Route::prefix('/client')->group(function () {
         Route::post('/updateAddress',[ClientPageController::class,'updateCustomerAddress'])->name('client.updateCustomerAddress');
         Route::post('/deleteAddress',[ClientPageController::class,'deleteCustomerAddress'])->name('client.deleteCustomerAddress');
         Route::post('/createOrder',[ClientPageController::class,'createOrder'])->name('client.createOrder');
+        Route::post('/get-list-order',[ClientPageController::class,'getOrders'])->name('client.getOrders');
     });
 });
