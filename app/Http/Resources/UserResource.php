@@ -35,6 +35,6 @@ class UserResource extends JsonResource
     public function getOrders($id){
         $customer_address = Customer_Address::where('customer_id',$id)->get(['id']);
         $orders = Order::whereIn('address_id',$customer_address)->get();
-        return $orders;
+        return OrderResource::collection($orders);
     }
 }
