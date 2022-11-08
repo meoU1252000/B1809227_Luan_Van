@@ -18,6 +18,8 @@ class OrderResource extends JsonResource
     {
         $data =[
             "id" => $this->id,
+            "staff_id" => $this->staff_id,
+            "event_id" => $this->event_id,
             "address" => $this->getAddress($this->address_id),
             "order_status" => $this->order_status,
             "note" => $this->note,
@@ -29,7 +31,7 @@ class OrderResource extends JsonResource
     }
 
     public function getAddress($id){
-        $address = Customer_Address::find('customer_id',$id);
+        $address = Customer_Address::find($id);
         return $address;
     }
 
