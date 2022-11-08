@@ -17,6 +17,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,14 +60,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/getProduct/{id}', [ProductController::class, 'getProduct'])->name('price.getProduct');
                 Route::post('/getImportProductPrice', [ProductController::class, 'getImportProductPrice'])->name('price.getImportProductPrice');
             });
-            Route::prefix('/{id}/image')->group(function(){
-                Route::get('/',[ImageController::class,'index'])->name('image.index');
-                Route::get('/add',[ImageController::class,'create'])->name('image.create');
-                Route::post('/store',[ImageController::class,'store'])->name('image.store');
-                Route::get('/edit/{image}',[ImageController::class,'edit'])->name('image.edit');
-                Route::post('/update/{image}',[ImageController::class,'update'])->name('image.update');
-                Route::post('/delete/{image}',[ImageController::class,'destroy'])->name('image.delete');
-
+            Route::prefix('/{id}/image')->group(function () {
+                Route::get('/', [ImageController::class, 'index'])->name('image.index');
+                Route::get('/add', [ImageController::class, 'create'])->name('image.create');
+                Route::post('/store', [ImageController::class, 'store'])->name('image.store');
+                Route::get('/edit/{image}', [ImageController::class, 'edit'])->name('image.edit');
+                Route::post('/update/{image}', [ImageController::class, 'update'])->name('image.update');
+                Route::post('/delete/{image}', [ImageController::class, 'destroy'])->name('image.delete');
             });
         });
 
@@ -155,6 +156,28 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
             Route::post('/update/{id}', [OrderController::class, 'update'])->name('order.update');
             Route::post('/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');
+        });
+
+        Route::prefix('role')->group(function () {
+            Route::get('/add', [RoleController::class, 'create'])->name('role.create');
+            Route::get('/', [RoleController::class, 'index'])->name('role.index');
+            Route::post('/', [RoleController::class, 'store'])->name('role.store');
+            Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
+            Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
+            Route::post('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
+            Route::get('/assign-permission/{id}', [RoleController::class, 'viewAssignPermision'])->name('role.view.assign.permission');
+            Route::post('/assign-permission/{id}', [RoleController::class, 'assignPermissions'])->name('role.assign.permission');
+            Route::get('/assign-user/{id}', [RoleController::class, 'viewAssignUser'])->name('role.view.assign.user');
+            Route::post('/assign-user/{id}', [RoleController::class, 'assignUser'])->name('role.assign.user');
+        });
+
+        Route::prefix('permission')->group(function () {
+            Route::get('/add', [PermissionController::class, 'create'])->name('permission.create');
+            Route::get('/', [PermissionController::class, 'index'])->name('permission.index');
+            Route::post('/', [PermissionController::class, 'store'])->name('permission.store');
+            Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('permission.edit');
+            Route::post('/update/{id}', [PermissionController::class, 'update'])->name('permission.update');
+            Route::post('/delete/{id}', [PermissionController::class, 'delete'])->name('permission.delete');
         });
     });
 });

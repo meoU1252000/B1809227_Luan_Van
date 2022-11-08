@@ -2,8 +2,7 @@
 <html lang="en">
 @include('Admin.dist.creative.header')
 
-<body class="loading"
-    data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
+<body class="loading" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
     <!-- Begin page -->
     <div id="wrapper">
 
@@ -54,9 +53,7 @@
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                                             <div class="d-flex align-items-start">
-                                                <img class="d-flex me-2 rounded-circle"
-                                                    src="../assets/images/users/user-2.jpg"
-                                                    alt="Generic placeholder image" height="32">
+                                                <img class="d-flex me-2 rounded-circle" src="../assets/images/users/user-2.jpg" alt="Generic placeholder image" height="32">
                                                 <div class="w-100">
                                                     <h5 class="m-0 font-14">Erwin E. Brown</h5>
                                                     <span class="font-12 mb-0">UI Designer</span>
@@ -67,9 +64,7 @@
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                                             <div class="d-flex align-items-start">
-                                                <img class="d-flex me-2 rounded-circle"
-                                                    src="../assets/images/users/user-5.jpg"
-                                                    alt="Generic placeholder image" height="32">
+                                                <img class="d-flex me-2 rounded-circle" src="../assets/images/users/user-5.jpg" alt="Generic placeholder image" height="32">
                                                 <div class="w-100">
                                                     <h5 class="m-0 font-14">Jacob Deo</h5>
                                                     <span class="font-12 mb-0">Developer</span>
@@ -84,30 +79,24 @@
                     </li>
 
                     <li class="dropdown d-inline-block d-lg-none">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="fe-search noti-icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-lg dropdown-menu-end p-0">
                             <form class="p-3">
-                                <input type="text" class="form-control" placeholder="Search ..."
-                                    aria-label="Recipient's username">
+                                <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
                             </form>
                         </div>
                     </li>
 
                     <li class="dropdown d-none d-lg-inline-block">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen"
-                            href="#">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#">
                             <i class="fe-maximize noti-icon"></i>
                         </a>
                     </li>
 
                     <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="fe-grid noti-icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-lg dropdown-menu-end">
@@ -161,43 +150,36 @@
                     </li>
 
                     <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="../assets/images/flags/us.jpg" alt="user-image" height="16">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img src="../assets/images/flags/germany.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle">German</span>
+                                <img src="../assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img src="../assets/images/flags/italy.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle">Italian</span>
+                                <img src="../assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img src="../assets/images/flags/spain.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle">Spanish</span>
+                                <img src="../assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img src="../assets/images/flags/russia.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle">Russian</span>
+                                <img src="../assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
                             </a>
 
                         </div>
                     </li>
 
                     <li class="dropdown notification-list topbar-dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown"
-                            href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="fe-bell noti-icon"></i>
                             <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
                         </a>
@@ -219,8 +201,7 @@
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item active">
                                     <div class="notify-icon">
-                                        <img src="../assets/images/users/user-1.jpg" class="img-fluid rounded-circle"
-                                            alt="" />
+                                        <img src="../assets/images/users/user-1.jpg" class="img-fluid rounded-circle" alt="" />
                                     </div>
                                     <p class="notify-details">Cristina Pride</p>
                                     <p class="text-muted mb-0 user-msg">
@@ -241,8 +222,7 @@
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <div class="notify-icon">
-                                        <img src="../assets/images/users/user-4.jpg" class="img-fluid rounded-circle"
-                                            alt="" />
+                                        <img src="../assets/images/users/user-4.jpg" class="img-fluid rounded-circle" alt="" />
                                     </div>
                                     <p class="notify-details">Karen Robinson</p>
                                     <p class="text-muted mb-0 user-msg">
@@ -283,8 +263,7 @@
                             </div>
 
                             <!-- All-->
-                            <a href="javascript:void(0);"
-                                class="dropdown-item text-center text-primary notify-item notify-all">
+                            <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                                 View all
                                 <i class="fe-arrow-right"></i>
                             </a>
@@ -293,9 +272,7 @@
                     </li>
 
                     <li class="dropdown notification-list topbar-dropdown">
-                        <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
-                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="../assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                             <span class="pro-user-name ms-1">
                                 {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
@@ -379,8 +356,7 @@
 
                     <li>
                         <!-- Mobile menu toggle (Horizontal Layout)-->
-                        <a class="navbar-toggle nav-link" data-bs-toggle="collapse"
-                            data-bs-target="#topnav-menu-content">
+                        <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
                             <div class="lines">
                                 <span></span>
                                 <span></span>
@@ -391,8 +367,7 @@
                     </li>
 
                     <li class="dropdown d-none d-xl-block">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown"
-                            href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             Create New
                             <i class="mdi mdi-chevron-down"></i>
                         </a>
@@ -433,8 +408,7 @@
                     </li>
 
                     <li class="dropdown dropdown-mega d-none d-xl-block">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown"
-                            href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             Mega Menu
                             <i class="mdi mdi-chevron-down"></i>
                         </a>
@@ -549,11 +523,9 @@
 
                 <!-- User box -->
                 <div class="user-box text-center">
-                    <img src="../assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme"
-                        class="rounded-circle avatar-md">
+                    <img src="../assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md">
                     <div class="dropdown">
-                        <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
-                            data-bs-toggle="dropdown">Geneva Kennedy</a>
+                        <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown">Geneva Kennedy</a>
                         <div class="dropdown-menu user-pro-dropdown">
 
                             <!-- item-->
@@ -620,9 +592,9 @@
 
                         {{-- <li>
                             <a href="{{ route('staff.index') }}">
-                                <i class="mdi mdi-account"></i>
-                                <span> Quản Lý Nhân Viên </span>
-                            </a>
+                        <i class="mdi mdi-account"></i>
+                        <span> Quản Lý Nhân Viên </span>
+                        </a>
                         </li> --}}
 
                         <li>
@@ -634,12 +606,62 @@
                             <div class="collapse" id="sidebarStaff">
                                 <ul class="nav-second-level">
                                     <li>
-                                        <a href="{{ route('staff.index') }}">Thông Tin Nhân Viên</a>
+                                        <a href="{{ route('staff.index') }}">Thêm Nhân Viên</a>
                                     </li>
-
                                 </ul>
                             </div>
                         </li>
+
+                        <li>
+                            <a href="#sidebarRole" data-bs-toggle="collapse">
+                                <i class="mdi mdi-account-star"></i>
+                                <span> Quản Lý Vai Trò </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarRole">
+                                <ul class="nav-second-level">
+                                    <li>
+                                        <a href="{{ route('role.create') }}">Thêm vai trò</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('role.index') }}">Danh sách vai trò</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a href="#sidebarPermission" data-bs-toggle="collapse">
+                                <i class="mdi mdi-police-badge"></i>
+                                <span> Quản Lý Quyền </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarPermission">
+                                <ul class="nav-second-level">
+                                    <li>
+                                        <a href="{{ route('permission.create') }}">Thêm quyền</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('permission.index') }}">Danh sách quyền</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        {{-- <li>
+                            <a href="#sidebarStaff" data-bs-toggle="collapse">
+                                <i class="mdi mdi-key"></i>
+                                <span> Quản Lý Phân Quyền </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarStaff">
+                                <ul class="nav-second-level">
+                                    <li>
+                                        <a href="{{ route('staff.index') }}">Phân quyền</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> --}}
 
                         <li>
                             <a href="#sidebarList" data-bs-toggle="collapse">
@@ -668,16 +690,16 @@
 
                         {{-- <li>
                             <a href="{{ route('brand.index') }}">
-                                <i class="mdi mdi-tag"></i>
-                                <span> Quản Lý Thương Hiệu </span>
-                            </a>
+                        <i class="mdi mdi-tag"></i>
+                        <span> Quản Lý Thương Hiệu </span>
+                        </a>
                         </li> --}}
 
                         {{-- <li>
                             <a href="{{ route('category.index') }}">
-                                <i class="mdi mdi-clipboard-list"></i>
-                                <span> Quản Lý Danh Mục </span>
-                            </a>
+                        <i class="mdi mdi-clipboard-list"></i>
+                        <span> Quản Lý Danh Mục </span>
+                        </a>
                         </li>
 
                         <li>

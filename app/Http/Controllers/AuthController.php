@@ -18,6 +18,7 @@ class AuthController extends Controller
     public function index()
     {
         //
+        // Hacker1252000!
         return view('Admin.dist.creative.login', [
             'title' => 'Trang Đăng Nhập'
         ]);
@@ -25,7 +26,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $this->validate($request, [
             'email' => 'required|email:filter|max:255|ends_with:gmail.com',
             'password' => 'required|max:255|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'

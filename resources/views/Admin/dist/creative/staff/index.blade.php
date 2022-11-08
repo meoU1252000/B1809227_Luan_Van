@@ -147,6 +147,9 @@
                                                                         class="mdi mdi-delete me-1"
                                                                         onclick="deleteData(event);"></i></button>
                                                             </form>
+                                                            <a href="{{ route('role.view.assign.user', $staff->id) }}" class="action-icon" class="assign_role">
+                                                                <i class="mdi mdi-format-list-bulleted me-1"></i>
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -205,6 +208,9 @@
             </div>
         </footer>
         <!-- end Footer -->
+
+    </div>
+    <div class="modal fade" id="view-assign-role" tabindex="-1">
 
     </div>
 @endsection
