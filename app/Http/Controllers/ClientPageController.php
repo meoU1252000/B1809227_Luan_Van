@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Customer_Address;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
@@ -270,6 +271,27 @@ class ClientPageController extends AbstractApiController
         $this->setMessage('Get list order successful');
         $this->setData(OrderResource::collection($orders));
         return $this->respond();
+    }
+
+    public function cancelOrder(Request $request){
+        $data = $request->all();
+        // $order = Order::find($data['id']);
+        $order_details = OrderDetail::where('order_id',$data['id'])->get();
+        $updateProduct = array();
+        foreach($order_details as $order){
+            $product_in_order = $order->product_number;
+            $product = Product::find($order->product_id);
+            $product_quantity_stock = $product->product_quantity_stock;
+            $updateProduct['product_quantity_stock'] = $product_quantity_stock + $product_in_order;
+            $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
+            $update_product = $this->productRepo->update($product->id,$updateProduct);
+        }
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Create order successful');
+        $this->setData('');
+        return $this->respond();
+
     }
 
     /**

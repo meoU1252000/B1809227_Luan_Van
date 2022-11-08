@@ -20,11 +20,13 @@ class OrderResource extends JsonResource
             "id" => $this->id,
             "staff_id" => $this->staff_id,
             "event_id" => $this->event_id,
+            "receive_date" => $this->receive_date,
             "address" => $this->getAddress($this->address_id),
             "order_status" => $this->order_status,
             "note" => $this->note,
             "total_price" => $this->total_price ,
             "order_details" => $this->getOrderDetails($this->id),
+            "created_at" => $this->created_at
         ];
         return $data;
 
