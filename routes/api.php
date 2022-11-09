@@ -28,6 +28,7 @@ Route::prefix('/client')->group(function () {
     Route::post('/register',[ClientPageController::class,'register'])->name('client.register');
     Route::post('/login',[ClientPageController::class,'login'])->name('client.login');
     Route::get('/get-list-city',[ClientPageController::class,'getListCity'])->name('client.getListCity');
+    Route::get('/search',[ClientPageController::class,'searchProducts'])->name('client.search');
     Route::middleware(['api'])->group(function () {
         Route::post('/logout',[ClientPageController::class,'logout'])->name('client.logout');
         Route::post('/address',[ClientPageController::class,'getCustomerAddress'])->name('client.address');

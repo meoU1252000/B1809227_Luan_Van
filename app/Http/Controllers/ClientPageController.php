@@ -296,6 +296,16 @@ class ClientPageController extends AbstractApiController
 
     }
 
+    public function searchProducts(Request $request){
+        $products = Product::where('product_name','LIKE','%' . $request->search .'%')->get();
+        $this->setStatusCode(JsonResponse::HTTP_OK);
+        $this->setStatus('success');
+        $this->setMessage('Search product success');
+        $this->setData(ProductResource::collection($products));
+        return $this->respond();
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
