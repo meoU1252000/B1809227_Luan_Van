@@ -17,7 +17,6 @@ $(document).ready(function (){
 $(document).ready(function (){
     $('.assign_permission').click(function (e) {
         e.preventDefault();
-        
         $.ajax({
             url : $(this).attr('href'),
             type : 'GET',

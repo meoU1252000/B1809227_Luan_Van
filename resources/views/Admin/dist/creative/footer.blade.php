@@ -15,5 +15,4 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="{{asset('js/authorization/role.js')}}"></script>
-
 @yield('footer')
