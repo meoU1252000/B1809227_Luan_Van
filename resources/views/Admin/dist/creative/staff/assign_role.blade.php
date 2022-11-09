@@ -4,7 +4,7 @@
             <h5 class="modal-title" id="exampleModalLabel">Thêm quyền vào vai trò</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="#" method="POST">
+        <form action="{{ route('role.assign.user', $user->id) }}" method="POST">
             @csrf
             <div class="modal-body">
                     @foreach($roles as $role)

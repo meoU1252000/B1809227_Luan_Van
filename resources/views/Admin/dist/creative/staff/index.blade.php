@@ -147,7 +147,7 @@
                                                                         class="mdi mdi-delete me-1"
                                                                         onclick="deleteData(event);"></i></button>
                                                             </form>
-                                                            <a href="{{ route('role.view.assign.user', $staff->id) }}" class="action-icon" class="assign_role">
+                                                            <a href="{{ route('role.view.assign.user', $staff->id) }}" class="assign_role action-icon">
                                                                 <i class="mdi mdi-format-list-bulleted me-1"></i>
                                                             </a>
                                                         </div>

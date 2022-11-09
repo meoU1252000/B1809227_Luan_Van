@@ -80,7 +80,7 @@
                                                         @csrf
                                                         <button type="submit" class="action-icon" style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i class="mdi mdi-delete me-1" onclick="deleteData(event);"></i></button>
                                                     </form>
-                                                    <a href="{{ route('role.view.assign.permission', $role->id) }}" class="action-icon" class="assign_permission">
+                                                    <a href="{{ route('role.view.assign.permission', $role->id) }}" class="assign_permission action-icon">
                                                         <i class="mdi mdi-format-list-bulleted me-1"></i></a>
                                                 </div>
                                             </td>
