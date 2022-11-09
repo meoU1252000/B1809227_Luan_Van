@@ -1,4 +1,4 @@
- <!-- Right Sidebar -->
+1 <!-- Right Sidebar -->
  <div class="right-bar">
     <div data-simplebar class="h-100">
 

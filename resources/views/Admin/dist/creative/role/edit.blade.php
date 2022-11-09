@@ -34,7 +34,7 @@
                                 <li class="breadcrumb-item active">Staff Edit</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Thêm Nhân Viên Mới</h4>
+                        <h4 class="page-title">Thêm Vai Trò</h4>
                     </div>
                 </div>
             </div>
@@ -42,54 +42,16 @@
 
 
             <div class="row">
-                <form action="{{route('staff.store')}}" method="POST" enctype="multipart/form-data" id="validator">
+                <form action="{{route('role.update',['id' => $role->id])}}" method="POST" enctype="multipart/form-data" id="validator">
                     @csrf
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thông Tin Nhân Viên</h5>
+                                <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Cập Nhật Thông Tin Vai Trò</h5>
 
                                 <div class="mb-3">
-                                    <label for="staff-name" class="form-label">Tên Nhân Viên<span class="text-danger">*</span></label>
-                                    <input type="text" id="staff-name" name="name" class="form-control" placeholder="e.g : Apple iMac">
-                                    <span class="form-group__message"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="staff-email" class="form-label">Email Nhân Viên<span class="text-danger">*</span></label>
-                                    <input type="text" id="staff-email" name="email" class="form-control" placeholder="e.g : Apple iMac">
-                                    <span class="form-group__message"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="staff-address" class="form-label">Địa chỉ Nhân Viên<span class="text-danger">*</span></label>
-                                    <input type="text" id="staff-address" name="address" class="form-control" placeholder="e.g : Apple iMac">
-                                    <span class="form-group__message"></span>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="staff-position" class="form-label">Chức vụ Nhân Viên<span class="text-danger">*</span></label>
-                                    <input type="text" id="staff-position" name="position" class="form-control" placeholder="e.g : Apple iMac">
-                                    <span class="form-group__message"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="staff-phone" class="form-label">Số Điện Thoại Nhân Viên<span class="text-danger">*</span></label>
-                                    <input type="text" id="staff-phone" name="phone" class="form-control" placeholder="e.g : Apple iMac">
-                                    <span class="form-group__message"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="mb-2">Tình Trạng <span class="text-danger">*</span></label>
-                                    <br />
-                                    <div class="radio form-check-inline">
-                                        <input type="radio" id="inlineRadio3" value="0" name="status">
-                                        <label for="inlineRadio3">Đã Nghỉ Việc</label>
-                                    </div>
-                                    <div class="radio form-check-inline">
-                                        <input type="radio" id="inlineRadio1" value="1" name="status" checked="">
-                                        <label for="inlineRadio1">Đang Làm Việc</label>
-                                    </div>
-                                    <div class="radio form-check-inline">
-                                        <input type="radio" id="inlineRadio2" value="2" name="status">
-                                        <label for="inlineRadio2">Tạm Nghỉ</label>
-                                    </div>
+                                    <label for="role-name" class="form-label">Tên Vai Trò<span class="text-danger">*</span></label>
+                                    <input type="text" id="role-name" name="name" class="form-control" placeholder="e.g : Apple iMac" value="{{ $role-> name }}">
                                     <span class="form-group__message"></span>
                                 </div>
                                 <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
@@ -159,11 +121,7 @@
         formGroupSelector: '.mb-3',
         errorSelector: '.form-group__message',
         rules: [
-            Validator.isRequired('#staff-name'),
-            Validator.isEmail('#staff-email'),
-            Validator.isRequired('#staff-address'),
-            Validator.isRequired('#staff-position'),
-            Validator.isRequired('#staff-phone'),
+            Validator.isRequired('#role-name'),
         ]
     });
 </script>

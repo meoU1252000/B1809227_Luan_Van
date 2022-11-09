@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Repositories\Auth\AuthRepositoryInterface;
 use App\Repositories\Staff\StaffRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class StaffController extends Controller
@@ -14,12 +17,14 @@ class StaffController extends Controller
      */
 
     protected $staffRepo;
+    protected $userRepo;
 
-    public function __construct(StaffRepositoryInterface $staffRepo)
+    public function __construct(StaffRepositoryInterface $staffRepo, AuthRepositoryInterface $userRepo)
     {
         $this->staffRepo = $staffRepo;
+        $this->userRepo = $userRepo;
     }
-    
+
     public function index()
     {
         //
@@ -51,10 +56,17 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $data = $request->all();
-        $data['password'] = Hash::make('20192019@');
-        $staff = $this->staffRepo->create($data);
+        DB::beginTransaction();
+        try {
+            $data['password'] = Hash::make('Hacker1252000!');
+            $staff = $this->staffRepo->create($data);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+        }
+
         return redirect()->route('staff.index');
     }
 
@@ -80,7 +92,7 @@ class StaffController extends Controller
         $anotherStatus = $this->staffRepo->getStatusStaffExceptStatus($staff->status);
         return view('Admin.dist.creative.staff.edit', [
             'title' => 'Trang Quản Lý Nhân Viên'
-        ], compact('staff','statusStaff','anotherStatus'));
+        ], compact('staff', 'statusStaff', 'anotherStatus'));
     }
 
     /**
