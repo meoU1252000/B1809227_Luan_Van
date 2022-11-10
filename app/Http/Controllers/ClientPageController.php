@@ -310,7 +310,9 @@ class ClientPageController extends AbstractApiController
     }
 
     public function ratingProduct(Request $request){
+        $user = Customer::findOrFail(Auth::guard('api')->id());
         $data = $request->all();
+        $data['customer_id'] = $user->id;
         $createRating = $this->ratingRepo->create($data);
         $this->setStatusCode(JsonResponse::HTTP_CREATED);
         $this->setStatus('success');
