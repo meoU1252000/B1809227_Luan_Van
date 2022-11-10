@@ -25,6 +25,8 @@ use App\Repositories\Customer\CustomerRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\OrderDetails\OrderDetailsRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Rating\RatingRepositoryInterface;
+use App\Repositories\Comment\CommentRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
