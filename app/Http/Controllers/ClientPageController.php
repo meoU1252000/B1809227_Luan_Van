@@ -321,7 +321,9 @@ class ClientPageController extends AbstractApiController
     }
 
     public function commentProduct(Request $request){
+        $user = Customer::findOrFail(Auth::guard('api')->id());
         $data = $request->all();
+        $data['customer_id'] = $user->id;
         $createComment = $this->commentRepo->create($data);
         $this->setStatusCode(JsonResponse::HTTP_CREATED);
         $this->setStatus('success');

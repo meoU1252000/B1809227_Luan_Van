@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\CategoryAttribute;
 use App\Models\Product;
 use App\Models\ProductFamily;
+use App\Models\ProductComment;
 use Illuminate\Support\Str;
 
 class ProductResource extends JsonResource
@@ -39,6 +40,7 @@ class ProductResource extends JsonResource
             "product_status" => $this->product_status,
             "images" => $this->getImages($this->id),
             "product_attribute" => $this->getProductAttribute($this->id),
+            "product_comment" => $this->getProductComment($this->id),
         ];
         return $data;
     }
@@ -47,6 +49,10 @@ class ProductResource extends JsonResource
     {
         $brand = Brand::find($id);
         return $brand;
+    }
+
+    public function getProductComment($id){
+        return ProductComment::where('product_id', $id)->get();
     }
 
     public function getKind($id)
