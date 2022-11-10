@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Customer;
 use App\Models\Staff;
+use App\Models\ProductComment;
 
 class ProductCommentResource extends JsonResource
 {
@@ -34,7 +35,7 @@ class ProductCommentResource extends JsonResource
     }
 
     public function getChildren($id){
-        return ProductCommentResource::collection(ProductComent::where('comment_parent',$id)->get());
+        return ProductCommentResource::collection(ProductComment::where('comment_parent',$id)->get());
     }
 
     public function getStaff($id){
