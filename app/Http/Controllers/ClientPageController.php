@@ -317,6 +317,7 @@ class ClientPageController extends AbstractApiController
         $this->setStatusCode(JsonResponse::HTTP_CREATED);
         $this->setStatus('success');
         $this->setMessage('Create rating success');
+        $this->setData(createRating);
         return $this->respond();
     }
 
@@ -328,6 +329,7 @@ class ClientPageController extends AbstractApiController
         $this->setStatusCode(JsonResponse::HTTP_CREATED);
         $this->setStatus('success');
         $this->setMessage('Create comment success');
+        $this->setData($createComment);
         return $this->respond();
     }
 
