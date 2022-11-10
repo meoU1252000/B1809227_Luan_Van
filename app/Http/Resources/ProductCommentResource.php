@@ -25,7 +25,8 @@ class ProductCommentResource extends JsonResource
             "staff" => $this->getStaff($this->staff_id),
             "comment_content" => $this->comment_content,
             "children" => $this->getChildren($this->id),
-            "created_at" => $this->created_at
+            "created_at" => $this->created_at,
+            "is_active" => false,
         ];
         return $data;
     }
