@@ -28,7 +28,7 @@ class OrderDetailsResource extends JsonResource
 
     public function getStarRating($order_id,$product_id){
         $product_rating = ProductRating::where('order_id', $order_id)->where('product_id',$product_id)->first();
-        return $product_rating->star_rating_number;
+        return $product_rating;
     }
 
     public function getProduct($id){
