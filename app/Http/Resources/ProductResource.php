@@ -53,7 +53,7 @@ class ProductResource extends JsonResource
     }
 
     public function getProductComment($id){
-        return ProductCommentResource::collection(ProductComment::where('product_id', $id)->get());
+        return ProductCommentResource::collection(ProductComment::where('product_id', $id)->where('comment_parent',0)->get());
     }
 
     public function getKind($id)
