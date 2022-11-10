@@ -8,6 +8,7 @@ use App\Models\ImportDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\BrandResource;
+use App\Http\Resources\ProductCommentResource;
 use App\Models\AttributeParams;
 use App\Models\Category;
 use App\Models\CategoryAttribute;
@@ -52,7 +53,7 @@ class ProductResource extends JsonResource
     }
 
     public function getProductComment($id){
-        return ProductComment::where('product_id', $id)->get();
+        return ProductCommentResource::collection(ProductComment::where('product_id', $id)->get());
     }
 
     public function getKind($id)
