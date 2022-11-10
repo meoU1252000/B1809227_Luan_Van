@@ -36,13 +36,15 @@ class ClientPageController extends AbstractApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo)
+    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo, RatingRepositoryInterface $ratingRepo,CommentRepositoryInterface $commentRepo)
     {
         $this->cusRepo = $cusRepo;
         $this->addressRepo = $addressRepo;
         $this->orderDetailsRepo = $orderDetailsRepo;
         $this->orderRepo = $orderRepo;
         $this->productRepo = $productRepo;
+        $this->ratingRepo = $ratingRepo;
+        $this->commentRepo = $commentRepo;
     }
     public function getListProducts()
     {
@@ -303,7 +305,32 @@ class ClientPageController extends AbstractApiController
         $this->setMessage('Search product success');
         $this->setData(ProductResource::collection($products));
         return $this->respond();
+    }
 
+    public function ratingProduct(Request $request){
+        $data = $request->all();
+        $createRating = $this->ratingRepo->create($data);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Create rating success');
+        return $this->respond();
+    }
+
+    public function commentProduct(Request $request){
+        $data = $request->all();
+        $createComment = $this->commentRepo->create($data);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Create comment success');
+        return $this->respond();
+    }
+
+    public function deleteComment(Request $request){
+        $data = $request->all();
+        $deleteComment = $this->commentRepo->delete($data);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Delete comment success');
     }
 
     /**

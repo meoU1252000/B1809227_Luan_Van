@@ -38,5 +38,9 @@ Route::prefix('/client')->group(function () {
         Route::post('/createOrder',[ClientPageController::class,'createOrder'])->name('client.createOrder');
         Route::post('/get-list-order',[ClientPageController::class,'getOrders'])->name('client.getOrders');
         Route::post('/cancel-order',[ClientPageController::class,'cancelOrder'])->name('client.cancelOrder');
+        Route::post('/rating',[ClientPageController::class,'ratingProduct'])->name('client.rating');
+        Route::post('/comment',[ClientPageController::class,'commentProduct'])->name('client.comment');
+        Route::post('/deleteComment',[ClientPageController::class,'deleteComment'])->name('client.deleteComment');
+
     });
 });
