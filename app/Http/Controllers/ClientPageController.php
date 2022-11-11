@@ -288,8 +288,8 @@ class ClientPageController extends AbstractApiController
         $data['order_status'] = "Đã Hủy";
         $updateProduct = array();
         foreach($order_details as $order){
-            $product_in_order = $order->product_number;
-            $product = Product::find($order->product_id);
+            $product_in_order = $order['product_number'];
+            $product = Product::find($order['product_id']);
             $product_quantity_stock = $product->product_quantity_stock;
             $updateProduct['product_quantity_stock'] = $product_quantity_stock + $product_in_order;
             $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
