@@ -13,6 +13,7 @@ use App\Models\AttributeParams;
 use App\Models\Category;
 use App\Models\CategoryAttribute;
 use App\Models\Product;
+use App\Models\ProductRating;
 use App\Models\ProductFamily;
 use App\Models\ProductComment;
 use Illuminate\Support\Str;
