@@ -31,6 +31,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\SendEmail;
 class ClientPageController extends AbstractApiController
 {
     /**
@@ -296,6 +297,7 @@ class ClientPageController extends AbstractApiController
         $this->setStatus('success');
         $this->setMessage('Cancel order successful');
         $this->setData('');
+        $this->sendEmail($order_details);
         return $this->respond();
 
     }
@@ -339,6 +341,24 @@ class ClientPageController extends AbstractApiController
         $this->setStatusCode(JsonResponse::HTTP_CREATED);
         $this->setStatus('success');
         $this->setMessage('Delete comment success');
+    }
+
+    public function sendEmail($order){
+        $user = Customer::findOrFail(Auth::guard('api')->id());
+        $email = $user->email;
+        $mailData = [
+            'greeting' => 'Hi ' . $user->name,
+            'body' => [],
+            'actiontext' => 'Liên hệ cửa hàng',
+            'actionurl' => 'https://luanvan-frontend-datlestore.herokuapp.com/',
+            'lastline' => 'Cảm ơn bạn đã mua hàng. Nếu có thắc mắc, vui lòng gọi: 0984978407',
+        ];
+        foreach($orders as $order){
+            $product = Product::find($order->product_id);
+            $mailData['body'][] = $product->product_name;
+        }
+        Mail::to($user->email)->send(new SendEmail($mailData));
+        return $mailData;
     }
 
     /**

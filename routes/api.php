@@ -41,6 +41,6 @@ Route::prefix('/client')->group(function () {
         Route::post('/rating',[ClientPageController::class,'ratingProduct'])->name('client.rating');
         Route::post('/comment',[ClientPageController::class,'commentProduct'])->name('client.comment');
         Route::post('/deleteComment',[ClientPageController::class,'deleteComment'])->name('client.deleteComment');
-
+        Route::post('/sendEmail',[ClientPageController::class,'sendEmail'])->name('client.sendEmail');
     });
 });
