@@ -270,7 +270,7 @@ class ClientPageController extends AbstractApiController
     public function getOrders(){
         $customer = Customer::findOrFail(Auth::guard('api')->id());
         $customer_address = Customer_Address::where('customer_id',$customer->id)->get(['id']);
-        $orders = Order::whereIn('address_id',$customer_address)->get();
+        $orders = Order::whereIn('address_id',$customer_address)->orderBy('id','DESC')->get();
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
         $this->setMessage('Get list order successful');
