@@ -42,6 +42,7 @@ class ProductResource extends JsonResource
             "images" => $this->getImages($this->id),
             "product_attribute" => $this->getProductAttribute($this->id),
             "product_comment" => $this->getProductComment($this->id),
+            "product_star" => $this->getProductStar($this->id)
         ];
         return $data;
     }
@@ -50,6 +51,22 @@ class ProductResource extends JsonResource
     {
         $brand = Brand::find($id);
         return $brand;
+    }
+
+    public function getProductStar($id){
+        $product_rating_5 = ProductRating::where('star_rating_number',5)->get()->count();
+        $product_rating_4 = ProductRating::where('star_rating_number',4)->get()->count();
+        $product_rating_3 = ProductRating::where('star_rating_number',3)->get()->count();
+        $product_rating_2 = ProductRating::where('star_rating_number',2)->get()->count();
+        $product_rating_1 = ProductRating::where('star_rating_number',1)->get()->count();
+        $data = [
+            "star_5" => $product_rating_5,
+            "star_4" => $product_rating_4,
+            "star_3" => $product_rating_3,
+            "star_2" => $product_rating_2,
+            "star_1" => $product_rating_1,
+        ];
+        return $data;
     }
 
     public function getProductComment($id){
