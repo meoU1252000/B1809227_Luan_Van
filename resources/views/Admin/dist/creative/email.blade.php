@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $title }}</title>
+    <title>Send Mail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -36,96 +36,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    @yield('header')
-
 </head>
+
 <body>
-    <h3>Đặt hàng thành công</h3>
-    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;">
-        <thead class="table-light">
-            <tr>
-                <th style="width: 20px;">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                    </div>
-                </th>
-                <th style="width: 125px;">Mã Đơn</th>
-                <th style="width: 150px;">Sản Phẩm</th>
-                <th style="width: 150px;">Số Lượng</th>
-                <th style="width: 150px;">Giá Tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($mailData as $product)
-                <tr>
-                    <td>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input"
-                                id="customCheck2">
-                            <label class="form-check-label"
-                                for="customCheck2">&nbsp;</label>
-                        </div>
-                    </td>
-                    <td><a href="" class="text-body fw-bold">{{ $supplier->id }}</a>
-                    </td>
-                    <td
-                        style="word-wrap: break-word;
-                    white-space: normal;">
-                        {{ $supplier->supplier_name }}
-                    </td>
-                    <td
-                        style="word-wrap: break-word;
-                    white-space: normal;">
-                        {{ $supplier->supplier_address }}
-                    </td>
-                    <td
-                        style="word-wrap: break-word;
-                    white-space: normal;">
-                        {{ $supplier->supplier_email }}
-                    </td>
-                    <td
-                        style="word-wrap: break-word;
-                    white-space: normal;">
-                        {{ $supplier->supplier_phone }}
-                    </td>
-                    <td>
-                        <h5>
-                            <span class="badge bg-info" style="font-size: 1em">
-                                @switch(true)
-                                    @case($supplier->supplier_status == 0)
-                                        "Không Nhập Hàng"
-                                    @break;
-                                    @case($supplier->supplier_status == 1)
-                                        "Đang nhập hàng"
-                                    @break;
-                                    @case($supplier->supplier_status == 2)
-                                        "Tạm Ngưng Nhập Hàng"
-                                    @break;
-                                @endswitch
-                            </span>
-                        </h5>
-                    </td>
-                    <td>
-                        <div style="display:flex">
-                            {{-- <a href="javascript:void(0);" class="action-icon"> <i
-                                data-feather="eye"></i></a> --}}
-                            <a href="{{ route('supplier.edit', $supplier->id) }}"
-                                class="action-icon">
-                                <i class="mdi mdi-pencil-outline me-1"></i></a>
-                            <form action="{{ route('supplier.delete', $supplier->id) }}"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <button type="submit" class="action-icon"
-                                    style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
-                                        class="mdi mdi-delete me-1"
-                                        onclick="deleteData(event);"></i></button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <h3>{{ $mailData['greeting'] }}</h3>
+    <h3>{{ $mailData['lastline'] }}</h3>
+
+    <ul>
+        @foreach ($mailData['body'] as $product)
+            <li>
+                Sản phẩm: {{ $product['name'] }}
+                <br>
+                Số Lượng: {{ $product['quantity'] }}
+                <br>
+                Giá: {{ $product['price'] }}
+            </li>
+        @endforeach
+    </ul>
+
+    <h3>Tổng Giá Trị Đơn Hàng: {{ number_format($mailData['total_price']) }} VNĐ</h3>
+    <h3>{{ $mailData['actiontext'] }}</h3>
+    <a href="{{ $mailData['actionurl'] }}">Đạt Lê Store</a>
 </body>
+
 </html>

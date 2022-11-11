@@ -31,6 +31,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 use App\Mail\SendEmail;
 class ClientPageController extends AbstractApiController
 {
@@ -262,6 +263,8 @@ class ClientPageController extends AbstractApiController
             $this->setStatusCode(JsonResponse::HTTP_CREATED);
             $this->setStatus('success');
             $this->setMessage('Create order successful');
+            $this->sendEmail($data['cart_list'],$orderStore);
+
             $this->setData($orderStore);
         }
         return $this->respond();
@@ -297,7 +300,6 @@ class ClientPageController extends AbstractApiController
         $this->setStatus('success');
         $this->setMessage('Cancel order successful');
         $this->setData('');
-        $this->sendEmail($order_details);
         return $this->respond();
 
     }
@@ -343,20 +345,18 @@ class ClientPageController extends AbstractApiController
         $this->setMessage('Delete comment success');
     }
 
-    public function sendEmail($order){
+    public function sendEmail($orders,$order_id){
         $user = Customer::findOrFail(Auth::guard('api')->id());
         $email = $user->email;
         $mailData = [
-            'greeting' => 'Hi ' . $user->name,
-            'body' => [],
+            'greeting' => 'Hi ' . $user->customer_name,
+            'body' => $orders,
+            'order_id' => $order_id->id,
+            'total_price' => $order_id->total_price,
             'actiontext' => 'Liên hệ cửa hàng',
             'actionurl' => 'https://luanvan-frontend-datlestore.herokuapp.com/',
             'lastline' => 'Cảm ơn bạn đã mua hàng. Nếu có thắc mắc, vui lòng gọi: 0984978407',
         ];
-        foreach($orders as $order){
-            $product = Product::find($order->product_id);
-            $mailData['body'][] = $product->product_name;
-        }
         Mail::to($user->email)->send(new SendEmail($mailData));
         return $mailData;
     }
