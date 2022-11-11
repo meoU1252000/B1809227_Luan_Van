@@ -92,27 +92,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row mb-2">
-                                    <div class="col-lg-8">
-                                        <form class="d-flex flex-wrap align-items-center">
-                                            <label for="inputPassword2" class="visually-hidden">Search</label>
-                                            <div class="me-3">
-                                                <input type="search" class="form-control my-1 my-lg-0" id="inputPassword2"
-                                                    placeholder="Search...">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-4">
+                                    
+                                    <div class="col-lg-12">
                                         <div class="text-lg-end">
                                             <a href="{{ route('category.create') }}"
                                                 class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
                                                     class="mdi mdi-clipboard-list me-1"></i>Thêm Danh Mục Mới</a>
-                                            <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->
                                 </div>
 
-                                <div class="table-responsive">
-                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;">
+                                <div class="table">
+                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                         <thead class="table-light">
                                             <tr>
                                                 <th style="width: 20px;">
@@ -193,27 +184,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <ul class="pagination pagination-rounded justify-content-end my-2">
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                            <span aria-hidden="true">«</span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                            <span aria-hidden="true">»</span>
-                                            <span class="visually-hidden">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                     </div> <!-- end col -->
