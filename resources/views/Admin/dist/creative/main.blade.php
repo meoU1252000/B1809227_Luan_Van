@@ -596,7 +596,7 @@
                         <span> Quản Lý Nhân Viên </span>
                         </a>
                         </li> --}}
-
+                        @role('Super Admin')
                         <li>
                             <a href="#sidebarStaff" data-bs-toggle="collapse">
                                 <i class="mdi mdi-account"></i>
@@ -611,7 +611,6 @@
                                 </ul>
                             </div>
                         </li>
-
                         <li>
                             <a href="#sidebarRole" data-bs-toggle="collapse">
                                 <i class="mdi mdi-account-star"></i>
@@ -647,7 +646,7 @@
                                 </ul>
                             </div>
                         </li>
-
+                        @endrole
                         {{-- <li>
                             <a href="#sidebarStaff" data-bs-toggle="collapse">
                                 <i class="mdi mdi-key"></i>
@@ -662,7 +661,7 @@
                                 </ul>
                             </div>
                         </li> --}}
-
+                        @can('Add Category')
                         <li>
                             <a href="#sidebarList" data-bs-toggle="collapse">
                                 <i class="mdi mdi-clipboard-list"></i>
@@ -680,14 +679,15 @@
                                 </ul>
                             </div>
                         </li>
-
+                        @endcan
+                        @role('Super Admin')
                         <li>
                             <a href="{{ route('supplier.index') }}">
                                 <i class="mdi mdi-package"></i>
                                 <span> Quản Lý Nhà Cung Cấp </span>
                             </a>
                         </li>
-
+                        @endrole
                         {{-- <li>
                             <a href="{{ route('brand.index') }}">
                         <i class="mdi mdi-tag"></i>
@@ -708,7 +708,7 @@
                                 <span> Quản Lý Thuộc Tính Danh Mục </span>
                             </a>
                         </li> --}}
-
+                        @can('Add Product')
                         <li>
                             <a href="#sidebarProduct" data-bs-toggle="collapse">
                                 <i data-feather="shopping-cart"></i>
@@ -732,27 +732,31 @@
                                 </ul>
                             </div>
                         </li>
-
+                        @endcan
+                        @role('Super Admin|Manage Import Goods')
                         <li>
                             <a href="{{ route('import.index') }}">
                                 <i class="mdi mdi-truck"></i>
                                 <span> Quản Lý Nhập Hàng </span>
                             </a>
                         </li>
-
+                        @endrole
+                        @role('Super Admin|Manage Order')
                         <li>
                             <a href="{{ route('order.index') }}">
                                 <i class="mdi mdi-package"></i>
                                 <span> Quản Lý Đơn Hàng </span>
                             </a>
                         </li>
-
+                        @endrole
+                        @can('Add Event')
                         <li>
                             <a href="{{ route('event.index') }}">
                                 <i class="mdi mdi-gift"></i>
                                 <span> Quản Lý Sự Kiện </span>
                             </a>
                         </li>
+                        @endcan
                     </ul>
 
                 </div>
