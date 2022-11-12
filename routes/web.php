@@ -41,7 +41,7 @@ Route::get('admin/login', [AuthController::class, 'index'])->name('login');
 Route::post('/admin/login/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/admin/login/store', [AuthController::class, 'login'])->name('login.check');
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [HomeController::class, 'adminPage'])->name('admin.index');
         Route::prefix('product')->group(function () {
@@ -180,7 +180,7 @@ Route::post('/admin/login/store', [AuthController::class, 'login'])->name('login
             Route::post('/delete/{id}', [PermissionController::class, 'delete'])->name('permission.delete');
         });
     });
-// });
+});
 //Client
 // Route::prefix('/thanh-dat-store')->group(function () {
 //     Route::get('/', [ProductController::class, 'indexClient'])->name('client.index');
