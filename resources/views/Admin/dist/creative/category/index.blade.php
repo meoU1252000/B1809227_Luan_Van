@@ -92,8 +92,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row mb-2">
-                                    
-                                    <div class="col-lg-12">
+                                    <div class="col-12">
                                         <div class="text-lg-end">
                                             <a href="{{ route('category.create') }}"
                                                 class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
@@ -101,88 +100,89 @@
                                         </div>
                                     </div><!-- end col-->
                                 </div>
-
-                                <div class="table">
-                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th style="width: 20px;">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                    </div>
-                                                </th>
-                                                <th style="width: 125px;">ID Danh Mục</th>
-                                                <th style="width: 125px;">Danh Mục Cha</th>
-                                                <th style="width: 125px;">Tên Danh Mục</th>
-                                                <th>Miêu Tả Danh Mục</th>
-                                                <th style="width: 125px;">Tình Trạng</th>
-                                                <th style="width: 125px;">Tương Tác</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($categories as $category)
+                                <div class="row">
+                                    <div class="table">
+                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
+                                            <thead class="table-light">
                                                 <tr>
-                                                    <td>
+                                                    <th style="width: 20px;">
                                                         <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                id="customCheck2">
-                                                            <label class="form-check-label"
-                                                                for="customCheck2">&nbsp;</label>
+                                                            <input type="checkbox" class="form-check-input" id="customCheck1">
+                                                            <label class="form-check-label" for="customCheck1">&nbsp;</label>
                                                         </div>
-                                                    </td>
-                                                    <td><a href="" class="text-body fw-bold">{{ $category->id }}</a>
-                                                    </td>
-                                                    @if ($category->category_parent == 0)
-                                                        <td></td>
-                                                    @else
-                                                        <td style="word-wrap: break-word;
-                                                        white-space: normal;">{{ $category->get_parent->category_name }}</td>
-                                                    @endif
-                                                    <td>
-                                                        {{ $category->category_name }}
-                                                    </td>
-                                                    <td style="white-space: inherit;">
-                                                        {!! $category->category_description !!}
-                                                    </td>
-                                                    <td>
-                                                        <form action="{{route('category.activeSwitch')}}"  method="POST" enctype="multipart/form-data" class="formAction">
-                                                            @csrf
-                                                            @if($category->category_status == 1)
-                                                            <label class="switch">
-                                                                <input type="checkbox" name="active" value="{{$category->category_status}}" checked class="activeButton" data-id='{{$category->id}}'>
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                            
-                                                            @else
-                                                            <label class="switch">
-                                                                <input type="checkbox" name="active" value="{{$category->category_status}}" class="activeButton" data-id='{{$category->id}}'>
-                                                                <span class="slider round" ></span>
-                                                            </label>
-                                                            
-                                                            @endif
-                                                        </form>
-                                                    </td>
-                                                <td>
-                                                    <div style="display:flex">
-                                                        {{-- <a href="javascript:void(0);" class="action-icon"> <i
-                                                            data-feather="eye"></i></a> --}}
-                                                        <a href="{{ route('category.edit', $category->id) }}" class="action-icon">
-                                                            <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                        <form action="{{ route('category.delete', $category->id) }}"
-                                                            method="POST" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <button type="submit" class="action-icon"
-                                                                style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
-                                                                class="mdi mdi-delete me-1" onclick = "deleteData(event);"></i></button>
-                                                        </form>
-
-                                                    </div>
-                                                    </td>
+                                                    </th>
+                                                    <th style="width: 125px;">ID Danh Mục</th>
+                                                    <th style="width: 125px;">Danh Mục Cha</th>
+                                                    <th style="width: 125px;">Tên Danh Mục</th>
+                                                    <th>Miêu Tả Danh Mục</th>
+                                                    <th style="width: 125px;">Tình Trạng</th>
+                                                    <th style="width: 125px;">Tương Tác</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($categories as $category)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input"
+                                                                    id="customCheck2">
+                                                                <label class="form-check-label"
+                                                                    for="customCheck2">&nbsp;</label>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="" class="text-body fw-bold">{{ $category->id }}</a>
+                                                        </td>
+                                                        @if ($category->category_parent == 0)
+                                                            <td></td>
+                                                        @else
+                                                            <td style="word-wrap: break-word;
+                                                            white-space: normal;">{{ $category->get_parent->category_name }}</td>
+                                                        @endif
+                                                        <td>
+                                                            {{ $category->category_name }}
+                                                        </td>
+                                                        <td style="white-space: inherit;">
+                                                            {!! $category->category_description !!}
+                                                        </td>
+                                                        <td>
+                                                            <form action="{{route('category.activeSwitch')}}"  method="POST" enctype="multipart/form-data" class="formAction">
+                                                                @csrf
+                                                                @if($category->category_status == 1)
+                                                                <label class="switch">
+                                                                    <input type="checkbox" name="active" value="{{$category->category_status}}" checked class="activeButton" data-id='{{$category->id}}'>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+
+                                                                @else
+                                                                <label class="switch">
+                                                                    <input type="checkbox" name="active" value="{{$category->category_status}}" class="activeButton" data-id='{{$category->id}}'>
+                                                                    <span class="slider round" ></span>
+                                                                </label>
+
+                                                                @endif
+                                                            </form>
+                                                        </td>
+                                                    <td>
+                                                        <div style="display:flex">
+                                                            {{-- <a href="javascript:void(0);" class="action-icon"> <i
+                                                                data-feather="eye"></i></a> --}}
+                                                            <a href="{{ route('category.edit', $category->id) }}" class="action-icon">
+                                                                <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                            <form action="{{ route('category.delete', $category->id) }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <button type="submit" class="action-icon"
+                                                                    style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
+                                                                    class="mdi mdi-delete me-1" onclick = "deleteData(event);"></i></button>
+                                                            </form>
+
+                                                        </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -243,9 +243,9 @@
                             alert("Thất bại. Vui lòng thử lại");
                         }
                     }
-                   
+
                 })
-    
+
             }else{
                 $.ajax({
                     type: "GET",
@@ -258,11 +258,11 @@
                             alert("Thất bại. Vui lòng thử lại");
                         }
                     }
-                    
+
                 })
             }
         })
-    
+
     })
 
 </script>
