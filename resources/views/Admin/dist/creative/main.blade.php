@@ -179,99 +179,6 @@
                     </li>
 
                     <li class="dropdown notification-list topbar-dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <i class="fe-bell noti-icon"></i>
-                            <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-lg">
-
-                            <!-- item-->
-                            <div class="dropdown-item noti-title">
-                                <h5 class="m-0">
-                                    <span class="float-end">
-                                        <a href="" class="text-dark">
-                                            <small>Clear All</small>
-                                        </a>
-                                    </span>Notification
-                                </h5>
-                            </div>
-
-                            <div class="noti-scroll" data-simplebar>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item active">
-                                    <div class="notify-icon">
-                                        <img src="../assets/images/users/user-1.jpg" class="img-fluid rounded-circle" alt="" />
-                                    </div>
-                                    <p class="notify-details">Cristina Pride</p>
-                                    <p class="text-muted mb-0 user-msg">
-                                        <small>Hi, How are you? What about our next meeting</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-primary">
-                                        <i class="mdi mdi-comment-account-outline"></i>
-                                    </div>
-                                    <p class="notify-details">Caleb Flakelar commented on Admin
-                                        <small class="text-muted">1 min ago</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon">
-                                        <img src="../assets/images/users/user-4.jpg" class="img-fluid rounded-circle" alt="" />
-                                    </div>
-                                    <p class="notify-details">Karen Robinson</p>
-                                    <p class="text-muted mb-0 user-msg">
-                                        <small>Wow ! this admin looks good and awesome design</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-warning">
-                                        <i class="mdi mdi-account-plus"></i>
-                                    </div>
-                                    <p class="notify-details">New user registered.
-                                        <small class="text-muted">5 hours ago</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-info">
-                                        <i class="mdi mdi-comment-account-outline"></i>
-                                    </div>
-                                    <p class="notify-details">Caleb Flakelar commented on Admin
-                                        <small class="text-muted">4 days ago</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-secondary">
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                    <p class="notify-details">Carlos Crouch liked
-                                        <b>Admin</b>
-                                        <small class="text-muted">13 days ago</small>
-                                    </p>
-                                </a>
-                            </div>
-
-                            <!-- All-->
-                            <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                                View all
-                                <i class="fe-arrow-right"></i>
-                            </a>
-
-                        </div>
-                    </li>
-
-                    <li class="dropdown notification-list topbar-dropdown">
                         <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="../assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                             <span class="pro-user-name ms-1">
@@ -326,7 +233,7 @@
 
                 <!-- LOGO -->
                 <div class="logo-box">
-                    <a href="index.html" class="logo logo-dark text-center">
+                    <a href="{{route('admin.index')}}" class="logo logo-dark text-center">
                         <span class="logo-sm">
                             <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -337,7 +244,7 @@
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light text-center">
+                    <a href="{{route('admin.index')}}" class="logo logo-light text-center">
                         <span class="logo-sm">
                             <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
                         </span>
@@ -521,42 +428,6 @@
 
             <div class="h-100" data-simplebar>
 
-                <!-- User box -->
-                <div class="user-box text-center">
-                    <img src="../assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md">
-                    <div class="dropdown">
-                        <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown">Geneva Kennedy</a>
-                        <div class="dropdown-menu user-pro-dropdown">
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-user me-1"></i>
-                                <span>My Account</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-settings me-1"></i>
-                                <span>Settings</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-lock me-1"></i>
-                                <span>Lock Screen</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-log-out me-1"></i>
-                                <span>Logout</span>
-                            </a>
-
-                        </div>
-                    </div>
-                    <p class="text-muted">Admin Head</p>
-                </div>
-
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
 
@@ -565,29 +436,12 @@
                         <li class="menu-title">Navigation</li>
 
                         <li>
-                            <a href="#sidebarDashboards" data-bs-toggle="collapse">
+                            <a href="{{route('admin.index')}}">
                                 <i data-feather="airplay"></i>
-                                <span class="badge bg-success rounded-pill float-end">4</span>
+                                {{-- <span class="badge bg-success rounded-pill float-end">4</span> --}}
                                 <span> Trang Chủ </span>
                             </a>
-                            <div class="collapse" id="sidebarDashboards">
-                                <ul class="nav-second-level">
-                                    <li>
-                                        <a href="index.html">Dashboard 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="dashboard-2.html">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="dashboard-3.html">Dashboard 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="dashboard-4.html">Dashboard 4</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
-
                         <li class="menu-title mt-2">Apps</li>
 
                         {{-- <li>
@@ -596,8 +450,8 @@
                         <span> Quản Lý Nhân Viên </span>
                         </a>
                         </li> --}}
-
-                        <li>
+                        @role('Super Admin')
+                        {{-- <li>
                             <a href="#sidebarStaff" data-bs-toggle="collapse">
                                 <i class="mdi mdi-account"></i>
                                 <span> Quản Lý Nhân Viên </span>
@@ -606,12 +460,17 @@
                             <div class="collapse" id="sidebarStaff">
                                 <ul class="nav-second-level">
                                     <li>
-                                        <a href="{{ route('staff.index') }}">Thêm Nhân Viên</a>
+                                        <a href="{{ route('staff.index') }}"> Nhân Viên</a>
                                     </li>
                                 </ul>
                             </div>
+                        </li> --}}
+                        <li>
+                            <a href="{{ route('staff.index') }}">
+                                <i class="mdi mdi-package"></i>
+                                <span> Quản Lý Nhân Viên </span>
+                            </a>
                         </li>
-
                         <li>
                             <a href="#sidebarRole" data-bs-toggle="collapse">
                                 <i class="mdi mdi-account-star"></i>
@@ -647,7 +506,7 @@
                                 </ul>
                             </div>
                         </li>
-
+                        @endrole
                         {{-- <li>
                             <a href="#sidebarStaff" data-bs-toggle="collapse">
                                 <i class="mdi mdi-key"></i>
@@ -662,7 +521,7 @@
                                 </ul>
                             </div>
                         </li> --}}
-
+                        @role('Super Admin|Manage Category')
                         <li>
                             <a href="#sidebarList" data-bs-toggle="collapse">
                                 <i class="mdi mdi-clipboard-list"></i>
@@ -680,14 +539,15 @@
                                 </ul>
                             </div>
                         </li>
-
+                        @endrole
+                        @role('Super Admin')
                         <li>
                             <a href="{{ route('supplier.index') }}">
                                 <i class="mdi mdi-package"></i>
                                 <span> Quản Lý Nhà Cung Cấp </span>
                             </a>
                         </li>
-
+                        @endrole
                         {{-- <li>
                             <a href="{{ route('brand.index') }}">
                         <i class="mdi mdi-tag"></i>
@@ -708,7 +568,7 @@
                                 <span> Quản Lý Thuộc Tính Danh Mục </span>
                             </a>
                         </li> --}}
-
+                        @role('Super Admin|Manage Product')
                         <li>
                             <a href="#sidebarProduct" data-bs-toggle="collapse">
                                 <i data-feather="shopping-cart"></i>
@@ -732,27 +592,40 @@
                                 </ul>
                             </div>
                         </li>
-
+                        @endrole
+                        @role('Super Admin|Manage Import Goods')
                         <li>
                             <a href="{{ route('import.index') }}">
                                 <i class="mdi mdi-truck"></i>
                                 <span> Quản Lý Nhập Hàng </span>
                             </a>
                         </li>
-
+                        @endrole
+                        @role('Super Admin|Manage Order')
                         <li>
                             <a href="{{ route('order.index') }}">
                                 <i class="mdi mdi-package"></i>
                                 <span> Quản Lý Đơn Hàng </span>
                             </a>
                         </li>
-
+                        @endrole
+                        @role('Super Admin|Manage Event')
                         <li>
                             <a href="{{ route('event.index') }}">
                                 <i class="mdi mdi-gift"></i>
                                 <span> Quản Lý Sự Kiện </span>
                             </a>
                         </li>
+                        @endrole
+
+                        <form action="{{route('logout')}}"  method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <li class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary waves-effect waves-light mb-2">
+                                    <span> Đăng Xuất </span>
+                                </button>
+                            </li>
+                        </form>
                     </ul>
 
                 </div>

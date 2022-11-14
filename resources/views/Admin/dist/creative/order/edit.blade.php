@@ -14,6 +14,10 @@
             color: red;
             word-break: break-word;
         }
+
+        .address-content {
+            padding: 1.5em;
+        }
     </style>
 @endsection
 @section('content')
@@ -48,7 +52,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thông Tin Đơn Hàng</h5>
+                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Trạng Thái Đơn Hàng</h5>
 
                                     <div class="mb-3">
                                         <select class="form-control" id="order-status" data-toggle="select2"
@@ -99,9 +103,61 @@
                                         </select>
                                         <span class="form-group__message"></span>
                                     </div>
+                                    <div class="mb-3">
+                                        <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Địa chỉ giao hàng</h5>
+                                        <div class="border">
+                                            <div class="address-content">
+                                                <div class="row">
+                                                    <div class="d-flex">
+                                                        <span>Tên người nhận: </span>
+                                                        <span style="margin-left:0.5em">{{$order->get_address->receiver_name}} </span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span>Số điện thoại: </span>
+                                                        <span style="margin-left:0.5em">{{$order->get_address->receiver_phone}} </span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span>Địa chỉ: </span>
+                                                        <span style="margin-left:0.5em">{{$order->get_address->receiver_address}} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Chi tiết đơn hàng</h5>
+                                        <table class="table table-striped">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Sản Phẩm</th>
+                                                <th scope="col">Số Lượng</th>
+                                                <th scope="col">Đơn Giá</th>
+                                                <th scope="col">Thành Tiền</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($order_details as $key => $value)
+                                              <tr>
+                                                <th scope="row">{{$key+1}}</th>
+                                                <td>{{$value->get_product->product_name}}</td>
+                                                <td>{{$value->product_number}}</td>
+                                                <td>{{number_format($value->product_price)}}</td>
+                                                <td>{{number_format(($value->product_price)*($value->product_number))}}</td>
+                                              </tr>
+                                            @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <th scope="col" colspan="4">Tổng Giá Trị Đơn Hàng</th>
+                                                <th>{{number_format($order->total_price)}}</th>
+                                            </tfoot>
+                                          </table>
+                                    </div>
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
                                     <button type="submit"
                                         class="btn w-sm btn-success waves-effect waves-light">Save</button>
+
                                 </div>
                             </div> <!-- end card -->
                         </div> <!-- end col -->
@@ -160,5 +216,4 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('assets/js/validator.js') }}"></script>
-
 @endsection

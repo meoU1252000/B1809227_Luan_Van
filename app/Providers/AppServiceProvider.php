@@ -106,6 +106,16 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
+            \App\Repositories\Rating\RatingRepositoryInterface::class,
+            \App\Repositories\Rating\RatingRepository::class
+        );
+
+         $this->app->singleton(
+            \App\Repositories\Comment\CommentRepositoryInterface::class,
+            \App\Repositories\Comment\CommentRepository::class
+        );
+
+        $this->app->singleton(
             \App\Repositories\Brand\BrandRepositoryInterface::class,
             \App\Repositories\Brand\BrandRepository::class
         );

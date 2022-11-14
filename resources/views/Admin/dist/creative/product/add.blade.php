@@ -67,7 +67,7 @@
                                         <span class="form-group__message"></span>
                                     </div>
 
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <label for="family-name" class="form-label">Nhóm Sản Phẩm<span
                                                 class="text-danger">*</span></label>
                                         <select class="form-control" id="family-id" data-toggle="select2" data-width="100%"
@@ -82,7 +82,7 @@
 
                                         </select>
                                         <span class="form-group__message"></span>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="mb-3">
                                         <label for="brand-name" class="form-label">Danh Mục<span
@@ -124,22 +124,14 @@
                                         <label class="mb-2">Tình Trạng <span class="text-danger">*</span></label>
                                         <br />
                                         <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio3" value="0" name="product_status">
-                                            <label for="inlineRadio3">Sắp Ra Mắt</label>
+                                            <input type="radio" id="inlineRadio3" value="0"
+                                                name="product_status">
+                                            <label for="inlineRadio3">Tạm Ẩn</label>
                                         </div>
                                         <div class="radio form-check-inline">
                                             <input type="radio" id="inlineRadio1" value="1" name="product_status"
                                                 checked="">
                                             <label for="inlineRadio1">Đang Bán</label>
-                                        </div>
-                                        <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio2" value="2" name="product_status">
-                                            <label for="inlineRadio2">Ngưng Nhập Hàng</label>
-                                        </div>
-                                        <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio3" value="3"
-                                                name="product_status">
-                                            <label for="inlineRadio3">Tạm Hết Hàng</label>
                                         </div>
                                         <span class="form-group__message"></span>
                                     </div>

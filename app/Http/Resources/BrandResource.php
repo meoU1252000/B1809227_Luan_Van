@@ -26,7 +26,7 @@ class BrandResource extends JsonResource
     }
 
     public function getProducts($id){
-        $products = ProductResource::collection(Product::where('brand_id',$id)->get());
+        $products = ProductResource::collection(Product::where('brand_id',$id)->where('product_status',1)->get());
         return $products;
     }
 }

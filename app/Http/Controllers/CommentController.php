@@ -2,31 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\OrderDetail;
-use App\Models\Order;
+use App\Repositories\Comment\CommentRepositoryInterface;
 
-class OrderController extends Controller
+
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct(OrderRepositoryInterface $orderRepo)
+    public function __construct(CommentRepositoryInterface $commentRepo)
     {
-        $this->orderRepo = $orderRepo;
+        $this->commentRepo = $commentRepo;
     }
-
     public function index()
     {
         //
-        // $orders = $this->orderRepo->getAll();
-        $orders = Order::all()->sortByDesc('id');
-        return view('Admin.dist.creative.order.index',[
-            'title'=>'Trang Quản Lý Đơn Hàng'
-        ],compact('orders'));
+        $comments = $this->commentRepo->getAll();
+        $comments = $comments->sortBy('id','DESC');
+        return view('Admin.dist.creative.comment.index',[
+            'title'=>'Trang Quản Lý Bình Luận'
+        ],compact('comments'));
     }
 
     /**
@@ -70,12 +68,6 @@ class OrderController extends Controller
     public function edit($id)
     {
         //
-        $order = $this->orderRepo->find($id);
-        $order_details = OrderDetail::where('order_id',$id)->get();
-
-        return view('Admin.dist.creative.order.edit',[
-            'title'=>'Trang Quản Lý Đơn Hàng'
-        ],compact('order','order_details'));
     }
 
     /**
@@ -88,10 +80,6 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $data = $request->all();
-        $data['staff_id'] = Auth()->user()->id;
-        $update = $this->orderRepo->update($id,$data);
-        return redirect()->route('order.index');
     }
 
     /**
@@ -103,5 +91,7 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+        $this->commentRepo->delete($id);
+        return redirect()->route('comment.index');
     }
 }

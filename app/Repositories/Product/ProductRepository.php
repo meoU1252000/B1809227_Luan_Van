@@ -50,17 +50,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $product =  $this->model->find($id);
         switch ($product->product_status) {
             case (0):
-                $status = 'Sắp Ra Mắt';
+                $status = 'Tạm Ẩn';
                 break;
             case (1):
                 $status = "Đang Bán";
                 break;
-            case (2):
-                $status = "Ngưng Nhập Hàng";
-                break;
-            case (3):
-                $status = "Tạm Hết Hàng";
-                break;
+
         }
 
         return $status;
@@ -74,16 +69,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         while ($i <= 3) {
             switch (true) {
                 case ($i == 0 && $i !== $status):
-                    $arrayStatus[$i] =  "Sắp Ra Mắt";
+                    $arrayStatus[$i] =  "Tạm Ẩn";
                     break;
                 case ($i == 1 && $i !== $status):
                     $arrayStatus[$i] =  "Đang Bán";
-                    break;
-                case ($i == 2 && $i !== $status):
-                    $arrayStatus[$i] =  "Ngưng Nhập Hàng";
-                    break;
-                case ($i == 3 && $i !== $status):
-                    $arrayStatus[$i] =  "Tạm Hết Hàng";
                     break;
             }
             $i++;

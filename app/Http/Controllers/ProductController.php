@@ -117,7 +117,7 @@ class ProductController extends Controller
             $image_src = $dir . '/' . $absolutePath;
             $data['main_image_src'] = $image_src;
         }
-    
+
         $product = $this->productRepo->update($id, $data);
         $attribute = $this->productRepo->updateAttributes($id,$request->attribute_id_old,$request->attribute_id_new,$request->attribute_value);
 
@@ -141,6 +141,16 @@ class ProductController extends Controller
         $this->productRepo->delete($id);
 
         return redirect()->route('product.index');
+    }
+
+    public function activeSwitch(Request $request){
+        $data = $request->all();
+        $product = $this->productRepo->update($request->id,$data);
+
+        if(!$product){
+            return response()->json(['code' => 400]);
+        }
+        return response()->json(['code' => 200]);
     }
 
     public function indexClient(){
@@ -170,7 +180,7 @@ class ProductController extends Controller
                 break;
             }
         }
-       
+
         return view('clients.productDetails',[
             "title" => "Trang chi tiết sản phẩm"
         ],compact('product','categories','brands','attributes','productCart','categories'));

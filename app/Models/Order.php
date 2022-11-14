@@ -19,4 +19,12 @@ class Order extends Model
         'total_price',
         'note'
     ];
+
+    public function get_address(){
+        return $this->belongsTo(Customer_Address::class,'address_id','id');
+    }
+
+    public function get_order_detail(){
+        return $this->hasMany(Order_Detail::class,'order_id','id');
+    }
 }

@@ -25,10 +25,14 @@ use App\Repositories\Customer\CustomerRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\OrderDetails\OrderDetailsRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Rating\RatingRepositoryInterface;
+use App\Repositories\Comment\CommentRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Mail\SendEmail;
 class ClientPageController extends AbstractApiController
 {
     /**
@@ -36,18 +40,20 @@ class ClientPageController extends AbstractApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo)
+    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo, RatingRepositoryInterface $ratingRepo,CommentRepositoryInterface $commentRepo)
     {
         $this->cusRepo = $cusRepo;
         $this->addressRepo = $addressRepo;
         $this->orderDetailsRepo = $orderDetailsRepo;
         $this->orderRepo = $orderRepo;
         $this->productRepo = $productRepo;
+        $this->ratingRepo = $ratingRepo;
+        $this->commentRepo = $commentRepo;
     }
     public function getListProducts()
     {
         //
-        $products = ProductResource::collection(Product::all());
+        $products = ProductResource::collection(Product::where('product_status',1)->get());
         // dd($products);
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
@@ -57,7 +63,7 @@ class ClientPageController extends AbstractApiController
     }
 
     public function getListCategories(){
-        $categories = CategoryResource::collection(Category::all());
+        $categories = CategoryResource::collection(Category::where('category_status',1)->get());
         // dd($categories);
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
@@ -257,6 +263,8 @@ class ClientPageController extends AbstractApiController
             $this->setStatusCode(JsonResponse::HTTP_CREATED);
             $this->setStatus('success');
             $this->setMessage('Create order successful');
+            $this->sendEmail($data['cart_list'],$orderStore);
+
             $this->setData($orderStore);
         }
         return $this->respond();
@@ -265,7 +273,7 @@ class ClientPageController extends AbstractApiController
     public function getOrders(){
         $customer = Customer::findOrFail(Auth::guard('api')->id());
         $customer_address = Customer_Address::where('customer_id',$customer->id)->get(['id']);
-        $orders = Order::whereIn('address_id',$customer_address)->get();
+        $orders = Order::whereIn('address_id',$customer_address)->orderBy('id','DESC')->get();
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
         $this->setMessage('Get list order successful');
@@ -280,8 +288,8 @@ class ClientPageController extends AbstractApiController
         $data['order_status'] = "Đã Hủy";
         $updateProduct = array();
         foreach($order_details as $order){
-            $product_in_order = $order->product_number;
-            $product = Product::find($order->product_id);
+            $product_in_order = $order['product_number'];
+            $product = Product::find($order['product_id']);
             $product_quantity_stock = $product->product_quantity_stock;
             $updateProduct['product_quantity_stock'] = $product_quantity_stock + $product_in_order;
             $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
@@ -303,7 +311,54 @@ class ClientPageController extends AbstractApiController
         $this->setMessage('Search product success');
         $this->setData(ProductResource::collection($products));
         return $this->respond();
+    }
 
+    public function ratingProduct(Request $request){
+        $user = Customer::findOrFail(Auth::guard('api')->id());
+        $data = $request->all();
+        $data['customer_id'] = $user->id;
+        $createRating = $this->ratingRepo->create($data);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Create rating success');
+        $this->setData($createRating);
+        return $this->respond();
+    }
+
+    public function commentProduct(Request $request){
+        $user = Customer::findOrFail(Auth::guard('api')->id());
+        $data = $request->all();
+        $data['customer_id'] = $user->id;
+        $createComment = $this->commentRepo->create($data);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Create comment success');
+        $this->setData($createComment);
+        return $this->respond();
+    }
+
+    public function deleteComment(Request $request){
+        $data = $request->all();
+        $deleteComment = $this->commentRepo->delete($data);
+        $this->setStatusCode(JsonResponse::HTTP_CREATED);
+        $this->setStatus('success');
+        $this->setMessage('Delete comment success');
+    }
+
+    public function sendEmail($orders,$order_id){
+        $user = Customer::findOrFail(Auth::guard('api')->id());
+        $email = $user->email;
+        $mailData = [
+            'greeting' => 'Hi ' . $user->customer_name,
+            'body' => $orders,
+            'order_id' => $order_id->id,
+            'total_price' => $order_id->total_price,
+            'actiontext' => 'Liên hệ cửa hàng',
+            'actionurl' => 'https://luanvan-frontend-datlestore.herokuapp.com/',
+            'lastline' => 'Cảm ơn bạn đã mua hàng. Nếu có thắc mắc, vui lòng gọi: 0984978407',
+        ];
+        Mail::to($user->email)->send(new SendEmail($mailData));
+        return $mailData;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Product;
+use App\Models\ProductRating;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderDetailsResource extends JsonResource
@@ -20,8 +21,14 @@ class OrderDetailsResource extends JsonResource
             "product" => $this->getProduct($this->product_id),
             "product_price" => $this->product_price,
             "product_number" => $this->product_number,
+            "star_rating" => $this->getStarRating($this->order_id,$this->product_id),
         ];
         return $data;
+    }
+
+    public function getStarRating($order_id,$product_id){
+        $product_rating = ProductRating::where('order_id', $order_id)->where('product_id',$product_id)->first();
+        return $product_rating;
     }
 
     public function getProduct($id){

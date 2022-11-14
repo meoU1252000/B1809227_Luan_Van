@@ -120,7 +120,7 @@ class CategoryController extends Controller
     public function activeSwitch(Request $request){
         $data = $request->all();
         $category = $this->categoryRepo->update($request->id,$data);
-           
+
         if(!$category){
             return response()->json(['code' => 400]);
         }
