@@ -17,6 +17,7 @@ class Order extends Model
         'receive_date',
         'order_status',
         'total_price',
+        'payment',
         'note'
     ];
 
