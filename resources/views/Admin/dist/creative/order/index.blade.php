@@ -58,8 +58,7 @@
                                                         <a href="" class="text-body fw-bold">{{ $order->event_id }}
                                                     </td>
                                                     <td class="d-none">
-                                                        <a href=""
-                                                            class="text-body">{{ $order->get_address->receiver_phone->receiver_phone }}
+                                                        {{ $order->get_address->receiver_phone }}
                                                     </td>
                                                     <td>
                                                         {{ $order->created_at }}
