@@ -106,9 +106,25 @@
                                     <div class="mb-3">
                                         <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Hình thức thanh toán</h5>
                                         @if ($order->payment == 1)
-                                            <h3>Thanh toán khi nhận hàng</h3>
+                                            <div class="border">
+                                                <div class="address-content">
+                                                    <div class="row">
+                                                        <div class="d-flex">
+                                                            <h3>Thanh toán khi nhận hàng</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @elseif($order->payment == 0)
-                                            <h3>Đã thanh toán bằng PayPal</h3>
+                                            <div class="border">
+                                                <div class="address-content">
+                                                    <div class="row">
+                                                        <div class="d-flex">
+                                                            <h3>Đã thanh toán bằng PayPal</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="mb-3">
