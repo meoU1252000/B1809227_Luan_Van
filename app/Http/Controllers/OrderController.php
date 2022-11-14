@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Http\Request;
-
+use App\Models\OrderDetail;
 class OrderController extends Controller
 {
     /**
@@ -70,9 +70,10 @@ class OrderController extends Controller
         //
         $order = $this->orderRepo->find($id);
         $order_details = OrderDetail::where('order_id',$id)->get();
+
         return view('Admin.dist.creative.order.edit',[
             'title'=>'Trang Quản Lý Đơn Hàng'
-        ],compact('order'));
+        ],compact('order','order_details'));
     }
 
     /**

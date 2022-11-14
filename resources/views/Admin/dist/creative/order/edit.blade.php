@@ -127,6 +127,32 @@
                                     </div>
                                     <div class="mb-3">
                                         <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Chi tiết đơn hàng</h5>
+                                        <table class="table table-striped">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Sản Phẩm</th>
+                                                <th scope="col">Số Lượng</th>
+                                                <th scope="col">Đơn Giá</th>
+                                                <th scope="col">Thành Tiền</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($order_details as $key => $value)
+                                              <tr>
+                                                <th scope="row">{{$key+1}}</th>
+                                                <td>{{$value->get_product->product_name}}</td>
+                                                <td>{{$value->product_number}}</td>
+                                                <td>{{number_format($value->product_price)}}</td>
+                                                <td>{{number_format(($value->product_price)*($value->product_number))}}</td>
+                                              </tr>
+                                            @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <th scope="col" colspan="4">Tổng Giá Trị Đơn Hàng</th>
+                                                <th>{{number_format($order->total_price)}}</th>
+                                            </tfoot>
+                                          </table>
                                     </div>
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
                                     <button type="submit"

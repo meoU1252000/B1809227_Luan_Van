@@ -44,6 +44,7 @@ Route::post('/admin/login/store', [AuthController::class, 'login'])->name('login
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [HomeController::class, 'adminPage'])->name('admin.index');
+        Route::post('/filter', [HomeController::class, 'dashboard_filter'])->name('admin.dashboard_filter');
         Route::prefix('product')->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('product.index')->middleware('role_or_permission:Super Admin|Add Product|Edit Product|Delete Product');
             Route::get('/add', [ProductController::class, 'create'])->name('product.create')->middleware('role_or_permission:Super Admin|Add Product');

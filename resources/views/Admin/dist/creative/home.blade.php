@@ -1,4 +1,7 @@
 @extends('Admin.dist.creative.main')
+@section('header')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('content')
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
@@ -39,7 +42,8 @@
                                     </div>
                                     <div class="col-9">
                                         <div class="text-end">
-                                            <h3 class="text-dark my-1"><span data-plugin="counterup">{{$order_waiting}}</span></h3>
+                                            <h3 class="text-dark my-1"><span
+                                                    data-plugin="counterup">{{ $order_waiting }}</span></h3>
                                             <p class="text-muted mb-1 text-truncate">Đơn chưa xử lý</p>
                                         </div>
                                     </div>
@@ -59,7 +63,8 @@
                                     </div>
                                     <div class="col-9">
                                         <div class="text-end">
-                                            <h3 class="text-dark my-1"><span data-plugin="counterup">{{$total_product}}</span></h3>
+                                            <h3 class="text-dark my-1"><span
+                                                    data-plugin="counterup">{{ $total_product }}</span></h3>
                                             <p class="text-muted mb-1 text-truncate">Tổng sản phẩm đang bán</p>
                                         </div>
                                     </div>
@@ -79,7 +84,9 @@
                                     </div>
                                     <div class="col-9">
                                         <div class="text-end">
-                                            <h3 class="text-dark my-1"><span data-plugin="counterup">{{number_format($total_price_day)}}</span> VNĐ</h3>
+                                            <h3 class="text-dark my-1"><span
+                                                    data-plugin="counterup">{{ number_format($total_price_day) }}</span> VNĐ
+                                            </h3>
                                             <p class="text-muted mb-1 text-truncate">Doanh thu hôm nay</p>
                                         </div>
                                     </div>
@@ -99,7 +106,8 @@
                                     </div>
                                     <div class="col-9">
                                         <div class="text-end">
-                                            <h3 class="text-dark my-1"><span data-plugin="counterup">{{$total_staff}}</span></h3>
+                                            <h3 class="text-dark my-1"><span
+                                                    data-plugin="counterup">{{ $total_staff }}</span></h3>
                                             <p class="text-muted mb-1 text-truncate">Tổng nhân viên</p>
                                         </div>
                                     </div>
@@ -124,18 +132,20 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-toggle="reload"><i
-                                            class="mdi mdi-refresh"></i></a>
-                                    <a data-bs-toggle="collapse" href="#cardCollpase3" role="button"
-                                        aria-expanded="false" aria-controls="cardCollpase3"><i
-                                            class="mdi mdi-minus"></i></a>
-                                    <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
+                                    <select class="form-control" id="revenue-id" data-width="100%" name="revenue">
+                                        <option value="thisyear" selected>Năm hiện tại</option>
+                                        <option value="thisweek">Tuần này</option>
+                                        <option value="weekago">Tuần trước</option>
+                                        <option value="thismonth">Tháng này</option>
+                                        <option value="monthago">Tháng trước</option>
+                                    </select>
                                 </div>
-                                <h4 class="header-title mb-0">Doanh Thu Năm Hiện Tại</h4>
+
+                                <h4 class="header-title mb-0" id="revenue-title">Doanh Thu Năm Hiện Tại</h4>
 
                                 <div id="cardCollpase3" class="collapse pt-3 show">
                                     <div class="text-center">
-                            <canvas id="myBarChart" width="100%" height="40"></canvas>
+                                        <canvas id="myBarChart" width="100%" height="40"></canvas>
 
                                     </div>
                                 </div> <!-- collapsed end -->
@@ -151,11 +161,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-toggle="reload"><i
-                                            class="mdi mdi-refresh"></i></a>
-                                    <a data-bs-toggle="collapse" href="#cardCollpase5" role="button"
-                                        aria-expanded="false" aria-controls="cardCollpase5"><i
-                                            class="mdi mdi-minus"></i></a>
+                                    <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                                    <a data-bs-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false"
+                                        aria-controls="cardCollpase5"><i class="mdi mdi-minus"></i></a>
                                     <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
                                 </div>
                                 <h4 class="header-title mb-0">Top 10 Sản Phẩm Bán Chạy</h4>
@@ -172,13 +180,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($product_statistical as $product )
-                                                <tr>
-                                                    <td>{{$product['product_name']}}</td>
-                                                    <td>{{number_format($product['product_price'])}}</td>
-                                                    <td>{{$product['product_quantity']}}</td>
-                                                    <td>{{number_format($product['total_price'])}}</td>
-                                                </tr>
+                                                @foreach ($product_statistical as $product)
+                                                    <tr>
+                                                        <td>{{ $product['product_name'] }}</td>
+                                                        <td>{{ number_format($product['product_price']) }}</td>
+                                                        <td>{{ $product['product_quantity'] }}</td>
+                                                        <td>{{ number_format($product['total_price']) }}</td>
+                                                    </tr>
                                                 @endforeach
 
                                             </tbody>
@@ -204,56 +212,159 @@
     <!-- ============================================================== -->
 @endsection
 @section('footer')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script>
-    Chart.defaults.global.defaultFontFamily =
-        '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#292b2c';
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script>
+        Chart.defaults.global.defaultFontFamily =
+            '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
 
-    // Bar Chart Example
-    var ctx1 = document.getElementById("myBarChart");
-    var myLineChart1 = new Chart(ctx1, {
-        type: 'bar',
-        data: {
-            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            datasets: [{
-                label: "Revenue",
-                backgroundColor: "rgba(2,117,216,1)",
-                borderColor: "rgba(2,117,216,1)",
-                data: [<?php echo join(',', $data); ?>],
-            }],
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    time: {
-                        unit: 'month'
-                    },
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 12
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        //   max: ({{ $sum }}).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}),
-                        callback: function(value, index, values) {
-                            return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
-                        },
-                        maxTicksLimit: 12
-                    },
-                    gridLines: {
-                        display: true
-                    }
+        // Bar Chart Example
+        var ctx1 = document.getElementById("myBarChart");
+        var myLineChart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                datasets: [{
+                    label: "Doanh Thu",
+                    backgroundColor: "rgba(2,117,216,1)",
+                    borderColor: "rgba(2,117,216,1)",
+                    data: [<?php echo join(',', $data); ?>],
                 }],
             },
-            legend: {
-                display: false
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'month'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 12
+                        }
+                    }],
+                    yAxes: [{
+                        autoSkip: false,
+                        ticks: {
+                            min: 0,
+                            //   max: ({{ $sum }}).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}),
+                            callback: function(value, index, values) {
+                                return value.toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                });
+                            },
+                            maxTicksLimit: 12
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
             }
-        }
-    });
-</script>
+        })
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $("#revenue-id").change(function(e) {
+                var request = $('#revenue-id').val();
+                var titleChart = document.getElementById("revenue-title");
+                $.ajax({
+                    type: "POST",
+                    url: "admin/filter",
+                    data: {
+                        "dashboard_value": request,
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        if (data.code == 200) {
+                            if (request == 'thisweek') {
+                                myLineChart1.data = {
+                                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                        datasets: [{
+                                            label: "Revenue",
+                                            backgroundColor: "rgba(2,117,216,1)",
+                                            borderColor: "rgba(2,117,216,1)",
+                                            data: data.data.map(Number),
+                                        }],
+                                    },
+                                    myLineChart1.update();
+                                titleChart.innerHTML = "Doanh Thu Tuần Này"
+                            } else if (request == 'thismonth') {
+                                myLineChart1.data = {
+                                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                                            12, 13, 14, 15, 16, 17, 18, 19, 20,
+                                            21, 22, 23, 24, 25, 26, 27, 28, 29,
+                                            30
+                                        ],
+                                        datasets: [{
+                                            label: "Doanh Thu",
+                                            backgroundColor: "rgba(2,117,216,1)",
+                                            borderColor: "rgba(2,117,216,1)",
+                                            data: data.data.map(Number),
+                                        }],
+                                    },
+                                    titleChart.innerHTML = "Doanh Thu Tháng Này"
+                                myLineChart1.update();
+                            } else if (request == 'monthago') {
+                                myLineChart1.data = {
+                                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                                            12, 13, 14, 15, 16, 17, 18, 19, 20,
+                                            21, 22, 23, 24, 25, 26, 27, 28, 29,
+                                            30
+                                        ],
+                                        datasets: [{
+                                            label: "Doanh Thu",
+                                            backgroundColor: "rgba(2,117,216,1)",
+                                            borderColor: "rgba(2,117,216,1)",
+                                            data: data.data.map(Number),
+                                        }],
+                                    },
+                                    titleChart.innerHTML = "Doanh Thu Tháng Trước"
+                                myLineChart1.update();
+                            } else if (request == 'weekago') {
+                                myLineChart1.data = {
+                                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                        datasets: [{
+                                            label: "Doanh Thu",
+                                            backgroundColor: "rgba(2,117,216,1)",
+                                            borderColor: "rgba(2,117,216,1)",
+                                            data: data.data.map(Number),
+                                        }],
+                                    },
+                                    titleChart.innerHTML = "Doanh Thu Tuần Trước"
+                                myLineChart1.update();
+                            } else if (request == 'thisyear') {
+                                myLineChart1.data = {
+                                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                                        datasets: [{
+                                            label: "Doanh Thu",
+                                            backgroundColor: "rgba(2,117,216,1)",
+                                            borderColor: "rgba(2,117,216,1)",
+                                            data: data.data,
+                                        }],
+                                    },
+                                    titleChart.innerHTML = "Doanh Thu Năm Hiện Tại"
+                                myLineChart1.update();
+                            }
+
+                        } else {
+                            alert("Thất bại. Vui lòng thử lại");
+                        }
+                    }
+
+                })
+
+            })
+
+        })
+    </script>
+    <script></script>
 @endsection
