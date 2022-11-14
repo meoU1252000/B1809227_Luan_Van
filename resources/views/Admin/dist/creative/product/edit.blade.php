@@ -68,7 +68,7 @@
                                         <span class="form-group__message"></span>
                                     </div>
 
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <label for="family-name" class="form-label">Nhóm Sản Phẩm<span
                                                 class="text-danger">*</span></label>
                                         <select class="form-control" id="family-id" data-toggle="select2" data-width="100%"
@@ -88,7 +88,7 @@
 
                                         </select>
                                         <span class="form-group__message"></span>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="mb-3">
                                         <label for="brand-name" class="form-label">Danh Mục<span

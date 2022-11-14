@@ -36,7 +36,7 @@ class CategoryResource extends JsonResource
 
     public function getProduct($id)
     {
-        $products = ProductResource::collection(Product::where('category_id', '=', $id)->get());
+        $products = ProductResource::collection(Product::where('category_id', '=', $id)->where('product_status',1)->get());
 
         return $products;
     }
@@ -78,7 +78,7 @@ class CategoryResource extends JsonResource
 
     public function getChildrenCategory($id)
     {
-        $categories = CategoryResource::collection(Category::where('category_parent', '=', $id)->get());
+        $categories = CategoryResource::collection(Category::where('category_parent', '=', $id)->where('category_status',1)->get());
         return $categories;
     }
 }

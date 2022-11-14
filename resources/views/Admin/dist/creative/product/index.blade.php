@@ -1,4 +1,68 @@
 @extends('Admin.dist.creative.main')
+@section('header')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -51,7 +115,8 @@
                                                     <th style="width: 125px;">ID Sản Phẩm</th>
                                                     <th style="width: 150px;">Tên Sản Phẩm</th>
                                                     <th style="width: 150px;">Thương Hiệu</th>
-                                                    <th  style="width: 200px;">Hình Ảnh Sản Phẩm</th>
+                                                    <th style="width: 150px;">Tình Trạng</th>
+                                                    <th style="width: 200px;">Hình Ảnh Sản Phẩm</th>
                                                     <th style="width: 125px;">Tương Tác</th>
                                                 </tr>
                                             </thead>
@@ -74,7 +139,24 @@
                                                             {{ $product->product_name }}
                                                         </td>
                                                         <td>{{ $product->get_brand->brand_name }}</td>
+                                                        <td>
+                                                            <form action="{{route('product.activeSwitch')}}"  method="POST" enctype="multipart/form-data" class="formAction">
+                                                                @csrf
+                                                                @if($product->product_status == 1)
+                                                                <label class="switch">
+                                                                    <input type="checkbox" name="active" value="{{$product->product_status}}" checked class="activeButton" data-id='{{$product->id}}'>
+                                                                    <span class="slider round"></span>
+                                                                </label>
 
+                                                                @else
+                                                                <label class="switch">
+                                                                    <input type="checkbox" name="active" value="{{$product->product_status}}" class="activeButton" data-id='{{$product->id}}'>
+                                                                    <span class="slider round" ></span>
+                                                                </label>
+
+                                                                @endif
+                                                            </form>
+                                                        </td>
 
                                                         <td>
                                                             <img src="{{ url($product->main_image_src) }}" alt=""
@@ -138,4 +220,54 @@
         <!-- end Footer -->
 
     </div>
+@endsection
+@section('footer')
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $(".activeButton").click(function(e) {
+            var active = $(this).val();
+            var parentElement = e.target.parentElement;
+            var id = $(this).data('id');
+            var that = $(this);
+            // console.log(id);
+            if(active == 1){
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('product.activeSwitch')}}",
+                    data: {id:id , product_status: 0},
+                    success : function(data) {
+                        if(data.code == 200){
+                            that.attr("value",0);
+                        }else{
+                            alert("Thất bại. Vui lòng thử lại");
+                        }
+                    }
+
+                })
+
+            }else{
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('product.activeSwitch')}}",
+                    data: {id:id,product_status: 1},
+                    success : function(data) {
+                        if(data.code == 200){
+                            that.attr("value",1);
+                        }else{
+                            alert("Thất bại. Vui lòng thử lại");
+                        }
+                    }
+
+                })
+            }
+        })
+
+    })
+
+</script>
 @endsection

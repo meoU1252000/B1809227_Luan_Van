@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update')->middleware('role_or_permission:Super Admin|Edit Product');
             Route::post('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete')->middleware('role_or_permission:Super Admin|Delete Product');
             Route::post('/getAttribute/{id}', [ProductController::class, 'getAttribute'])->name('product.getAttribute')->middleware('role_or_permission:Super Admin|Add Product|Edit Product|Delete Product');
+            Route::get('/updateActive', [ProductController::class, 'activeSwitch'])->name('product.activeSwitch')->middleware('role_or_permission:Super Admin|Manage Category|Delete Category');
             Route::prefix('/product-price')->group(function () {
                 Route::get('/', [ProductController::class, 'indexPrice'])->name('price.index')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
                 Route::get('/add', [ProductController::class, 'addPrice'])->name('price.create')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');

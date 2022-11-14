@@ -53,7 +53,7 @@ class ClientPageController extends AbstractApiController
     public function getListProducts()
     {
         //
-        $products = ProductResource::collection(Product::all());
+        $products = ProductResource::collection(Product::where('product_status',1)->get());
         // dd($products);
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
@@ -63,7 +63,7 @@ class ClientPageController extends AbstractApiController
     }
 
     public function getListCategories(){
-        $categories = CategoryResource::collection(Category::all());
+        $categories = CategoryResource::collection(Category::where('category_status',1)->get());
         // dd($categories);
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
