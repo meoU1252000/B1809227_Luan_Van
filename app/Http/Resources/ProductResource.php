@@ -55,11 +55,11 @@ class ProductResource extends JsonResource
     }
 
     public function getProductStar($id){
-        $product_rating_5 = ProductRating::where('star_rating_number',5)->get()->count();
-        $product_rating_4 = ProductRating::where('star_rating_number',4)->get()->count();
-        $product_rating_3 = ProductRating::where('star_rating_number',3)->get()->count();
-        $product_rating_2 = ProductRating::where('star_rating_number',2)->get()->count();
-        $product_rating_1 = ProductRating::where('star_rating_number',1)->get()->count();
+        $product_rating_5 = ProductRating::where('star_rating_number',5)->where('product_id',$id)->get()->count();
+        $product_rating_4 = ProductRating::where('star_rating_number',4)->where('product_id',$id)->get()->count();
+        $product_rating_3 = ProductRating::where('star_rating_number',3)->where('product_id',$id)->get()->count();
+        $product_rating_2 = ProductRating::where('star_rating_number',2)->where('product_id',$id)->get()->count();
+        $product_rating_1 = ProductRating::where('star_rating_number',1)->where('product_id',$id)->get()->count();
         $data = [
             "star_5" => $product_rating_5,
             "star_4" => $product_rating_4,

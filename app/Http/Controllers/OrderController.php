@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\OrderDetail;
+use App\Models\Order;
+
 class OrderController extends Controller
 {
     /**
@@ -20,8 +22,8 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $orders = $this->orderRepo->getAll();
-
+        // $orders = $this->orderRepo->getAll();
+        $orders = Order::all()->sortByDesc('id');
         return view('Admin.dist.creative.order.index',[
             'title'=>'Trang Quản Lý Đơn Hàng'
         ],compact('orders'));
