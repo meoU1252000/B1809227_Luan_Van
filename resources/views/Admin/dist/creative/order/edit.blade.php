@@ -104,21 +104,35 @@
                                         <span class="form-group__message"></span>
                                     </div>
                                     <div class="mb-3">
+                                        <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Hình thức thanh toán</h5>
+                                        @if ($order->payment == 1)
+                                            <h3>Thanh toán khi nhận hàng</h3>
+                                        @elseif($order->payment == 0)
+                                            <h3>Đã thanh toán bằng PayPal</h3>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
                                         <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Địa chỉ giao hàng</h5>
                                         <div class="border">
                                             <div class="address-content">
                                                 <div class="row">
                                                     <div class="d-flex">
                                                         <span>Tên người nhận: </span>
-                                                        <span style="margin-left:0.5em">{{$order->get_address->receiver_name}} </span>
+                                                        <span
+                                                            style="margin-left:0.5em">{{ $order->get_address->receiver_name }}
+                                                        </span>
                                                     </div>
                                                     <div class="d-flex">
                                                         <span>Số điện thoại: </span>
-                                                        <span style="margin-left:0.5em">{{$order->get_address->receiver_phone}} </span>
+                                                        <span
+                                                            style="margin-left:0.5em">{{ $order->get_address->receiver_phone }}
+                                                        </span>
                                                     </div>
                                                     <div class="d-flex">
                                                         <span>Địa chỉ: </span>
-                                                        <span style="margin-left:0.5em">{{$order->get_address->receiver_address}} </span>
+                                                        <span
+                                                            style="margin-left:0.5em">{{ $order->get_address->receiver_address }}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,30 +143,31 @@
                                         <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Chi tiết đơn hàng</h5>
                                         <table class="table table-striped">
                                             <thead>
-                                              <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Sản Phẩm</th>
-                                                <th scope="col">Số Lượng</th>
-                                                <th scope="col">Đơn Giá</th>
-                                                <th scope="col">Thành Tiền</th>
-                                              </tr>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Sản Phẩm</th>
+                                                    <th scope="col">Số Lượng</th>
+                                                    <th scope="col">Đơn Giá</th>
+                                                    <th scope="col">Thành Tiền</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($order_details as $key => $value)
-                                              <tr>
-                                                <th scope="row">{{$key+1}}</th>
-                                                <td>{{$value->get_product->product_name}}</td>
-                                                <td>{{$value->product_number}}</td>
-                                                <td>{{number_format($value->product_price)}}</td>
-                                                <td>{{number_format(($value->product_price)*($value->product_number))}}</td>
-                                              </tr>
-                                            @endforeach
+                                                @foreach ($order_details as $key => $value)
+                                                    <tr>
+                                                        <th scope="row">{{ $key + 1 }}</th>
+                                                        <td>{{ $value->get_product->product_name }}</td>
+                                                        <td>{{ $value->product_number }}</td>
+                                                        <td>{{ number_format($value->product_price) }}</td>
+                                                        <td>{{ number_format($value->product_price * $value->product_number) }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                             <tfoot>
                                                 <th scope="col" colspan="4">Tổng Giá Trị Đơn Hàng</th>
-                                                <th>{{number_format($order->total_price)}}</th>
+                                                <th>{{ number_format($order->total_price) }}</th>
                                             </tfoot>
-                                          </table>
+                                        </table>
                                     </div>
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
                                     <button type="submit"
@@ -171,7 +186,8 @@
                         <div class="p-2">
                             <div class="row align-items-center">
                                 <div class="col-auto">
-                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt="">
+                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light"
+                                        alt="">
                                 </div>
                                 <div class="col ps-0">
                                     <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>

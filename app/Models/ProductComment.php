@@ -14,8 +14,6 @@ class ProductComment extends Model
         'comment_parent',
         'product_id',
         'customer_id',
-        'staff_id',
-        'staff_id',
         'comment_content'
     ];
 }

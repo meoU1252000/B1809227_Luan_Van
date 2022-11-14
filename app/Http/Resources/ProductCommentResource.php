@@ -22,7 +22,6 @@ class ProductCommentResource extends JsonResource
             "comment_parent" => $this->comment_parent,
             "product_id" => $this->product_id,
             "customer" => $this->getCustomer($this->customer_id),
-            "staff" => $this->getStaff($this->staff_id),
             "comment_content" => $this->comment_content,
             "children" => $this->getChildren($this->id),
             "created_at" => $this->created_at,
@@ -37,9 +36,5 @@ class ProductCommentResource extends JsonResource
 
     public function getChildren($id){
         return ProductCommentResource::collection(ProductComment::where('comment_parent',$id)->get());
-    }
-
-    public function getStaff($id){
-        return Staff::find($id);
     }
 }

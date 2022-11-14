@@ -25,6 +25,10 @@ class Order extends Model
         return $this->belongsTo(Customer_Address::class,'address_id','id');
     }
 
+    public function get_customer($id){
+        return Customer::where('id',$id)->first();
+    }
+
     public function get_order_detail(){
         return $this->hasMany(Order_Detail::class,'order_id','id');
     }

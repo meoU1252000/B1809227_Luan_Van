@@ -27,20 +27,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table" >
-                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
+                                <div class="table">
+                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;"
+                                        id="basic-datatable">
                                         <thead class="table-light">
                                             <tr>
-                                                <th style="width: 25px;">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                    </div>
-                                                </th>
                                                 <th style="width: 60px;">Mã ĐH</th>
                                                 <th style="width: 60px;">Mã ĐC</th>
                                                 <th style="width: 60px;">Mã NV</th>
                                                 <th style="width: 60px;">Mã SK</th>
+                                                <th>SĐT</th>
                                                 <th>Ngày Đặt</th>
                                                 <th>Ngày Giao</th>
                                                 <th>Tình Trạng</th>
@@ -51,14 +47,6 @@
                                         <tbody>
                                             @foreach ($orders as $order)
                                                 <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                id="customCheck2">
-                                                            <label class="form-check-label"
-                                                                for="customCheck2">&nbsp;</label>
-                                                        </div>
-                                                    </td>
                                                     <td><a href="" class="text-body fw-bold">{{ $order->id }}</a>
                                                     <td>
                                                         <a href="" class="text-body fw-bold">{{ $order->address_id }}
@@ -68,6 +56,10 @@
                                                     </td>
                                                     <td>
                                                         <a href="" class="text-body fw-bold">{{ $order->event_id }}
+                                                    </td>
+                                                    <td>
+                                                        <a href=""
+                                                            class="text-body">{{ $order->get_customer($order->address_id)->customer_phone }}
                                                     </td>
                                                     <td>
                                                         {{ $order->created_at }}
