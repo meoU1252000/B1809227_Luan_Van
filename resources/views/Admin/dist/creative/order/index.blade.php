@@ -36,7 +36,7 @@
                                                 <th style="width: 60px;">Mã ĐC</th>
                                                 <th style="width: 60px;">Mã NV</th>
                                                 <th style="width: 60px;">Mã SK</th>
-                                                <th>SĐT</th>
+                                                <th class="d-none">SĐT</th>
                                                 <th>Ngày Đặt</th>
                                                 <th>Ngày Giao</th>
                                                 <th>Tình Trạng</th>
@@ -57,9 +57,9 @@
                                                     <td>
                                                         <a href="" class="text-body fw-bold">{{ $order->event_id }}
                                                     </td>
-                                                    <td>
+                                                    <td class="d-none">
                                                         <a href=""
-                                                            class="text-body">{{ $order->get_customer($order->address_id)->customer_phone }}
+                                                            class="text-body">{{ $order->get_address->receiver_phone->receiver_phone }}
                                                     </td>
                                                     <td>
                                                         {{ $order->created_at }}
