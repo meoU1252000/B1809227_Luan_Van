@@ -6,7 +6,7 @@ use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\OrderDetail;
 use App\Models\Order;
-
+use Carbon\Carbon;
 class OrderController extends Controller
 {
     /**
@@ -90,6 +90,9 @@ class OrderController extends Controller
         //
         $data = $request->all();
         $data['staff_id'] = Auth()->user()->id;
+        if($data['order_status'] == "Đã Giao"){
+            $data['receive_date'] = Carbon::now->format('Y-m-d H:i:s');
+        }
         $update = $this->orderRepo->update($id,$data);
         return redirect()->route('order.index');
     }
