@@ -14,10 +14,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                    <li class="breadcrumb-item active">Orders</li>
+                                    <li class="breadcrumb-item active">Attributes</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Trang Quản Lý Thương Hiệu</h4>
+                            <h4 class="page-title">Trang Quản Lý Thuộc Tính</h4>
                         </div>
                     </div>
                 </div>
@@ -43,12 +43,6 @@
                                         <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 20px;">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                            <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                        </div>
-                                                    </th>
                                                     <th style="width: 125px;">ID Danh Mục</th>
                                                     <th
                                                         style="width: 150px;word-wrap: break-word;
@@ -61,14 +55,6 @@
                                             <tbody>
                                                 @foreach ($categories as $category)
                                                     <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="customCheck2">
-                                                                <label class="form-check-label"
-                                                                    for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
                                                         <td><a href="" class="text-body fw-bold">{{ $category->id }}</a>
                                                         </td>
                                                         <td

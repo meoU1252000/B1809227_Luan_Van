@@ -2,10 +2,10 @@
 @section('content')
 <div class="content-page">
     <div class="content">
-        
+
         <!-- Start Content-->
         <div class="container-fluid">
-            
+
             <!-- start page title -->
             <div class="row">
                 @include('toastr')
@@ -29,10 +29,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row mb-2">
-                                <div class="col-lg-8">
-
-                                </div>
-                                <div class="col-lg-4">
+                                <div class="col-12">
                                     <div class="text-lg-end">
                                         <a href="{{ route('role.create') }}" class="btn btn-danger waves-effect waves-light mb-2 me-2"><i class="mdi mdi-tag me-1"></i>Thêm Vai Trò Mới</a>
                                         <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
@@ -41,15 +38,9 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;">
+                                <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                     <thead class="table-light">
                                         <tr>
-                                            <th style="width: 20px;">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                </div>
-                                            </th>
                                             <th style="width: 125px;">ID Vai Trò</th>
                                             <th style="width: 150px;">Tên Vai Trò</th>
                                             <th style="width: 125px;">Tương Tác</th>
@@ -58,12 +49,6 @@
                                     <tbody>
                                         @foreach ($roles as $role)
                                         <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                                </div>
-                                            </td>
                                             <td><a href="" class="text-body fw-bold">{{ $role->id }}</a>
                                             </td>
                                             <td style="word-wrap: break-word;

@@ -43,12 +43,6 @@
                                         <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 20px;">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                            <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                        </div>
-                                                    </th>
                                                     <th style="width: 80px;">ID NV</th>
                                                     <th>Tên</th>
                                                     <th>Email</th>
@@ -62,14 +56,6 @@
                                             <tbody>
                                                 @foreach ($staffs as $staff)
                                                     <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="customCheck2">
-                                                                <label class="form-check-label"
-                                                                    for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
                                                         <td><a href="" class="text-body fw-bold">{{ $staff->id }}</a>
                                                         </td>
                                                         <td

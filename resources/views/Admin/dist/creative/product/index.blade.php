@@ -106,12 +106,6 @@
                                         <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 20px;">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                            <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                        </div>
-                                                    </th>
                                                     <th style="width: 125px;">ID Sản Phẩm</th>
                                                     <th style="width: 150px;">Tên Sản Phẩm</th>
                                                     <th style="width: 150px;">Thương Hiệu</th>
@@ -123,14 +117,6 @@
                                             <tbody>
                                                 @foreach ($products as $product)
                                                     <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="customCheck2">
-                                                                <label class="form-check-label"
-                                                                    for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
                                                         <td><a href="" class="text-body fw-bold">{{ $product->id }}</a>
                                                         </td>
                                                         <td

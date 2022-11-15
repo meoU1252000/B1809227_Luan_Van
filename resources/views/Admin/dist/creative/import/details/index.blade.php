@@ -28,26 +28,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row mb-2">
-                                    <div class="col-lg-8">
-                                        <form class="d-flex flex-wrap align-items-center">
-                                            <label for="inputPassword2" class="visually-hidden">Search</label>
-                                            <div class="me-3">
-                                                <input type="search" class="form-control my-1 my-lg-0" id="inputPassword2"
-                                                    placeholder="Search...">
-                                            </div>
-                                            <label for="status-select" class="me-2">Status</label>
-                                            <div class="me-sm-3">
-                                                <select class="form-select form-select my-1 my-lg-0" id="status-select">
-                                                    <option selected>Choose...</option>
-                                                    <option value="0">Sắp Ra Mắt</option>
-                                                    <option value="1">Đang Bán</option>
-                                                    <option value="2">Ngưng Nhập Hàng</option>
-                                                    <option value="3">Tạm Hết Hàng</option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-12">
                                         <div class="text-lg-end">
                                             @if ($import->get_import_details->isNotEmpty())
                                                 <a href="{{ route('import.details.create', ['id' => $import->id]) }}"
@@ -64,15 +45,9 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;">
+                                    <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                         <thead class="table-light">
                                             <tr>
-                                                <th style="width: 20px;">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                    </div>
-                                                </th>
                                                 <th style="width: 125px;">ID Nhập Hàng</th>
                                                 <th style="width: 125px;">ID Sản Phẩm</th>
                                                 <th style="width: 125px;">Tên Sản Phẩm</th>
@@ -83,14 +58,6 @@
                                         <tbody>
                                             @foreach ($import->get_import_details as $import_detail)
                                                 <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                id="customCheck2">
-                                                            <label class="form-check-label"
-                                                                for="customCheck2">&nbsp;</label>
-                                                        </div>
-                                                    </td>
                                                     <td><a href=""
                                                             class="text-body fw-bold">{{ $import_detail->import_id }}</a>
                                                     </td>
