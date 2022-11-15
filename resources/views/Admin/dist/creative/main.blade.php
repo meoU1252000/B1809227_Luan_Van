@@ -586,9 +586,9 @@
                             </a>
                             <div class="collapse" id="sidebarProduct">
                                 <ul class="nav-second-level">
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ route('family.index') }}">Thông Tin Nhóm Sản Phẩm</a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ route('brand.index') }}">Thông Tin Thương Hiệu</a>
                                     </li>

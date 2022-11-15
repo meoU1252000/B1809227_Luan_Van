@@ -29,7 +29,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="table">
-                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
+                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable-comment">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th style="width: 150px;">ID Bình Luận</th>
@@ -103,4 +103,14 @@
         <!-- end Footer -->
 
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#basic-datatable-comment').DataTable({
+
+                order: [
+                    [3, 'desc']
+                ],
+            });
+        });
+    </script>
 @endsection

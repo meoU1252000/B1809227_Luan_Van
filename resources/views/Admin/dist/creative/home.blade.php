@@ -161,16 +161,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-widgets">
-                                    <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                                    {{-- <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
                                     <a data-bs-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false"
                                         aria-controls="cardCollpase5"><i class="mdi mdi-minus"></i></a>
-                                    <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
+                                    <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> --}}
+                                    <select class="form-control" id="statistical-id" data-width="100%" name="statistical">
+                                        <option value="" selected>Từ trước đến nay</option>
+                                        <option value="thisyear">Năm nay</option>
+                                        <option value="thisweek">Tuần này</option>
+                                        <option value="weekago">Tuần trước</option>
+                                        <option value="thismonth">Tháng này</option>
+                                        <option value="monthago">Tháng trước</option>
+                                    </select>
                                 </div>
                                 <h4 class="header-title mb-0">Top 10 Sản Phẩm Bán Chạy</h4>
 
                                 <div id="cardCollpase5" class="collapse pt-3 show">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-centered mb-0">
+                                    <div class="table">
+                                        <table class="table table-hover table-centered mb-0" id="product-filter">
                                             <thead>
                                                 <tr>
                                                     <th>Tên Sản Phẩm</th>
@@ -287,7 +295,9 @@
                         if (data.code == 200) {
                             if (request == 'thisweek') {
                                 myLineChart1.data = {
-                                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+                                            'Sun'
+                                        ],
                                         datasets: [{
                                             label: "Revenue",
                                             backgroundColor: "rgba(2,117,216,1)",
@@ -331,7 +341,9 @@
                                 myLineChart1.update();
                             } else if (request == 'weekago') {
                                 myLineChart1.data = {
-                                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+                                            'Sun'
+                                        ],
                                         datasets: [{
                                             label: "Doanh Thu",
                                             backgroundColor: "rgba(2,117,216,1)",
@@ -365,6 +377,47 @@
             })
 
         })
+
+        var dataTable;
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            dataTable = $('#product-filter').DataTable({
+                "ajax": {
+                    type: "POST",
+                    url: "{{ route('admin.product_filter') }}",
+                    data: {
+                        "filter_value": function() {
+                            return $('#statistical-id').val()
+                        },
+                        "_token": "{{ csrf_token() }}"
+                    },
+                },
+                "columns": [{
+                        "data": "product_name"
+                    },
+                    {
+                        "data": "product_price"
+                    },
+                    {
+                        "data": "product_quantity"
+                    },
+                    {
+                        "data": "total_price"
+                    },
+                ],
+                order: [
+                    [3, 'desc']
+                ],
+            })
+            $("#statistical-id").change(function(e) {
+                // var request = $('#statistical-id').val();
+                dataTable.ajax.reload();
+            })
+
+        })
     </script>
-    <script></script>
 @endsection

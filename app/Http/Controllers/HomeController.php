@@ -122,7 +122,7 @@ class HomeController extends Controller
                 Sum(Case DAY(a.created_at) when 30 then  b.product_price*b.product_number else 0 end) as N30"
              )->where('a.order_status','Đã Giao')->whereMonth('a.created_at',$this_month)->get();
         }
-          elseif($request['dashboard_value'] == 'monthago'){
+        elseif($request['dashboard_value'] == 'monthago'){
             $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
                 "Sum(Case DAY(a.created_at) when 1 then b.product_price*b.product_number else 0 end) as N1,
                 Sum(Case DAY(a.created_at) when 2 then  b.product_price*b.product_number else 0 end) as N2,
@@ -181,4 +181,44 @@ class HomeController extends Controller
         }
         return response()->json(['code' => 200,'data' => $data]);
     }
+
+    public function product_filter(Request $request){
+        $now = Carbon::now()->toDateString();
+        $this_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->month;
+        $previous_month = Carbon::now()->subMonth()->month;
+        $this_year= Carbon::now('Asia/Ho_Chi_Minh')->startOfYear()->year;
+        if($request['filter_value'] == 'thisweek'){
+            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+                "b.product_id"
+             )->where('a.order_status','Đã Giao')->whereBetween('a.created_at',[Carbon::now()->startOfWeek()->format('Y-m-d H:i:s'), Carbon::now()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('b.product_id');
+        }
+        elseif($request['filter_value'] == 'weekago'){
+            $get =DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+                "b.product_id"
+             )->where('a.order_status','Đã Giao')->whereBetween('a.created_at',[Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d H:i:s'),Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('b.product_id');
+        }
+        elseif($request['filter_value'] == 'thismonth'){
+            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+                "b.product_id"
+             )->where('a.order_status','Đã Giao')->whereMonth('a.created_at',$this_month)->pluck('b.product_id');
+        }
+        elseif($request['filter_value'] == 'monthago'){
+            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+                "b.product_id"
+             )->where('a.order_status','Đã Giao')->whereMonth('a.created_at', $previous_month)->pluck('b.product_id');
+        }
+        else if($request['filter_value'] == 'thisyear'){
+            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+                "b.product_id"
+             )->where('a.order_status','Đã Giao')->whereYear('a.created_at', $this_year)->pluck('b.product_id');
+            // $product_statistical =  collect(ReveunueResource::collection(Product::whereIn('id',$get->toArray())->take(10)->get())->resolve())->sortByDesc('total_price');
+            // return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+        }else{
+             $product_statistical =  collect(ReveunueResource::collection(Product::take(10)->get())->resolve())->sortByDesc('total_price');
+             return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+        }
+        $product_statistical =  collect(ReveunueResource::collection(Product::whereIn('id',$get->toArray())->take(10)->get())->resolve())->sortByDesc('total_price');
+        return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+    }
+
 }

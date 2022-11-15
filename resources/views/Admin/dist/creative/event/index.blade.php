@@ -38,8 +38,8 @@
                                     </div><!-- end col-->
                                 </div>
 
-                                <div class="rpw">
-                                    <div class="table-responsive">
+                                <div class="row">
+                                    <div class="table">
                                         <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                             <thead class="table-light">
                                                 <tr>

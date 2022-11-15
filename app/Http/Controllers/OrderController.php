@@ -24,9 +24,10 @@ class OrderController extends Controller
         //
         // $orders = $this->orderRepo->getAll();
         $orders = Order::all()->sortByDesc('id');
+        $i=1;
         return view('Admin.dist.creative.order.index',[
             'title'=>'Trang Quản Lý Đơn Hàng'
-        ],compact('orders'));
+        ],compact('orders','i'));
     }
 
     /**

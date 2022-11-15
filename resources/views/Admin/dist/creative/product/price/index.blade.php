@@ -33,14 +33,13 @@
                                             <a href="{{ route('price.create') }}"
                                                 class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
                                                     class="mdi mdi-tag me-1"></i>Thêm Thông Tin Giá Bán Mới</a>
-                                            <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->
                                 </div>
 
                                 <div class="row">
                                     <div class="table">
-                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
+                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable-price">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th style="width: 125px;">ID Nhập Hàng</th>
@@ -70,22 +69,6 @@
                                                     white-space: normal;">
                                                             {{ number_format($import_detail->get_product($import_detail->product_id)->product_price ) }} VND
                                                         </td>
-
-                                                        {{-- <td>
-                                                            <div style="display:flex">
-                                                                <a href="{{ route('price.edit', $product_price->id) }}"
-                                                                    class="action-icon">
-                                                                    <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                                <form action="{{ route('price.delete', $product_price->id) }}"
-                                                                    method="POST" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <button type="submit" class="action-icon"
-                                                                        style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
-                                                                            class="mdi mdi-delete me-1"
-                                                                            onclick="deleteData(event);"></i></button>
-                                                                </form>
-                                                            </div>
-                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             </tbody>

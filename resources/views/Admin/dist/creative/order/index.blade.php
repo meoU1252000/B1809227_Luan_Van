@@ -29,7 +29,7 @@
                             <div class="card-body">
                                 <div class="table">
                                     <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;"
-                                        id="basic-datatable">
+                                        id="basic-datatable-order">
                                         <thead class="table-light">
                                             <tr>
                                                 <th style="width: 60px;">Mã ĐH</th>
@@ -103,4 +103,14 @@
 
         </div> <!-- content -->
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#basic-datatable-order').DataTable({
+
+                order: [
+                    [3, 'desc']
+                ],
+            });
+        });
+    </script>
 @endsection
