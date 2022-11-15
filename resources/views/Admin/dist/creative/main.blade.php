@@ -182,10 +182,11 @@
                         <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="../assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                             <span class="pro-user-name ms-1">
-                                {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
+                                {{ auth()->user()->name }}
+                               {{-- <i class="mdi mdi-chevron-down"></i> --}}
                             </span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+                        {{-- <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
                             <!-- item-->
                             <div class="dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome !</h6>
@@ -220,7 +221,7 @@
 
                             </form>
 
-                        </div>
+                        </div> --}}
                     </li>
 
                     <li class="dropdown notification-list">
@@ -545,6 +546,14 @@
                             <a href="{{ route('supplier.index') }}">
                                 <i class="mdi mdi-package"></i>
                                 <span> Quản Lý Nhà Cung Cấp </span>
+                            </a>
+                        </li>
+                        @endrole
+                        @role('Super Admin|Manage Comment')
+                        <li>
+                            <a href="{{ route('comment.index') }}">
+                                <i class="mdi mdi-package"></i>
+                                <span> Quản Lý Bình Luận </span>
                             </a>
                         </li>
                         @endrole

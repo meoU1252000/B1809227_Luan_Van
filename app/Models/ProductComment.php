@@ -16,4 +16,8 @@ class ProductComment extends Model
         'customer_id',
         'comment_content'
     ];
+
+    public function get_customer(){
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
 }

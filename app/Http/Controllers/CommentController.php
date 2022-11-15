@@ -21,7 +21,7 @@ class CommentController extends Controller
     {
         //
         $comments = $this->commentRepo->getAll();
-        $comments = $comments->sortBy('id','DESC');
+        $comments = $comments->sortByDesc('id');
         return view('Admin.dist.creative.comment.index',[
             'title'=>'Trang Quản Lý Bình Luận'
         ],compact('comments'));

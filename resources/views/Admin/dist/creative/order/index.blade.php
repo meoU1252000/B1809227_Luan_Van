@@ -74,20 +74,17 @@
                                                     </td>
                                                     <td>
                                                         <div style="display:flex">
-                                                            <a href="{{ route('order.index', ['id' => $order->id]) }}"
-                                                                class="action-icon">
-                                                                <i class="mdi mdi-eye me-1"></i></a>
                                                             <a href="{{ route('order.edit', $order->id) }}"
                                                                 class="action-icon">
                                                                 <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                            <form action="{{ route('order.delete', $order->id) }}"
+                                                            {{-- <form action="{{ route('order.delete', $order->id) }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <button type="submit" class="action-icon"
                                                                     style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
                                                                         class="mdi mdi-delete me-1"
                                                                         onclick="deleteData(event);"></i></button>
-                                                            </form>
+                                                            </form> --}}
                                                         </div>
                                                     </td>
                                                 </tr>

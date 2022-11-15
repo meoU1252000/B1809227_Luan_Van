@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductFamilyController;
 use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CommentController;
 
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\RoleController;
@@ -79,6 +80,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit')->middleware('role_or_permission:Super Admin|Manage Brand|Edit Brand|Delete Brand');
             Route::post('/update/{id}', [BrandController::class, 'update'])->name('brand.update')->middleware('role_or_permission:Super Admin|Manage Brand|Edit Brand|Delete Brand');
             Route::post('/delete/{id}', [BrandController::class, 'destroy'])->name('brand.delete')->middleware('role_or_permission:Super Admin|Manage Brand|Delete Brand');
+        });
+
+        Route::prefix('comment')->group(function () {
+            Route::get('/', [CommentController::class, 'index'])->name('comment.index')->middleware('role_or_permission:Super Admin|Manage Comment');
+            Route::post('/delete/{id}', [CommentController::class, 'destroy'])->name('comment.delete')->middleware('role_or_permission:Super Admin|Manage Comment');
         });
 
         Route::prefix('product-family')->group(function () {
