@@ -110,7 +110,7 @@
                                                 <div class="address-content">
                                                     <div class="row">
                                                         <div class="d-flex">
-                                                            <h3>Thanh toán khi nhận hàng</h3>
+                                                            <h4>Thanh toán khi nhận hàng</h3>
                                                         </div>
                                                     </div>
                                                 </div>
