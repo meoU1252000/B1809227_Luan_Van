@@ -239,8 +239,10 @@ class HomeController extends Controller
             $order = Order::where('order_status','Đã Giao')->whereYear('created_at',$this_year)->pluck('id');
             $order_details = OrderDetail::whereIn('order_id',$order)->get();
         }else{
-             $product_statistical =  collect(ReveunueResource::collection(Product::take(10)->get())->resolve())->sortByDesc('total_price');
-             return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+            $order = Order::where('order_status','Đã Giao')->pluck('id');
+            $order_details = OrderDetail::whereIn('order_id',$order)->get();
+            //  $product_statistical =  collect(ReveunueResource::collection(Product::take(10)->get())->resolve())->sortByDesc('total_price');
+            //  return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
         }
         // $product_statistical =  collect(ReveunueResource::collection(Product::whereIn('id',$get->toArray())->take(10)->get())->resolve())->sortByDesc('total_price');
         // return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
