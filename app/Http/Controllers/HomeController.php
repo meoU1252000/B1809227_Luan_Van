@@ -8,6 +8,7 @@ use App\Http\Resources\ReveunueResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -188,37 +189,81 @@ class HomeController extends Controller
         $previous_month = Carbon::now()->subMonth()->month;
         $this_year= Carbon::now('Asia/Ho_Chi_Minh')->startOfYear()->year;
         if($request['filter_value'] == 'thisweek'){
-            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
-                "b.product_id"
-             )->where('a.order_status','Đã Giao')->whereBetween('a.created_at',[Carbon::now()->startOfWeek()->format('Y-m-d H:i:s'), Carbon::now()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('b.product_id');
+            // $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+            //     "b.product_id"
+            //  )->where('a.order_status','Đã Giao')->whereBetween('a.created_at',[Carbon::now()->startOfWeek()->format('Y-m-d H:i:s'), Carbon::now()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('b.product_id');
+            $order = Order::where('order_status','Đã Giao')->whereBetween('created_at',[Carbon::now()->startOfWeek()->format('Y-m-d H:i:s'), Carbon::now()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('id');
+            $order_details = OrderDetail::whereIn('order_id',$order)->get();
+            // $data = array();
+            // foreach($order_details as $order_detail){
+            //     $product = Product::find($order_detail->product_id);
+            //     $value = [
+            //         "id" => $order_detail->product_id,
+            //         "product_name" => $product->product_name,
+            //         "product_price" => $order_detail->product_price,
+            //         "product_quantity" => $order_detail->product_number,
+            //         "total_price" => $order_detail->product_price*$order_detail->product_number,
+            //     ];
+            //     array_push($data, $value);
+            // }
+            // return response()->json(['code' => 200,'data' => $data]);
         }
         elseif($request['filter_value'] == 'weekago'){
-            $get =DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
-                "b.product_id"
-             )->where('a.order_status','Đã Giao')->whereBetween('a.created_at',[Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d H:i:s'),Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('b.product_id');
+            // $get =DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+            //     "b.product_id"
+            //  )->where('a.order_status','Đã Giao')->whereBetween('a.created_at',[Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d H:i:s'),Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('b.product_id');
+            $order = Order::where('order_status','Đã Giao')->whereBetween('created_at',[Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d H:i:s'),Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d H:i:s')])->pluck('id');
+            $order_details = OrderDetail::whereIn('order_id',$order)->get();
+
         }
         elseif($request['filter_value'] == 'thismonth'){
-            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
-                "b.product_id"
-             )->where('a.order_status','Đã Giao')->whereMonth('a.created_at',$this_month)->pluck('b.product_id');
+            // $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+            //     "b.product_id"
+            //  )->where('a.order_status','Đã Giao')->whereMonth('a.created_at',$this_month)->pluck('b.product_id');
+            $order = Order::where('order_status','Đã Giao')->whereMonth('created_at',$this_month)->pluck('id');
+            $order_details = OrderDetail::whereIn('order_id',$order)->get();
         }
         elseif($request['filter_value'] == 'monthago'){
-            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
-                "b.product_id"
-             )->where('a.order_status','Đã Giao')->whereMonth('a.created_at', $previous_month)->pluck('b.product_id');
+            // $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+            //     "b.product_id"
+            //  )->where('a.order_status','Đã Giao')->whereMonth('a.created_at', $previous_month)->pluck('b.product_id');
+            $order = Order::where('order_status','Đã Giao')->whereMonth('created_at',$previous_month)->pluck('id');
+            $order_details = OrderDetail::whereIn('order_id',$order)->get();
         }
         else if($request['filter_value'] == 'thisyear'){
-            $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
-                "b.product_id"
-             )->where('a.order_status','Đã Giao')->whereYear('a.created_at', $this_year)->pluck('b.product_id');
+            // $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->select(
+            //     "b.product_id"
+            //  )->where('a.order_status','Đã Giao')->whereYear('a.created_at', $this_year)->pluck('b.product_id');
             // $product_statistical =  collect(ReveunueResource::collection(Product::whereIn('id',$get->toArray())->take(10)->get())->resolve())->sortByDesc('total_price');
             // return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+            $order = Order::where('order_status','Đã Giao')->whereYear('created_at',$this_year)->pluck('id');
+            $order_details = OrderDetail::whereIn('order_id',$order)->get();
         }else{
              $product_statistical =  collect(ReveunueResource::collection(Product::take(10)->get())->resolve())->sortByDesc('total_price');
              return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
         }
-        $product_statistical =  collect(ReveunueResource::collection(Product::whereIn('id',$get->toArray())->take(10)->get())->resolve())->sortByDesc('total_price');
-        return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+        // $product_statistical =  collect(ReveunueResource::collection(Product::whereIn('id',$get->toArray())->take(10)->get())->resolve())->sortByDesc('total_price');
+        // return response()->json(['code' => 200,'data' => array_values($product_statistical->toArray())]);
+        $data = array();
+        $array_product = array();
+        foreach($order_details as $order_detail){
+            $product = Product::find($order_detail->product_id);
+            if(in_array($product->id,$array_product)){
+                $index = array_search($product->id, array_column($data, 'id'));
+                $data[$index]['product_quantity'] +=$order_detail->product_number;
+                $data[$index]['total_price'] +=$order_detail->product_price*$order_detail->product_number;
+            }else{
+                array_push($array_product,$product->id);
+                $value = [
+                    "id" => $order_detail->product_id,
+                    "product_name" => $product->product_name,
+                    "product_price" => $order_detail->product_price,
+                    "product_quantity" => $order_detail->product_number,
+                    "total_price" => $order_detail->product_price*$order_detail->product_number,
+                ];
+                array_push($data, $value);
+            }
+        }
+        return response()->json(['code' => 200,'data' => $data]);
     }
-
 }

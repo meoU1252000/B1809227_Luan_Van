@@ -412,6 +412,8 @@
                 order: [
                     [3, 'desc']
                 ],
+                "paging":false,
+                "searching": false
             })
             $("#statistical-id").change(function(e) {
                 // var request = $('#statistical-id').val();

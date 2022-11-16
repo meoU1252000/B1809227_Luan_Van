@@ -59,7 +59,7 @@ class ProductPriceController extends Controller
         //
         $data = $request->all();
         $products_price = $this->productPriceRepo->create($data);
-        return redirect()->route('price.index'); 
+        return redirect()->route('price.index');
     }
 
     /**

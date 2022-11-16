@@ -188,6 +188,8 @@ class ProductController extends Controller
 
     public function indexPrice(){
         $import_details = $this->productRepo->getImportDetailAll();
+        $import_details = $import_details->sortDesc();
+        // dd($import_details);
         return view('Admin.dist.creative.product.price.index', [
             'title' => 'Trang Quản Lý Giá Bán'
         ], compact('import_details'));

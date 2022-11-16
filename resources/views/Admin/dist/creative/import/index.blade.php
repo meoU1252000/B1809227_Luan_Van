@@ -47,7 +47,7 @@
 
                                 <div class="row">
                                     <div class="table">
-                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
+                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable-import">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th style="width: 125px;">ID Nhập Hàng</th>
@@ -136,4 +136,15 @@
         <!-- end Footer -->
 
     </div>
+    <script>
+
+        $(document).ready(function() {
+            $('#basic-datatable-import').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+            });
+        });
+
+    </script>
 @endsection
