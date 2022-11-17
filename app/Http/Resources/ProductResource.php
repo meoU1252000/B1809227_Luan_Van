@@ -66,6 +66,7 @@ class ProductResource extends JsonResource
             "star_3" => $product_rating_3,
             "star_2" => $product_rating_2,
             "star_1" => $product_rating_1,
+            "total" => $product_rating_5 + $product_rating_4 + $product_rating_3 + $product_rating_2 + $product_rating_1,
         ];
         return $data;
     }
