@@ -14,7 +14,9 @@ class ImportDetail extends Model
         'import_id',
         'product_id',
         'import_price',
-        'import_product_quantity'
+        'import_product_quantity',
+        'import_price_sell',
+        'import_product_stock',
     ];
 
     public function get_import(){

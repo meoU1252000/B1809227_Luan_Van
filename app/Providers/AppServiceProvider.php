@@ -84,6 +84,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Event\EventRepositoryInterface::class,
             \App\Repositories\Event\EventRepository::class
         );
+        $this->app->singleton(
+            \App\Repositories\Event_Details\EventDetailsRepositoryInterface::class,
+            \App\Repositories\Event_Details\EventDetailsRepository::class
+        );
 
         $this->app->singleton(
             \App\Repositories\Staff\StaffRepositoryInterface::class,

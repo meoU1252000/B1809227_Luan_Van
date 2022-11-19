@@ -7,6 +7,7 @@ use App\Repositories\Staff\StaffRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class StaffController extends Controller
 {
@@ -122,5 +123,28 @@ class StaffController extends Controller
         //
         $staff = $this->staffRepo->delete($id);
         return redirect()->route('staff.index');
+    }
+
+    public function account(){
+        $staff = auth()->user();
+        return view('Admin.dist.creative.account.index', [
+            'title' => 'Trang Quản Lý Nhân Viên'
+        ], compact('staff'));
+    }
+
+    public function updateAccount(Request $request){
+        $data = $request->all();
+        $staff = auth()->user();
+        if($request->has('password')){
+            if(Hash::check($data['old_password'], $staff->password)){
+                $data['password'] = Hash::make($request->password);
+            }else{
+                Session::flash('error','Mật khấu không chính xác');
+                return redirect()->back();
+            }
+        }
+        $staff = $this->staffRepo->update($staff->id, $data);
+        return redirect()->route('admin.account');
+
     }
 }

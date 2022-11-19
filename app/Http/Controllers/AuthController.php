@@ -36,9 +36,9 @@ class AuthController extends Controller
         ],  $request->input('remember'))) {
             return redirect()->route('admin.index');
         };
-        // Session::flash('error',  'Email hoặc Password không chính xác');
-        // return redirect()->back(); 
-        return response()->json(['code' => 200, 'data' => "Email hoặc Mật Khẩu không chính xác"]);
+        Session::flash('error',  'Email hoặc Password không chính xác');
+        return redirect()->back();
+        // return response()->json(['code' => 200, 'data' => "Email hoặc Mật Khẩu không chính xác"]);
     }
 
     public function register(Request $request)

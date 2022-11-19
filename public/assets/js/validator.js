@@ -38,7 +38,7 @@ function Validator(options) {
         default:
           errorMessage = rules[i](inputElement.value);
       }
-      
+
       if (errorMessage) break;
     }
 
@@ -77,7 +77,7 @@ function Validator(options) {
         if (typeof options.onsubmit === 'function') {
           var enableInputs = formElement.querySelectorAll('[name]');
           var formValues = Array.from(enableInputs).reduce(function (values,input) {
-            
+
            switch(input.type){
              case 'radio':
                values[input.name] = formElement.querySelector('input[name="' + input.name + '"]:checked').value;
@@ -86,19 +86,19 @@ function Validator(options) {
                if(!input.matches(':checked')){
                  values[input.name] = [];
                  return values;
-               } 
+               }
                if(!Array.isArray(values[input.name])){
                  values[input.name] = [];
                }
                values[input.name].push(input.value);
                break;
-               case 'file': 
+               case 'file':
                     values[input.name] = input.files;
                 break;
               default:
                 values[input.name] = input.value;
            }
-           
+
             return values;
           },{});
            options.onsubmit(formValues);
@@ -144,7 +144,7 @@ function Validator(options) {
     });
     //console.log(selectorRules);
   }
-  
+
 }
 
 //Định nghĩa Rules
@@ -184,7 +184,7 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
   return {
     selector: selector,
     test: function (value) {
-      return value === getConfirmValue() ? undefined: message || 'Giá trị nhập vào không chính xác';
+      return value === getConfirmValue() ? undefined: message || 'Mật khẩu không trùng khớp';
     },
   };
 };

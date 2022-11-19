@@ -29,7 +29,7 @@ class ImportDetailsRepository extends BaseRepository implements ImportDetailsRep
         if($import_details->isNotEmpty()){
             foreach($import_details as $import_detail){
                 array_push($array_product_id,$import_detail->get_product($import_detail->product_id)->id);
-            } 
+            }
             return Product::whereNotIn('id', $array_product_id)->get();
         }else{
             return Product::all();
@@ -45,10 +45,10 @@ class ImportDetailsRepository extends BaseRepository implements ImportDetailsRep
             $arr['import_price'] =  $attributes['import_price'][$i];
             $arr['import_product_quantity'] = $attributes['import_product_quantity'][$i];
             $product = Product::find($arr['product_id']);
-            $product_quantity_new = ($product->product_quantity_stock) + (int)$arr['import_product_quantity'];
-            $update_product_quantity = Product::where('id', $arr['product_id'])->update([
-                'product_quantity_stock' => $product_quantity_new
-            ]);
+            // $product_quantity_new = ($product->product_quantity_stock) + (int)$arr['import_product_quantity'];
+            // $update_product_quantity = Product::where('id', $arr['product_id'])->update([
+            //     'product_quantity_stock' => $product_quantity_new
+            // ]);
             $import_detail = $this->model->create($arr);
         }
         return true;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\ImportDetails\ImportDetailsRepositoryInterface;
 use App\Models\AttributeParams;
 use App\Models\ImportDetail;
 
@@ -17,9 +18,10 @@ class ProductController extends Controller
 
     protected $productRepo;
 
-    public function __construct(ProductRepositoryInterface $productRepo)
+    public function __construct(ProductRepositoryInterface $productRepo,ImportDetailsRepositoryInterface $importDetailRepo)
     {
         $this->productRepo = $productRepo;
+        $this->importDetailRepo = $importDetailRepo;
     }
 
     public function index()
@@ -205,6 +207,9 @@ class ProductController extends Controller
     public function storePrice(Request $request){
         $data = $request->all();
         $product = $this->productRepo->update($request->product_id,$data);
+        $data['import_price_sell'] = $data['product_price'];
+        $import_details = ImportDetail::where('import_id', $request->import_id)->where('product_id', $product->id)->first();
+        $updateImportDetails = $import_details->update($data);
         return redirect()->route('price.index');
     }
 

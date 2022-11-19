@@ -140,7 +140,6 @@
                                         <option value="monthago">Tháng trước</option>
                                     </select>
                                 </div>
-
                                 <h4 class="header-title mb-0" id="revenue-title">Doanh Thu Năm Hiện Tại</h4>
 
                                 <div id="cardCollpase3" class="collapse pt-3 show">
@@ -174,6 +173,23 @@
                                         <option value="monthago">Tháng trước</option>
                                     </select>
                                 </div>
+                                {{-- <div class="card-widgets" style="margin-right: 10px">
+                                    <form method="POST" enctype="multipart/form-data" id="submitDashboard">
+                                        <div class="input-group input-daterange">
+                                            <input type="text" class="form-control" value="2012-04-05"
+                                                style="margin-right:10px" readonly='true' name="date_start"
+                                                id="start-date" placeholder="Từ ngày">
+                                            <input type="text" class="form-control" value="2012-04-19"
+                                                readonly='true' name="date_end" placeholder="Đến ngày" id="end-date"
+                                                style="margin-right:10px">
+                                            <button class="btn input-group-text" type="submit"
+                                                style="background-color: black; color:white">
+                                                Tìm kiếm
+                                                <i class="fe-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div> --}}
                                 <h4 class="header-title mb-0">Top 10 Sản Phẩm Bán Chạy</h4>
 
                                 <div id="cardCollpase5" class="collapse pt-3 show">
@@ -182,7 +198,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Tên Sản Phẩm</th>
-                                                    <th>Giá</th>
                                                     <th>Số Lượng</th>
                                                     <th>Tổng Doanh Thu</th>
                                                 </tr>
@@ -191,7 +206,6 @@
                                                 @foreach ($product_statistical as $product)
                                                     <tr>
                                                         <td>{{ $product['product_name'] }}</td>
-                                                        <td>{{ number_format($product['product_price']) }}</td>
                                                         <td>{{ $product['product_quantity'] }}</td>
                                                         <td>{{ number_format($product['total_price']) }}</td>
                                                     </tr>
@@ -207,6 +221,70 @@
                 </div>
                 <!-- end row -->
 
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-widgets">
+                                    {{-- <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                                    <a data-bs-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false"
+                                        aria-controls="cardCollpase5"><i class="mdi mdi-minus"></i></a>
+                                    <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> --}}
+
+                                    <form class="app-search" method="POST" enctype="multipart/form-data"
+                                        id="submitForm">
+                                        <div class="app-search-box dropdown d-flex">
+                                            <div class="input-group input-daterange">
+                                                <input type="text" class="form-control" style="margin-right:10px"
+                                                    readonly='true' name="date_start" id="start-date"
+                                                    placeholder="Từ ngày">
+                                                <input type="text" class="form-control" readonly='true'
+                                                    name="date_end" placeholder="Đến ngày" id="end-date"
+                                                    style="margin-right:10px">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="search" class="form-control" placeholder="Search..."
+                                                    id="top-search" name="search_product">
+                                                <button class="btn input-group-text" type="submit"
+                                                    style="background-color: black; color:white">
+                                                    <i class="fe-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <h4 class="header-title mb-0">Kiểm tra doanh thu sản phẩm</h4>
+
+                                <div id="cardCollpase5" class="collapse pt-3 show">
+                                    <div class="table">
+                                        <table class="table table-hover table-centered mb-0" id="one-product-filter">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên Sản Phẩm</th>
+                                                    <th>Mã Phiếu Nhập</th>
+                                                    <th>Số Lượng Nhập</th>
+                                                    <th>Đơn Giá Nhập</th>
+                                                    <th>Tổng Vốn</th>
+                                                    <th>SP Đã Bán</th>
+                                                    <th>Đơn Giá Bán</th>
+                                                    <th>Tổng Doanh Thu</th>
+                                                    <th>Tổng Kết</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end table responsive-->
+                                </div> <!-- collapsed end -->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card-->
+                    </div> <!-- end col -->
+                </div>
+
             </div> <!-- container -->
 
         </div> <!-- content -->
@@ -221,6 +299,23 @@
 @endsection
 @section('footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/libs/spectrum-colorpicker2/spectrum.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/clockpicker/bootstrap-clockpicker.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-pickers.init.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/vendor.min.js')}}"></script> --}}
+    {{-- <script src="{{ asset('assets/js/app.min.js')}}"></script> --}}
+    <script type="text/javascript">
+        $(function() {
+            $("#start-date").datepicker({
+                dateFormat: "yy-mm-dd"
+            }).val()
+            $("#end-date").datepicker({
+                dateFormat: "yy-mm-dd"
+            }).val()
+        });
+    </script>
     <script>
         Chart.defaults.global.defaultFontFamily =
             '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -231,9 +326,9 @@
         var myLineChart1 = new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [{
-                    label: "Doanh Thu",
+                    label: "Doanh Thu Năm Hiện Tại",
                     backgroundColor: "rgba(2,117,216,1)",
                     borderColor: "rgba(2,117,216,1)",
                     data: [<?php echo join(',', $data); ?>],
@@ -250,6 +345,10 @@
                         },
                         ticks: {
                             maxTicksLimit: 12
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Tháng'
                         }
                     }],
                     yAxes: [{
@@ -267,6 +366,10 @@
                         },
                         gridLines: {
                             display: true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Doanh Thu'
                         }
                     }],
                 },
@@ -305,7 +408,10 @@
                                             data: data.data.map(Number),
                                         }],
                                     },
-                                    myLineChart1.update();
+                                    myLineChart1.options.scales.xAxes[0]['scaleLabel']
+                                    .labelString = "Ngày trong tuần";
+                                // myLineChart1.options.scales.xAxes.scaleLabel.labelString = 'Ngày trong tuần'
+                                myLineChart1.update();
                                 titleChart.innerHTML = "Doanh Thu Tuần Này"
                             } else if (request == 'thismonth') {
                                 myLineChart1.data = {
@@ -321,7 +427,9 @@
                                             data: data.data.map(Number),
                                         }],
                                     },
-                                    titleChart.innerHTML = "Doanh Thu Tháng Này"
+                                    myLineChart1.options.scales.xAxes[0]['scaleLabel']
+                                    .labelString = "Ngày trong tháng";
+                                titleChart.innerHTML = "Doanh Thu Tháng Này"
                                 myLineChart1.update();
                             } else if (request == 'monthago') {
                                 myLineChart1.data = {
@@ -337,7 +445,9 @@
                                             data: data.data.map(Number),
                                         }],
                                     },
-                                    titleChart.innerHTML = "Doanh Thu Tháng Trước"
+                                    myLineChart1.options.scales.xAxes[0]['scaleLabel']
+                                    .labelString = "Ngày trong tháng";
+                                titleChart.innerHTML = "Doanh Thu Tháng Trước"
                                 myLineChart1.update();
                             } else if (request == 'weekago') {
                                 myLineChart1.data = {
@@ -351,11 +461,15 @@
                                             data: data.data.map(Number),
                                         }],
                                     },
-                                    titleChart.innerHTML = "Doanh Thu Tuần Trước"
+                                    myLineChart1.options.scales.xAxes[0]['scaleLabel']
+                                    .labelString = "Ngày trong tuần";
+                                titleChart.innerHTML = "Doanh Thu Tuần Trước"
                                 myLineChart1.update();
                             } else if (request == 'thisyear') {
                                 myLineChart1.data = {
-                                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                                        ],
                                         datasets: [{
                                             label: "Doanh Thu",
                                             backgroundColor: "rgba(2,117,216,1)",
@@ -363,7 +477,9 @@
                                             data: data.data,
                                         }],
                                     },
-                                    titleChart.innerHTML = "Doanh Thu Năm Hiện Tại"
+                                    myLineChart1.options.scales.xAxes[0]['scaleLabel']
+                                    .labelString = "Tháng";
+                                titleChart.innerHTML = "Doanh Thu Năm Hiện Tại"
                                 myLineChart1.update();
                             }
 
@@ -375,7 +491,6 @@
                 })
 
             })
-
         })
 
         var dataTable;
@@ -400,26 +515,88 @@
                         "data": "product_name"
                     },
                     {
-                        "data": "product_price"
-                    },
-                    {
                         "data": "product_quantity"
                     },
                     {
-                        "data": "total_price"
+                        "data": "total_price",
+                        render: $.fn.dataTable.render.number(',')
                     },
                 ],
                 order: [
-                    [3, 'desc']
+                    [2, 'desc']
                 ],
-                "paging":false,
+                "paging": false,
                 "searching": false
             })
             $("#statistical-id").change(function(e) {
                 // var request = $('#statistical-id').val();
                 dataTable.ajax.reload();
             })
+        });
 
-        })
+        var dataTable1
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            dataTable1 = $('#one-product-filter').DataTable({
+                "ajax": {
+                    type: "POST",
+                    url: "{{ route('admin.product_statistical') }}",
+                    data: {
+                        filter: function() {
+                            return $('#submitForm').serialize();
+                        },
+                    },
+                },
+                "columns": [{
+                        "data": "product_name"
+                    },
+                    {
+                        "data": "import_id"
+                    },
+                    {
+                        "data": "import_product_quantity",
+                        render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "import_price",
+                        render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "cost_price",
+                        render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "product_sold"
+                    },
+                    {
+                        "data": "sell_price",
+                        render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "product_turnover",
+                        render: $.fn.dataTable.render.number(',')
+                    },
+                    {
+                        "data": "total_price",
+                        render: $.fn.dataTable.render.number(',')
+                    },
+                ],
+                "paging": true,
+                "searching": false,
+                order: [
+                    [7, 'desc']
+                ],
+            })
+            $("#submitForm").submit(function(e) {
+                e.preventDefault();
+                dataTable1.ajax.reload();
+
+            });
+
+        });
     </script>
 @endsection

@@ -15,6 +15,7 @@ use App\Models\Customer;
 use App\Models\Customer_Address;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\ImportDetail;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
@@ -27,6 +28,7 @@ use App\Repositories\OrderDetails\OrderDetailsRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Rating\RatingRepositoryInterface;
 use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\ImportDetails\ImportDetailsRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +42,7 @@ class ClientPageController extends AbstractApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo, RatingRepositoryInterface $ratingRepo,CommentRepositoryInterface $commentRepo)
+    public function __construct(ImportDetailsRepositoryInterface $importDetailRepo, CustomerRepositoryInterface $cusRepo, AddressRepositoryInterface $addressRepo, OrderDetailsRepositoryInterface $orderDetailsRepo,OrderRepositoryInterface $orderRepo, ProductRepositoryInterface $productRepo, RatingRepositoryInterface $ratingRepo,CommentRepositoryInterface $commentRepo)
     {
         $this->cusRepo = $cusRepo;
         $this->addressRepo = $addressRepo;
@@ -49,6 +51,7 @@ class ClientPageController extends AbstractApiController
         $this->productRepo = $productRepo;
         $this->ratingRepo = $ratingRepo;
         $this->commentRepo = $commentRepo;
+        $this->importDetailRepo = $importDetailRepo;
     }
     public function getListProducts()
     {
@@ -248,7 +251,7 @@ class ClientPageController extends AbstractApiController
             $data['order_status'] = 'Chưa Xử Lý';
             $orderStore = $this->orderRepo->create($data);
             $value = array();
-            $updateProduct = array();
+            $updateProductSold = array();
             foreach($data['cart_list'] as $cart){
                 $value['order_id'] = $orderStore->id;
                 $value['product_id'] = $cart['productId'];
@@ -256,9 +259,10 @@ class ClientPageController extends AbstractApiController
                 $value['product_price'] = $product->product_price;
                 $value['product_number'] = $cart['quantity'];
                 $orderDetailStore = $this->orderDetailsRepo->create($value);
-                $updateProduct['product_quantity_stock'] = $product->product_quantity_stock - $value['product_number'];
-                $updateProduct['product_sold'] = $product->product_sold + $value['product_number'];
-                $updateProductNumber = $this->productRepo->update($product->id,$updateProduct);
+                $import_detail = ImportDetail::where('product_id', $product->id)->where('import_product_stock','>',0)->oldest()->first();
+                // $updateProduct['product_quantity_stock'] = $product->product_quantity_stock - $value['product_number'];
+                $updateProductSold['import_product_stock'] = $import_detail->import_product_stock - $value['product_number'];
+                $updateProductNumber =  $import_detail->update($updateProductSold);
             }
             $this->setStatusCode(JsonResponse::HTTP_CREATED);
             $this->setStatus('success');
@@ -286,14 +290,16 @@ class ClientPageController extends AbstractApiController
         // $order = Order::find($data['id']);
         $order_details = OrderDetail::where('order_id',$data['id'])->get();
         $data['order_status'] = "Đã Hủy";
-        $updateProduct = array();
+        $updateProductSold = array();
         foreach($order_details as $order){
             $product_in_order = $order['product_number'];
             $product = Product::find($order['product_id']);
-            $product_quantity_stock = $product->product_quantity_stock;
-            $updateProduct['product_quantity_stock'] = $product_quantity_stock + $product_in_order;
-            $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
-            $update_product = $this->productRepo->update($product->id,$updateProduct);
+            // $product_quantity_stock = $product->product_quantity_stock;
+            // $updateProduct['product_quantity_stock'] = $product_quantity_stock + $product_in_order;
+            $import_detail = ImportDetail::where('product_id', $product->id)->where('import_product_stock','>',0)->oldest()->first();
+            $updateProductSold['import_product_stock'] = $import_detail['import_product_stock'] + $product_in_order;
+            // dd($updateProductSold);
+            $update_product = $import_detail->update($updateProductSold);
         }
         $updateOrderStatus = $this->orderRepo->update($data['id'],$data);
         $this->setStatusCode(JsonResponse::HTTP_CREATED);

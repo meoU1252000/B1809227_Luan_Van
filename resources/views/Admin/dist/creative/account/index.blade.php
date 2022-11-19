@@ -1,18 +1,12 @@
 @extends('Admin.dist.creative.main')
 @section('header')
-    <!-- Plugins css-->
-    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/libs/dropzone/min/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/libs/quill/quill.snow.css') }} " rel="stylesheet" type="text/css" />
-    <script src="{{ asset ('ckeditor/ckeditor.js')}}"></script>
     <style>
-        .form-group__message{
-          display: block;
-          margin-top: 12px;
-          font-size: 16px;
-          color: red;
-          word-break: break-word;
+        .form-group__message {
+            display: block;
+            margin-top: 12px;
+            font-size: 16px;
+            color: red;
+            word-break: break-word;
         }
     </style>
 @endsection
@@ -42,83 +36,75 @@
 
 
                 <div class="row">
-                    <form action="{{route('staff.update',['id' => $staff->id])}}" method="POST" enctype="multipart/form-data" id = "validator" >
+                    <form action="{{ route('admin.account.update') }}" method="POST" enctype="multipart/form-data"
+                        id="validator">
                         @csrf
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thông Tin Nhân Viên</h5>
+                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thông Tin Cá Nhân</h5>
 
+                                    @if (Session::has('error'))
+                                        <div class="alert alert-danger mb-3">
+                                            {{ Session::get('error') }}
+                                        </div>
+                                    @endif
                                     <div class="mb-3">
-                                        <label for="staff-name" class="form-label">Tên Nhân Viên<span
+                                        <label for="staff-name" class="form-label">Họ Tên<span
                                                 class="text-danger">*</span></label>
                                         <input type="text" id="staff-name" name="name" class="form-control"
-                                            placeholder="e.g : Apple iMac" value="{{$staff->name}}">
+                                            placeholder="e.g : Apple iMac" value="{{ $staff->name }}">
                                         <span class="form-group__message"></span>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="staff-address" class="form-label">Địa chỉ Nhân Viên<span
+                                        <label for="staff-address" class="form-label">Địa chỉ <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" id="staff-address" name="address" class="form-control"
-                                            placeholder="e.g : Apple iMac" value="{{$staff->address}}">
+                                            placeholder="e.g : Apple iMac" value="{{ $staff->address }}">
                                         <span class="form-group__message"></span>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="staff-position" class="form-label">Chức vụ Nhân Viên<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" id="staff-position" name="position" class="form-control"
-                                            placeholder="e.g : Apple iMac" value="{{$staff->position}}">
-                                        <span class="form-group__message"></span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="staff-email" class="form-label">Email Nhân Viên<span
+                                        <label for="staff-email" class="form-label">Email<span
                                                 class="text-danger">*</span></label>
                                         <input type="text" id="staff-email" name="email" class="form-control"
-                                            placeholder="e.g : Apple iMac" value="{{$staff->email}}">
+                                            placeholder="e.g : Apple iMac" value="{{ $staff->email }}">
                                         <span class="form-group__message"></span>
                                     </div>
 
-                                    {{-- <div class="mb-3">
-                                        <label for="staff-password" class="form-label">Password Nhân Viên<span
-                                                class="text-danger">*</span></label>
-                                        <input type="password" id="staff-password" name="password" class="form-control"
-                                            placeholder="e.g : Apple iMac">
-                                        <span class="form-group__message"></span>
-                                    </div> --}}
-
-
                                     <div class="mb-3">
-                                        <label for="staff-phone" class="form-label">Số Điện Thoại Nhân Viên<span
+                                        <label for="staff-phone" class="form-label">Số Điện Thoại<span
                                                 class="text-danger">*</span></label>
                                         <input type="text" id="staff-phone" name="phone" class="form-control"
-                                            placeholder="e.g : Apple iMac" value="{{$staff->phone}}">
+                                            placeholder="e.g : Apple iMac" value="{{ $staff->phone }}">
                                         <span class="form-group__message"></span>
                                     </div>
 
-
-
+                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thay Đổi Mật Khẩu</h5>
                                     <div class="mb-3">
-                                        <label class="mb-2">Tình Trạng <span class="text-danger">*</span></label>
-                                        <br />
-                                        <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio3" value="{{ $staff->status }}"
-                                                name="status" checked="">
-                                            <label for="inlineRadio3">{{ $statusStaff }}</label>
-                                        </div>
-                                        @foreach ($anotherStatus as $key => $value)
-                                            <div class="radio form-check-inline">
-                                                <input type="radio" id="inlineRadio1" value="{{ $key }}"
-                                                    name="status">
-                                                <label for="inlineRadio1">{{ $value }}</label>
-                                            </div>
-                                        @endforeach
+                                        <label for="staff-password" class="form-label" onchange="checkPassword()">Mật Khẩu Hiện Tại</label>
+                                        <input type="password" id="old-password" name="old_password" class="form-control"
+                                            placeholder="e.g : Apple iMac">
+                                        <span class="form-group__message"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="staff-password" class="form-label">Mật Khẩu
+                                            Mới</label>
+                                        <input type="password" id="new-password" name="password" class="form-control"
+                                            placeholder="e.g : Apple iMac" onchange="checkPassword()">
+                                        <span class="form-group__message"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="staff-password" class="form-label" onchange="checkPassword()">Xác Nhận Mật Khẩu</label>
+                                        <input type="password" id="confirm-password" name="confirm_password"
+                                            class="form-control" placeholder="e.g : Apple iMac">
                                         <span class="form-group__message"></span>
                                     </div>
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
-                                    <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Save</button>
+                                    <button type="submit"
+                                        class="btn w-sm btn-success waves-effect waves-light">Save</button>
+
                                 </div>
                             </div> <!-- end card -->
                         </div> <!-- end col -->
@@ -132,7 +118,8 @@
                         <div class="p-2">
                             <div class="row align-items-center">
                                 <div class="col-auto">
-                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt="">
+                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light"
+                                        alt="">
                                 </div>
                                 <div class="col ps-0">
                                     <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
@@ -158,25 +145,8 @@
     </div>
 @endsection
 @section('footer')
-    <!-- App js -->
-    <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
-
-    <!-- Select2 js-->
-    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
-    <!-- Dropzone file uploads-->
-    <script src="{{ asset('assets/libs/dropzone/min/dropzone.min.js') }}"></script>
-
-    <!-- Quill js -->
-    <script src="{{ asset('assets/libs/quill/quill.min.js') }}"></script>
-
-    <!-- Init js-->
-    <script src="{{ asset('assets/js/pages/form-fileuploads.init.js') }}"></script>
-
-    <!-- Init js -->
-    <script src="{{ asset('assets/js/pages/add-product.init.js') }}"></script>
-
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="{{ asset('assets/js/validator.js')}}"></script>
+    <script src="{{ asset('assets/js/validator.js') }}"></script>
 
     <script>
         Validator({
@@ -185,11 +155,26 @@
             errorSelector: '.form-group__message',
             rules: [
                 Validator.isEmail('#staff-email'),
-               Validator.isRequired('#staff-name'),
-               Validator.isRequired('#staff-address'),
-               Validator.isRequired('#staff-position'),
-               Validator.isRequired('#staff-phone'),
+                Validator.isRequired('#staff-name'),
+                Validator.isRequired('#staff-address'),
+                Validator.isRequired('#staff-phone'),
             ]
         });
+
+        function checkPassword() {
+            console.log('here');
+            return Validator({
+                form: '#validator',
+                formGroupSelector: '.mb-3',
+                errorSelector: '.form-group__message',
+                rules: [
+                    Validator.isPassword('#old-password'),
+                    Validator.isPassword('#new-password'),
+                    Validator.isConfirmed('#confirm-password', function() {
+                        return document.querySelector('#validator #new-password').value;
+                    }),
+                ]
+            });
+        }
     </script>
 @endsection

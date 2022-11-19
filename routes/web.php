@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventDetailsController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ImportDetailController;
 use App\Http\Controllers\ProductFamilyController;
@@ -45,8 +46,11 @@ Route::post('/admin/login/store', [AuthController::class, 'login'])->name('login
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [HomeController::class, 'adminPage'])->name('admin.index');
+        Route::get('/account', [StaffController::class, 'account'])->name('admin.account');
+        Route::post('/account/store', [StaffController::class, 'updateAccount'])->name('admin.account.update');
         Route::post('/filter', [HomeController::class, 'dashboard_filter'])->name('admin.dashboard_filter');
         Route::post('/product-filter', [HomeController::class, 'product_filter'])->name('admin.product_filter');
+        Route::post('/product-statistical',[HomeController::class, 'product_statistical'])->name('admin.product_statistical');
         Route::prefix('product')->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('product.index')->middleware('role_or_permission:Super Admin|Add Product|Edit Product|Delete Product');
             Route::get('/add', [ProductController::class, 'create'])->name('product.create')->middleware('role_or_permission:Super Admin|Add Product');
@@ -142,6 +146,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [EventController::class, 'edit'])->name('event.edit')->middleware('role_or_permission:Super Admin|Manage Event|Edit Event|Delete Event');
             Route::post('/update/{id}', [EventController::class, 'update'])->name('event.update')->middleware('role_or_permission:Super Admin|Manage Event|Edit Event|Delete Event');
             Route::post('/delete/{id}', [EventController::class, 'destroy'])->name('event.delete')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+            Route::prefix('{id}/details')->group(function () {
+                Route::get('/', [EventDetailsController::class, 'index'])->name('event.details.index')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+                Route::get('/add', [EventDetailsController::class, 'create'])->name('event.details.create')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+                Route::post('/store', [EventDetailsController::class, 'store'])->name('event.details.store')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+                Route::get('/edit/{event}', [EventDetailsController::class, 'edit'])->name('event.details.edit')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+                Route::post('/update/{event}', [EventDetailsController::class, 'update'])->name('event.details.update')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+                Route::post('/delete/{event}', [EventDetailsController::class, 'destroy'])->name('event.details.delete')->middleware('role_or_permission:Super Admin|Manage Event|Delete Event');
+            });
         });
 
         Route::prefix('import')->group(function () {

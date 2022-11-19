@@ -34,10 +34,10 @@ class ProductResource extends JsonResource
             "kind" => $this->getKind($this->category_id),
             "category" => $this->getCategory($this->category_id),
             "product_name" => $this->product_name,
-            "product_quantity_stock" => $this->product_quantity_stock,
+            "product_quantity_stock" => $this->getProductQuantityStock($this->id),
             "product_sold" => $this->product_sold,
             "main_image_src" => url($this->main_image_src),
-            "product_price" => $this->product_price,
+            "product_price" => $this->getProductPrice($this->id),
             "product_description" => $this->product_description,
             "product_status" => $this->product_status,
             "images" => $this->getImages($this->id),
@@ -52,6 +52,22 @@ class ProductResource extends JsonResource
     {
         $brand = Brand::find($id);
         return $brand;
+    }
+
+    public function getProductPrice($id){
+        $import_detail = ImportDetail::where('product_id', $id)->where('import_product_stock','>',0)->oldest()->first();
+        if($import_detail){
+            return $import_detail->import_price_sell;
+        }
+        return 0;
+    }
+
+    public function getProductQuantityStock($id){
+        $import_detail = ImportDetail::where('product_id', $id)->where('import_product_stock','>',0)->oldest()->first();
+        if($import_detail){
+            return $import_detail->import_product_stock;
+        }
+        return 0;
     }
 
     public function getProductStar($id){

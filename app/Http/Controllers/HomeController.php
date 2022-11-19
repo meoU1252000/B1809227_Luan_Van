@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\ProductPrice;
 use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
@@ -56,9 +57,11 @@ class HomeController extends Controller
             $total_price_day += $day->total_price;
         }
 
+        $products = Product::all();
+
         return view('Admin.dist.creative.home',[
             'title'=>'Trang Chủ'
-        ],compact('user','product_statistical','sum','data','row','total_price_day','total_product','order_waiting','total_staff'));
+        ],compact('user','products','product_statistical','sum','data','row','total_price_day','total_product','order_waiting','total_staff'));
     }
 
     public function dashboard_filter(Request $request){
@@ -267,5 +270,98 @@ class HomeController extends Controller
             }
         }
         return response()->json(['code' => 200,'data' => $data]);
+    }
+
+    public function product_statistical(Request $request){
+
+        //format date start
+
+        $date_start = strtok($request->filter,"&");
+        $date_start =(substr($date_start, strpos($date_start, "=") + 1));
+        if($date_start != ''){
+            $date_start = str_replace('%2', '/', $date_start);
+            $date_start = str_replace('F', '', $date_start);
+            $date_start = date('Y-m-d', strtotime($date_start));
+        }
+
+        //format date end
+        $date_end = (substr($request->filter, strpos($request->filter, "&") + 1));
+        $date_end = strtok($date_end,"&");
+        $date_end =(substr($date_end, strpos($date_end, "=") + 1));
+        if($date_end != ''){
+            $date_end = str_replace('%2', '/', $date_end);
+            $date_end = str_replace('F', '', $date_end);
+            $date_end = date('Y-m-d', strtotime($date_end));
+        }
+
+
+        //get product search
+        $search_product = substr(strrchr($request->filter, "&"), 1);
+        $search_product = (substr($search_product, strpos($search_product, "=") + 1));
+        $search_product = str_replace('%20', ' ', $search_product);
+
+        if($search_product != ''){
+            $products = Product::where('product_name','LIKE', '%'. $search_product . '%')->orWhere('id','LIKE', '%'. $search_product . '%')->get();
+            $data = array();
+
+            foreach($products as $product){
+                // $product_turnover =DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw("Sum(b.product_price*b.product_number) as product_turnover")->where('product_id', $product->id)->get();
+                // $product_turnover = json_decode(json_encode($product_turnover[0]),true);
+                if($date_start != '' && $date_start !=''){
+                    $cost_prices = DB::table('import_details')->selectRaw('import_id,import_product_quantity,import_price,import_product_stock,import_price_sell,Sum(import_product_quantity*import_price) as cost_price')->groupBy('import_id','import_product_quantity','import_price','import_product_stock','import_price_sell')->where('product_id', $product->id)->whereBetween('created_at', [$date_start, $date_end])->get();
+                }else{
+                    $cost_prices = DB::table('import_details')->selectRaw('import_id,import_product_quantity,import_price,import_product_stock,import_price_sell,Sum(import_product_quantity*import_price) as cost_price')->groupBy('import_id','import_product_quantity','import_price','import_product_stock','import_price_sell')->where('product_id', $product->id)->get();
+                }
+
+                $cost_prices = json_decode(json_encode($cost_prices),true);
+                if(isset($cost_prices[0])){
+                    foreach($cost_prices as $cost_price){
+                        $value = [
+                            "id" => $product->id,
+                            "import_id" => $cost_price['import_id'],
+                            "import_product_quantity" => $cost_price['import_product_quantity'],
+                            "import_price" => $cost_price['import_price'],
+                            "product_name" => $product->product_name,
+                            "cost_price" => $cost_price['cost_price'],
+                            "sell_price" => $cost_price['import_price_sell'],
+                            'product_sold' =>($cost_price['import_product_quantity'] - $cost_price['import_product_stock']),
+                            "product_turnover" => ($cost_price['import_product_quantity'] - $cost_price['import_product_stock']) * $cost_price['import_price_sell'],
+                            "total_price" => ($cost_price['import_product_quantity'] - $cost_price['import_product_stock']) * $cost_price['import_price_sell'] - $cost_price['cost_price'],
+                        ];
+                        array_push($data,$value);
+                    }
+                }else{
+                    $value = [
+                        "id" => $product->id,
+                        "import_id" => "Chưa nhập hàng",
+                        "import_product_quantity" => 0,
+                        "import_price" => 0,
+                        "product_name" => $product->product_name,
+                        "cost_price" => 0,
+                        "sell_price" => 0,
+                        'product_sold' =>0,
+                        "product_turnover" => 0,
+                        "total_price" => 0,
+                    ];
+                    array_push($data,$value);
+                }
+            }
+            return response()->json(['code' => 200,'data' => $data]);
+        }else{
+            $data = [
+                "id" => '',
+                "import_id" => "",
+                "import_product_quantity" => 0,
+                "import_price" => 0,
+                "product_name" => 'No data',
+                "cost_price" => 0,
+                "sell_price" => 0,
+                'product_sold' =>0,
+                "product_turnover" => 0,
+                "total_price" => 0,
+            ];
+            return response()->json(['code' => 200,'data' => $data]);
+        }
+
     }
 }
