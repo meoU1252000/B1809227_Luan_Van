@@ -8,6 +8,7 @@ use App\Models\ImportDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\BrandResource;
+use App\Http\Resources\ProductRatingResource;
 use App\Http\Resources\ProductCommentResource;
 use App\Models\AttributeParams;
 use App\Models\Category;
@@ -43,7 +44,8 @@ class ProductResource extends JsonResource
             "images" => $this->getImages($this->id),
             "product_attribute" => $this->getProductAttribute($this->id),
             "product_comment" => $this->getProductComment($this->id),
-            "product_star" => $this->getProductStar($this->id)
+            "product_star" => $this->getProductStar($this->id),
+            "product_star_content" => $this->getProductStarContent($this->id),
         ];
         return $data;
     }
@@ -52,6 +54,10 @@ class ProductResource extends JsonResource
     {
         $brand = Brand::find($id);
         return $brand;
+    }
+
+    public function getProductStarContent($id){
+        return ProductRatingResource::collection(ProductRating::where('product_id', $id)->orderBy('id','desc')->get());
     }
 
     public function getProductPrice($id){

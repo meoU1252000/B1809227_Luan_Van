@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Mail;
 use App\Mail\SendEmail;
+use Illuminate\Validation\Rule;
 class ClientPageController extends AbstractApiController
 {
     /**
@@ -136,6 +137,54 @@ class ClientPageController extends AbstractApiController
         $this->setStatus('success');
         $this->setMessage('Login successful');
         $this->setData($this->createNewToken($token));
+        return $this->respond();
+    }
+
+    public function changeInfo(Request $request){
+        $data = $request->all();
+        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $validated =  Validator::make($data,[
+            'customer_name' => 'required|',
+            'customer_phone' => 'required|max:10',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('customer')->ignore($customer->id, 'id')
+            ],
+        ]);
+        if($validated->fails()) {
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->errors());
+        }else{
+            $customer_update = $this->cusRepo->update($customer->id,$data);
+            $this->setStatusCode(JsonResponse::HTTP_OK);
+            $this->setStatus('success');
+            $this->setMessage('Update customer information successful');
+            // $token = Auth::guard('api')->attempt(['email' => $data['email']]);
+            $this->setData($customer_update);
+        }
+        return $this->respond();
+    }
+
+    public function changePassword(Request $request){
+        $data = $request->all();
+        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $validated =  Validator::make($data,[
+            'password' => 'required|max:255',
+        ]);
+        if(Hash::check($data['old_password'], $customer->password)){
+            $data['password'] = Hash::make($data['password']);
+            $customer_update = $this->cusRepo->update($customer->id, $data);
+            $this->setStatusCode(JsonResponse::HTTP_OK);
+            $this->setStatus('success');
+            $this->setMessage('Update customer information successful');
+            $this->setData($customer_update);
+        }else{
+            $this->setStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+            $this->setStatus('error');
+            $this->setMessage($validated->errors());
+        }
         return $this->respond();
     }
 
@@ -275,13 +324,17 @@ class ClientPageController extends AbstractApiController
     }
 
     public function getOrders(){
-        $customer = Customer::findOrFail(Auth::guard('api')->id());
+        $customer = Customer::find(Auth::guard('api')->id());
         $customer_address = Customer_Address::where('customer_id',$customer->id)->get(['id']);
         $orders = Order::whereIn('address_id',$customer_address)->orderBy('id','DESC')->get();
+        if(count($orders) > 0){
+            $this->setData(OrderResource::collection($orders));
+        }else{
+            $this->setData(null);
+        }
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
         $this->setMessage('Get list order successful');
-        $this->setData(OrderResource::collection($orders));
         return $this->respond();
     }
 

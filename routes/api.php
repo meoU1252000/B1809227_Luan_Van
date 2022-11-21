@@ -42,5 +42,8 @@ Route::prefix('/client')->group(function () {
         Route::post('/comment',[ClientPageController::class,'commentProduct'])->name('client.comment');
         Route::post('/deleteComment',[ClientPageController::class,'deleteComment'])->name('client.deleteComment');
         Route::post('/sendEmail',[ClientPageController::class,'sendEmail'])->name('client.sendEmail');
+        Route::post('/changeInfo',[ClientPageController::class,'changeInfo'])->name('client.changeInfo');
+        Route::post('/createNewToken',[ClientPageController::class,'createNewToken'])->name('client.createNewToken');
+        Route::post('/changePassword',[ClientPageController::class,'changePassword'])->name('client.changePassword');
     });
 });

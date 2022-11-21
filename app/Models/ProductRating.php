@@ -15,5 +15,6 @@ class ProductRating extends Model
         'customer_id',
         'order_id',
         'star_rating_number',
+        'rating_comment'
     ];
 }
