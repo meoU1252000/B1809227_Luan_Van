@@ -75,8 +75,8 @@
 
                                                         <td>
                                                             <div style="display:flex">
-                                                                {{-- <a href="javascript:void(0);" class="action-icon"> <i
-                                                                    data-feather="eye"></i></a> --}}
+                                                                <a href="{{route('event.details.index',['id' => $event->id])}}" class="action-icon"> <i
+                                                                    data-feather="eye"></i></a>
                                                                 <a href="{{ route('event.edit', $event->id) }}"
                                                                     class="action-icon">
                                                                     <i class="mdi mdi-pencil-outline me-1"></i></a>

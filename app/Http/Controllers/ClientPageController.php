@@ -9,6 +9,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\ProvinceResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\EventResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
@@ -19,6 +20,7 @@ use App\Models\ImportDetail;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
+use App\Models\Event;
 use App\Repositories\Address\AddressRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -418,6 +420,11 @@ class ClientPageController extends AbstractApiController
         ];
         Mail::to($user->email)->send(new SendEmail($mailData));
         return $mailData;
+    }
+
+    public function getListEvents(){
+        $events = Event::where('event_end','<=',Carbon::now())->get();
+        return EventResource::collection($events);
     }
 
     /**

@@ -30,9 +30,9 @@
                                 <div class="row mb-2">
                                     <div class="col-12">
                                         <div class="text-lg-end">
-                                            <a href="{{ route('event.create') }}"
+                                            <a href="{{ route('event.details.create',['id' => $event->id]) }}"
                                                 class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
-                                                    class="mdi mdi-tag me-1"></i>Thêm Sự Kiện Mới</a>
+                                                    class="mdi mdi-tag me-1"></i>Thêm Mã Giảm Giá</a>
                                             <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->
@@ -54,7 +54,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($event_details as $event_detail)
+                                                @foreach ($event->get_details as $event_detail)
                                                     <tr>
                                                         <td><a href="" class="text-body fw-bold">{{ $event_detail->id }}</a>
                                                         </td>
@@ -66,10 +66,15 @@
                                                             {{ $event_detail->code_name }}
                                                         </td>
                                                         <td style="white-space: inherit;">
-                                                            {{ $event_detail->discount_value }}
+                                                            {{ number_format($event_detail->discount_value) }}
                                                         </td>
                                                         <td style="white-space: inherit;">
-                                                            {{ $event_detail->discount_unit }}
+                                                            @if ($event_detail->discount_unit == '0')
+                                                                Giảm theo phần trăm
+                                                            @else
+                                                               Giảm theo giá tiền
+                                                            @endif
+
                                                         </td>
                                                         <td>
                                                           {{$event_detail->event_start}}
@@ -83,10 +88,10 @@
                                                             <div style="display:flex">
                                                                 {{-- <a href="javascript:void(0);" class="action-icon"> <i
                                                                     data-feather="eye"></i></a> --}}
-                                                                <a href="{{ route('event.edit', $event_detail->id) }}"
+                                                                <a href="{{ route('event.details.edit', ['id' => $event->id,'event' =>$event_detail->id]) }}"
                                                                     class="action-icon">
                                                                     <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                                <form action="{{ route('event.delete', $event_detail->id) }}"
+                                                                <form action="{{ route('event.details.delete', ['id' => $event->id,'event' =>$event_detail->id]) }}"
                                                                     method="POST" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <button type="submit" class="action-icon"

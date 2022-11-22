@@ -42,7 +42,8 @@
 
 
                 <div class="row">
-                    <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data" id="validator">
+                    <form action="{{ route('event.details.store', ['id' => $event->id]) }}" method="POST"
+                        enctype="multipart/form-data" id="validator">
                         @csrf
                         <div class="col-lg-12">
                             <div class="card">
@@ -54,10 +55,10 @@
                                                 class="text-danger">*</span></label>
                                         <select class="form-control" id="event-id" data-toggle="select2" data-width="100%"
                                             name="event_id">
-                                            <option value="{{ $product->brand_id }}" selected
+                                            <option value="{{ $event->id }}" selected
                                                 style="font-weight: bold;
                                                 font-style: italic;">
-                                                {{ $product->get_category->category_name }}</option>
+                                                {{ $event->event_name }}</option>
                                         </select>
                                         <span class="form-group__message"></span>
                                     </div>
@@ -65,19 +66,23 @@
                                     <div class="mb-3">
                                         <label for="event-code" class="form-label">Mã Code<span
                                                 class="text-danger">*</span></label>
-                                        <textarea id="event-code" style="height: 150px;width:100%" name="code_name"></textarea>
+                                        <input type="text" id="event-code" name="code_name" class="form-control"
+                                            placeholder="e.g : Apple iMac" />
                                         <span class="form-group__message"></span>
                                         <!-- end Snow-editor-->
                                     </div>
 
+
                                     <div class="mb-3">
                                         <label for="discount-unit" class="form-label">Giảm Theo<span
                                                 class="text-danger">*</span></label>
-                                        <select class="form-control" id="discount-unit" data-width="100%" name="discount_unit" onchange="unitDiscount()">
+                                        <select class="form-control" id="discount-unit" data-width="100%"
+                                            name="discount_unit" onchange="unitDiscount()">
                                             <option value="" selected>Choose</option>
                                             <option value="0">Phần Trăm</option>
                                             <option value="1">Giá Tiền</option>
                                         </select>
+                                        <span class="form-group__message"></span>
                                     </div>
 
                                     <div class="card_more">
@@ -147,6 +152,27 @@
     <script src="{{ asset('assets/js/validator.js') }}"></script>
 
     <script>
+        function unitDiscount() {
+            var x = document.getElementById("discount-unit").value;
+            var more = '';
+            if (x == "0") {
+                more +=
+                    `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
+                    <span class="text-danger">*</span></label>
+                    <input type="number" name="discount_value" class="form-control test" min='0' max='100' placeholder="e.g : 10%">
+                    <span class="form-group__message"></span>
+                </div>`
+                document.querySelector('.card_more').innerHTML = more;
+            } else {
+                more +=
+                    `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
+                    <span class="text-danger">*</span></label>
+                    <input type="number" name="discount_value" class="form-control test" min='0'  placeholder="e.g : đơn vị VNĐ">
+                    <span class="form-group__message"></span>
+                </div>`
+                document.querySelector('.card_more').innerHTML = more;
+            }
+        }
         Validator({
             form: '#validator',
             formGroupSelector: '.mb-3',
@@ -156,28 +182,5 @@
                 Validator.isRequired('#discount-unit'),
             ]
         });
-        CKEDITOR.replace('event-description');
-    </script>
-    <script>
-        function unitDiscount() {
-            var x = document.getElementById("discount-unit").value;
-            var more = '';
-            if (x == "0") {
-                more +=
-                `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
-                    <span class="text-danger">*</span></label>
-                    <input type="text" name="discount_value" class="form-control test" min='0' max='100' placeholder="e.g : 10%">
-                    <span class="form-group__message"></span>
-                </div>`
-            } else {
-                more +=
-                `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
-                    <span class="text-danger">*</span></label>
-                    <input type="text" name="discount_value" class="form-control test" min='0'  placeholder="e.g : đơn vị VNĐ">
-                    <span class="form-group__message"></span>
-                </div>`
-            }
-            document.querySelector('.card_more').innerHTML = more;
-        }
     </script>
 @endsection
