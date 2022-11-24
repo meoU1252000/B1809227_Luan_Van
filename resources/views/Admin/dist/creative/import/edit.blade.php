@@ -74,17 +74,17 @@
                                             <option value="{{ $import->staff_id }}" selected
                                                 style="font-weight: bold;
                                                 font-style: italic;">
-                                                {{ $import->get_staff->staff_name }}</option>
+                                                {{ $import->get_staff->name }}</option>
                                             @foreach ($staffs as $staff)
                                                 <option value="{{ $staff->id }}">
-                                                    {{ $staff->staff_name }}</option>
+                                                    {{ $staff->name }}</option>
                                             @endforeach
 
                                         </select>
                                         <span class="form-group__message"></span>
                                     </div>
 
-                                    
+
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
                                     <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Save</button>
                                 </div>
@@ -156,6 +156,6 @@
                Validator.isRequired('#supplier-id'),
             ]
         });
-        
+
     </script>
 @endsection

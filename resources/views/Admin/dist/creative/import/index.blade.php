@@ -77,7 +77,7 @@
                                                         <td
                                                             style="word-wrap: break-word;
                                                         white-space: normal;">
-                                                            {{ $import->get_staff->staff_name }}
+                                                            {{ $import->get_staff->name }}
                                                         </td>
 
                                                         <td>

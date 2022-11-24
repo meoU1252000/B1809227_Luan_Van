@@ -20,7 +20,7 @@ class Import extends Model
     }
 
     public function get_staff(){
-        return $this->belongsTo(Staff::class,'staff_id','id');
+        return $this->belongsTo(User::class,'staff_id','id');
     }
 
     public function get_import_details(){

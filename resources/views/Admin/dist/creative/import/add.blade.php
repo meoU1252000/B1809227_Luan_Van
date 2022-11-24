@@ -76,14 +76,14 @@
                                                 <option value="{{ $staff->id }}"
                                                     style="font-weight: bold;
                                                         font-style: italic;">
-                                                    {{ $staff->staff_name }}</option>
+                                                    {{ $staff->name }}</option>
                                             @endforeach
 
                                         </select>
                                         <span class="form-group__message"></span>
                                     </div>
 
-                                    
+
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
                                     <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Save</button>
                                 </div>
@@ -155,6 +155,6 @@
                Validator.isRequired('#supplier-id'),
             ]
         });
-        
+
     </script>
 @endsection

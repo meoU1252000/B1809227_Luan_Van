@@ -44,7 +44,7 @@
                                     </div><!-- end col-->
                                 </div>
 
-                                <div class="table-responsive">
+                                <div class="table">
                                     <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                         <thead class="table-light">
                                             <tr>
