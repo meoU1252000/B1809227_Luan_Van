@@ -86,10 +86,6 @@
                                         <input type="radio" id="inlineRadio1" value="1" name="status" checked="">
                                         <label for="inlineRadio1">Đang Làm Việc</label>
                                     </div>
-                                    <div class="radio form-check-inline">
-                                        <input type="radio" id="inlineRadio2" value="2" name="status">
-                                        <label for="inlineRadio2">Tạm Nghỉ</label>
-                                    </div>
                                     <span class="form-group__message"></span>
                                 </div>
                                 <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>

@@ -20,9 +20,6 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
             case (1):
                 $status = "Đang Làm Việc";
                 break;
-            case (2):
-                $status = "Tạm Nghỉ";
-                break;
         }
 
         return $status;
@@ -40,9 +37,6 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
                     break;
                 case ($i == 1 && $i !== $status):
                     $arrayStatus[$i] =  "Đang Làm Việc";
-                    break;
-                case ($i == 2 && $i !== $status):
-                    $arrayStatus[$i] =  "Tạm Nghỉ";
                     break;
             }
             $i++;
