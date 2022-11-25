@@ -14,7 +14,8 @@ class Customer_Address extends Model
         'customer_id',
         'receiver_name',
         'receiver_address',
-        'receiver_phone'
+        'receiver_phone',
+        'ward_id',
     ];
 
 }

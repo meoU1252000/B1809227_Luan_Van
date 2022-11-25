@@ -34,7 +34,13 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password')
         ],  $request->input('remember'))) {
-            return redirect()->route('admin.index');
+            $user = Auth::user();
+            if($user->status == 1){
+                return redirect()->route('admin.index');
+            }else{
+                Session::flash('error',  'Bạn không còn quyền truy cập hệ thống');
+                return redirect()->back();
+            }
         };
         Session::flash('error',  'Email hoặc Password không chính xác');
         return redirect()->back();
