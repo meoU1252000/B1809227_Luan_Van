@@ -66,7 +66,7 @@
                                     <div class="mb-3">
                                         <label for="event-code" class="form-label">Mã Code<span
                                                 class="text-danger">*</span></label>
-                                        <input id="event-code" style="height: 150px;width:100%" name="code_name" value="{{$event_detail->code_name}}">
+                                        <input id="event-code"  name="code_name" value="{{$event_detail->code_name}}">
                                         <span class="form-group__message"></span>
                                         <!-- end Snow-editor-->
                                     </div>
