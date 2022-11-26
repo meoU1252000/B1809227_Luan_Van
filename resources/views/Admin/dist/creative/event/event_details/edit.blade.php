@@ -66,7 +66,7 @@
                                     <div class="mb-3">
                                         <label for="event-code" class="form-label">Mã Code<span
                                                 class="text-danger">*</span></label>
-                                        <textarea id="event-code" style="height: 150px;width:100%" name="code_name" value="{{$event_detail->code_name}}"></textarea>
+                                        <input id="event-code" style="height: 150px;width:100%" name="code_name" value="{{$event_detail->code_name}}">
                                         <span class="form-group__message"></span>
                                         <!-- end Snow-editor-->
                                     </div>
@@ -148,7 +148,7 @@
     <script src="{{ asset('assets/js/validator.js') }}"></script>
 
     <script>
-        Validator({
+          Validator({
             form: '#validator',
             formGroupSelector: '.mb-3',
             errorSelector: '.form-group__message',
@@ -157,7 +157,6 @@
                 Validator.isRequired('#discount-unit'),
             ]
         });
-        CKEDITOR.replace('event-description');
     </script>
     <script>
         function unitDiscount() {
