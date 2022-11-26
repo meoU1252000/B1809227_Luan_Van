@@ -66,7 +66,7 @@
                                     <div class="mb-3">
                                         <label for="event-code" class="form-label">Mã Code<span
                                                 class="text-danger">*</span></label>
-                                        <input id="event-code"  name="code_name" value="{{$event_detail->code_name}}">
+                                        <input type="text" class="form-control" id="event-code" name="code_name" value="{{$event_detail->code_name}}">
                                         <span class="form-group__message"></span>
                                         <!-- end Snow-editor-->
                                     </div>
@@ -147,8 +147,30 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('assets/js/validator.js') }}"></script>
 
+
     <script>
-          Validator({
+        function unitDiscount() {
+            var x = document.getElementById("discount-unit").value;
+            var more = '';
+            if (x == "0") {
+                more +=
+                    `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
+                    <span class="text-danger">*</span></label>
+                    <input type="number" name="discount_value" class="form-control test" min='0' max='100' placeholder="e.g : 10%">
+                    <span class="form-group__message"></span>
+                </div>`
+                document.querySelector('.card_more').innerHTML = more;
+            } else {
+                more +=
+                    `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
+                    <span class="text-danger">*</span></label>
+                    <input type="number" name="discount_value" class="form-control test" min='0'  placeholder="e.g : đơn vị VNĐ">
+                    <span class="form-group__message"></span>
+                </div>`
+                document.querySelector('.card_more').innerHTML = more;
+            }
+        }
+        Validator({
             form: '#validator',
             formGroupSelector: '.mb-3',
             errorSelector: '.form-group__message',
@@ -156,28 +178,6 @@
                 Validator.isRequired('#event-code'),
                 Validator.isRequired('#discount-unit'),
             ]
-        });
-    </script>
-    <script>
-        function unitDiscount() {
-            var x = document.getElementById("discount-unit").value;
-            var more = '';
-            if (x == "0") {
-                more +=
-                `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
-                    <span class="text-danger">*</span></label>
-                    <input type="text" name="discount_value" class="form-control test" min='0' max='100' placeholder="e.g : 10%">
-                    <span class="form-group__message"></span>
-                </div>`
-            } else {
-                more +=
-                `<div class="mb-3"><label for="category-name" class="form-label"> Giá Trị Giảm
-                    <span class="text-danger">*</span></label>
-                    <input type="text" name="discount_value" class="form-control test" min='0'  placeholder="e.g : đơn vị VNĐ">
-                    <span class="form-group__message"></span>
-                </div>`
-            }
-            document.querySelector('.card_more').innerHTML = more;
-        }
+        });s
     </script>
 @endsection
