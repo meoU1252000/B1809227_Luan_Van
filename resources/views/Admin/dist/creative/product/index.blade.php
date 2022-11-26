@@ -157,14 +157,14 @@
                                                                 <a href="{{ route('product.edit', $product->id) }}"
                                                                     class="action-icon">
                                                                     <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                                <form action="{{ route('product.delete', $product->id) }}"
+                                                                {{-- <form action="{{ route('product.delete', $product->id) }}"
                                                                     method="POST" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <button type="submit" class="action-icon"
                                                                         style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
                                                                             class="mdi mdi-delete me-1"
                                                                             onclick="deleteData(event);"></i></button>
-                                                                </form>
+                                                                </form> --}}
                                                             </div>
                                                         </td>
                                                     </tr>

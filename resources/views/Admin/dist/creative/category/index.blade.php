@@ -154,13 +154,13 @@
                                                                 data-feather="eye"></i></a> --}}
                                                             <a href="{{ route('category.edit', $category->id) }}" class="action-icon">
                                                                 <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                            <form action="{{ route('category.delete', $category->id) }}"
+                                                            {{-- <form action="{{ route('category.delete', $category->id) }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <button type="submit" class="action-icon"
                                                                     style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
                                                                     class="mdi mdi-delete me-1" onclick = "deleteData(event);"></i></button>
-                                                            </form>
+                                                            </form> --}}
 
                                                         </div>
                                                         </td>
