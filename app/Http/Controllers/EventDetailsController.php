@@ -53,8 +53,8 @@ class EventDetailsController extends Controller
         $data = $request->all();
 
         $event = $this->eventRepo->create($data);
+        return redirect()->route('event.details.index',['id'=>$request->event_id]);
 
-        return redirect()->route('event.index');
     }
 
     /**
@@ -63,7 +63,7 @@ class EventDetailsController extends Controller
      * @param  \App\Models\EventDetails  $eventDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(EventDetails $eventDetails)
+    public function show($id)
     {
         //
     }
@@ -74,13 +74,15 @@ class EventDetailsController extends Controller
      * @param  \App\Models\EventDetails  $eventDetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(EventDetails $eventDetails)
+    public function edit($id,$event)
     {
         //
+        $event_father = $this->imageRepo->getEvent($id);
+        $event_detail = $this->imageRepo->find($event);
         $event = $this->eventRepo->find($id);
         return view('Admin.dist.creative.event.event_details.edit',[
             'title'=>'Trang Quản Lý Sự Kiện'
-        ],compact('event'));
+        ],compact('event_father','event_detail'));
     }
 
     /**
@@ -90,13 +92,13 @@ class EventDetailsController extends Controller
      * @param  \App\Models\EventDetails  $eventDetails
      * @return \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
+    public function update(Request $request, $id,$event)
     {
         //
         $data = $request->all();
-        $event = $this->eventRepo->update($id,$data);
+        $event = $this->eventRepo->update($event,$data);
 
-        return redirect()->route('event.index');
+        return redirect()->route('event,details.index',['id'=>$id]);
     }
 
     /**
@@ -105,10 +107,10 @@ class EventDetailsController extends Controller
      * @param  \App\Models\EventDetails  $eventDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EventDetails $eventDetails)
+    public function destroy($id,$event)
     {
         //
-        $event = $this->eventRepo->delete($id);
-        return redirect()->route('event.index');
+        $event = $this->eventRepo->delete($event);
+        return redirect()->route('event,details.index',['id'=>$id]);
     }
 }

@@ -54,18 +54,19 @@
                                                 class="text-danger">*</span></label>
                                         <select class="form-control" id="event-id" data-toggle="select2" data-width="100%"
                                             name="event_id">
-                                            <option value="{{ $product->brand_id }}" selected
+                                            <option value="{{ $event_father->id }}" selected
                                                 style="font-weight: bold;
                                                 font-style: italic;">
-                                                {{ $product->get_category->category_name }}</option>
+                                                {{ $event_father->event_name }}</option>
                                         </select>
                                         <span class="form-group__message"></span>
                                     </div>
 
+
                                     <div class="mb-3">
                                         <label for="event-code" class="form-label">Mã Code<span
                                                 class="text-danger">*</span></label>
-                                        <textarea id="event-code" style="height: 150px;width:100%" name="code_name"></textarea>
+                                        <textarea id="event-code" style="height: 150px;width:100%" name="code_name" value="{{$event_detal->code_name}}"></textarea>
                                         <span class="form-group__message"></span>
                                         <!-- end Snow-editor-->
                                     </div>
