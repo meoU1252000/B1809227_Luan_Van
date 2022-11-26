@@ -70,20 +70,12 @@
                                         <br />
                                         <div class="radio form-check-inline">
                                             <input type="radio" id="inlineRadio3" value="0" name="brand_status">
-                                            <label for="inlineRadio3">Sắp Ra Mắt</label>
+                                            <label for="inlineRadio3">Tạm Ẩn</label>
                                         </div>
                                         <div class="radio form-check-inline">
                                             <input type="radio" id="inlineRadio1" value="1" name="brand_status"
                                                 checked="">
-                                            <label for="inlineRadio1">Đang Bán</label>
-                                        </div>
-                                        <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio2" value="2" name="brand_status">
-                                            <label for="inlineRadio2">Ngưng Nhập Hàng</label>
-                                        </div>
-                                        <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio3" value="3" name="brand_status">
-                                            <label for="inlineRadio3">Tạm Hết Hàng</label>
+                                            <label for="inlineRadio1">Kích Hoạt</label>
                                         </div>
                                         <span class="form-group__message"></span>
                                     </div>
