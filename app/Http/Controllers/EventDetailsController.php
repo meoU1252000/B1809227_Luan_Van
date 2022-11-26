@@ -77,8 +77,8 @@ class EventDetailsController extends Controller
     public function edit($id,$event)
     {
         //
-        $event_father = $this->imageRepo->getEvent($id);
-        $event_detail = $this->imageRepo->find($event);
+        $event_father = $this->eventRepo->getEvent($id);
+        $event_detail = $this->eventRepo->find($event);
         $event = $this->eventRepo->find($id);
         return view('Admin.dist.creative.event.event_details.edit',[
             'title'=>'Trang Quản Lý Sự Kiện'
