@@ -31,10 +31,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                    <li class="breadcrumb-item active">Brand Edit</li>
+                                    <li class="breadcrumb-item active">Image Add</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Thêm Thương Hiệu Mới</h4>
+                            <h4 class="page-title">Thêm Hình Ảnh Mới</h4>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thông Tin Thương Hiệu</h5>
+                                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Thông Tin Hình Ảnh Sản Phẩm</h5>
 
                                     <div class="mb-3">
                                         <label for="product-id" class="form-label">Sản Phẩm<span
@@ -70,7 +70,7 @@
                                         <span class="form-group__message"></span>
                                     </div>
 
-                                 
+
                                     <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
                                     <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Save</button>
                                 </div>
