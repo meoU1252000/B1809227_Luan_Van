@@ -33,7 +33,6 @@
                                             <a href="{{ route('image.create', ['id' => $product->id]) }}"
                                                 class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
                                                     class="mdi mdi-tag me-1"></i>Thêm Hình Ảnh Mới</a>
-                                            <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->
                                 </div>

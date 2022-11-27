@@ -36,10 +36,10 @@
                                         </div>
                                     </div><!-- end col-->
                                 </div>
-
                                 <div class="row">
                                     <div class="table">
-                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable-price">
+                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;"
+                                            id="basic-datatable-price">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th style="width: 125px;">ID Nhập Hàng</th>
@@ -67,18 +67,19 @@
                                                         <td
                                                             style="word-wrap: break-word;
                                                     white-space: normal;">
-                                                            {{ number_format($import_detail->get_product($import_detail->product_id)->product_price ) }} VND
+                                                            {{ number_format($import_detail->get_product($import_detail->product_id)->product_price) }}
+                                                            VND
                                                         </td>
                                                         <td>
                                                             <div style="display:flex">
-                                                                @if($import_detail->import_product_stock > 0)
-                                                                <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
-                                                                    class="action-icon">
-                                                                    <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                                @if ($import_detail->import_product_stock > 0)
+                                                                    <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
+                                                                        class="action-icon">
+                                                                        <i class="mdi mdi-pencil-outline me-1"></i></a>
                                                                 @else
-                                                                <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
-                                                                    class="action-icon" style="pointer-events: none">
-                                                                    <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                                    <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
+                                                                        class="action-icon" style="pointer-events: none">
+                                                                        <i class="mdi mdi-pencil-outline me-1"></i></a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -121,4 +122,11 @@
         <!-- end Footer -->
 
     </div>
+@endsection
+@section('footer')
+    <script>
+        $(document).ready(function() {
+            $('#basic-datatable-price').DataTable();
+        });
+    </script>
 @endsection
