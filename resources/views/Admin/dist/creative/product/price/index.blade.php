@@ -71,10 +71,15 @@
                                                         </td>
                                                         <td>
                                                             <div style="display:flex">
-
+                                                                @if($import->import_product_stock > 0)
                                                                 <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
                                                                     class="action-icon">
                                                                     <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                                @else
+                                                                <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
+                                                                    class="action-icon" style="pointer-events: none">
+                                                                    <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                                @endif
                                                             </div>
                                                         </td>
                                                     </tr>
