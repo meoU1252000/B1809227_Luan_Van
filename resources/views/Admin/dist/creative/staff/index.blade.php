@@ -93,9 +93,6 @@
                                                                         @case($staff->status == 1)
                                                                             "Đang Làm Việc"
                                                                         @break;
-                                                                        @case($staff->status == 2)
-                                                                            "Tạm Nghỉ"
-                                                                        @break;
                                                                     @endswitch
                                                                 </span>
                                                             </h5>
@@ -107,14 +104,14 @@
                                                                 <a href="{{ route('staff.edit', $staff->id) }}"
                                                                     class="action-icon">
                                                                     <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                                <form action="{{ route('staff.delete', $staff->id) }}"
+                                                                {{-- <form action="{{ route('staff.delete', $staff->id) }}"
                                                                     method="POST" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <button type="submit" class="action-icon"
                                                                         style="background: none!important;border: none;padding: 0!important; text-decoration: underline;cursor: pointer;"><i
                                                                             class="mdi mdi-delete me-1"
                                                                             onclick="deleteData(event);"></i></button>
-                                                                </form>
+                                                                </form> --}}
                                                                 <a href="{{ route('role.view.assign.user', $staff->id) }}" class="assign_role action-icon">
                                                                     <i class="mdi mdi-format-list-bulleted me-1"></i>
                                                                 </a>
