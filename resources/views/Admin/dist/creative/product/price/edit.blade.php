@@ -80,7 +80,7 @@
                                         <label for="product-price" class="form-label">Giá Bán (VNĐ)<span
                                                 class="text-danger">*</span></label>
                                         <input type="number" id="product-price" name="product_price" class="form-control"
-                                            placeholder="e.g : Apple iMac">
+                                            placeholder="e.g : Apple iMac" value="{{$import_detail->import_price_sell}}">
                                         <span class="form-group__message"></span>
                                     </div>
 
