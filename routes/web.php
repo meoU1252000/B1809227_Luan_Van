@@ -64,6 +64,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/', [ProductController::class, 'indexPrice'])->name('price.index')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
                 Route::get('/add', [ProductController::class, 'addPrice'])->name('price.create')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
                 Route::post('/store', [ProductController::class, 'storePrice'])->name('price.store')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
+                Route::get('/edit/{id}/{product_id}', [ProductController::class, 'editPrice'])->name('price.edit')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
+                Route::post('/update/{id}/{product_id}', [ProductController::class, 'updatePrice'])->name('price.update')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
                 Route::post('/getImport/{id}', [ProductController::class, 'getImport'])->name('price.getImport')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
                 Route::post('/getProduct/{id}', [ProductController::class, 'getProduct'])->name('price.getProduct')->middleware('role_or_permission:Super Admin|Manage Product|Add Product|Edit Product|Delete Product');
                 Route::post('/getImportProductPrice', [ProductController::class, 'getImportProductPrice'])->name('price.getImportProductPrice')->middleware('role_or_permission:Super Admin|Add Product|Edit Product|Delete Product');

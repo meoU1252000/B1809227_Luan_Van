@@ -173,7 +173,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     public function getImportAll(){
-        return Import::all();
+        $import_detail = ImportDetail::whereNull('import_price_sell')->get(['import_id']);
+
+        return Import::whereIn('id',$import_detail)->get();
     }
 
     public function getProduct($id){

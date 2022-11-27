@@ -204,6 +204,16 @@ class ProductController extends Controller
         ], compact('imports'));
     }
 
+    public function editPrice($id,$product_id){
+        $product = $this->productRepo->find($product_id);
+        $import = $this->productRepo->getImport($id);
+        $import_detail = ImportDetail::where('import_id', $import->id)->where('product_id', $product->id)->first();
+
+        return view('Admin.dist.creative.product.price.edit', [
+            'title' => 'Trang Quản Lý Giá Bán'
+        ], compact('import','product','import_detail'));
+    }
+
     public function storePrice(Request $request){
         $data = $request->all();
         $product = $this->productRepo->update($request->product_id,$data);
@@ -211,6 +221,18 @@ class ProductController extends Controller
         $import_details = ImportDetail::where('import_id', $request->import_id)->where('product_id', $product->id)->first();
         $updateImportDetails = $import_details->update($data);
         return redirect()->route('price.index');
+    }
+
+    public function updatePrice($id,$product_id, Request $request){
+        $data = $request->all();
+        $import_details = ImportDetail::where('import_id', $request->import_id)->where('product_id', $product->id)->first();
+        if($import_details->import_product_stock >0){
+            $product = $this->productRepo->update($request->product_id,$data);
+            $data['import_price_sell'] = $data['product_price'];
+            $updateImportDetails = $import_details->update($data);
+        }
+        return redirect()->route('price.index');
+
     }
 
     public function getImport($id){

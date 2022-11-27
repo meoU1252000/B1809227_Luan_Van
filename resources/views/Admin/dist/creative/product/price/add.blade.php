@@ -199,7 +199,7 @@
                                     <label for="import-price" class="form-label">Giá Nhập (VNĐ)<span
                                             class="text-danger">*</span></label>
                                     <input type="number" id="import-price" name="import_price" class="form-control"
-                                        placeholder="e.g : Apple iMac">
+                                        placeholder="e.g : Apple iMac" readonly>
                                     <span class="form-group__message"></span>
                                 </div>
                                 <div class="mb-3">
@@ -209,7 +209,7 @@
                                         placeholder="e.g : Apple iMac">
                                     <span class="form-group__message"></span>
                                 </div>`
-                                
+
 
                             document.querySelector('.card_more').innerHTML =
                                 more;

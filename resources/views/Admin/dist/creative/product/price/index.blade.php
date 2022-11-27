@@ -46,7 +46,7 @@
                                                     <th style="width: 125px;">ID Sản Phẩm</th>
                                                     <th style="width: 125px;">Tên Sản Phẩm</th>
                                                     <th style="width: 125px;">Giá Bán</th>
-                                                    {{-- <th style="width: 125px;">Tương Tác</th> --}}
+                                                    <th style="width: 125px;">Tương Tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -68,6 +68,14 @@
                                                             style="word-wrap: break-word;
                                                     white-space: normal;">
                                                             {{ number_format($import_detail->get_product($import_detail->product_id)->product_price ) }} VND
+                                                        </td>
+                                                        <td>
+                                                            <div style="display:flex">
+
+                                                                <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
+                                                                    class="action-icon">
+                                                                    <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
