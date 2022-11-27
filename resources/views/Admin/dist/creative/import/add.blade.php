@@ -71,13 +71,13 @@
                                                 class="text-danger">*</span></label>
                                         <select class="form-control" id="staff-id" data-toggle="select2" data-width="100%"
                                             name="staff_id">
-                                            <option value="" selected>Choose</option>
-                                            @foreach ($staffs as $staff)
+                                            <option value="{{auth()->user()->id}}" selected>{{auth()->user()->name}}</option>
+                                            {{-- @foreach ($staffs as $staff)
                                                 <option value="{{ $staff->id }}"
                                                     style="font-weight: bold;
                                                         font-style: italic;">
                                                     {{ $staff->name }}</option>
-                                            @endforeach
+                                            @endforeach --}}
 
                                         </select>
                                         <span class="form-group__message"></span>
