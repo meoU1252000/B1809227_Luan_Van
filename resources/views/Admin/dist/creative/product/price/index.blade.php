@@ -67,7 +67,7 @@
                                                         <td
                                                             style="word-wrap: break-word;
                                                     white-space: normal;">
-                                                            {{ number_format($import_detail->get_product($import_detail->product_id)->product_price) }}
+                                                            {{ number_format($import_detail->import_price) }}
                                                             VND
                                                         </td>
                                                         <td>
