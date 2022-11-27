@@ -88,16 +88,12 @@
                                         <br />
                                         <div class="radio form-check-inline">
                                             <input type="radio" id="inlineRadio3" value="0" name="supplier_status">
-                                            <label for="inlineRadio3">Không Nhập Hàng</label>
+                                            <label for="inlineRadio3">Tạm ẩn</label>
                                         </div>
                                         <div class="radio form-check-inline">
                                             <input type="radio" id="inlineRadio1" value="1" name="supplier_status"
                                                 checked="">
-                                            <label for="inlineRadio1">Đang Nhập Hàng</label>
-                                        </div>
-                                        <div class="radio form-check-inline">
-                                            <input type="radio" id="inlineRadio2" value="2" name="supplier_status">
-                                            <label for="inlineRadio2">Tạm Ngưng Nhập Hàng</label>
+                                            <label for="inlineRadio1">Kích hoạt</label>
                                         </div>
                                         <span class="form-group__message"></span>
                                     </div>

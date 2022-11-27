@@ -14,13 +14,10 @@ class SupplierRepository extends BaseRepository implements SupplierRepositoryInt
         $supplier =  $this->model->find($id);
         switch ($supplier->supplier_status) {
             case (0):
-                $status = 'Không Nhập Hàng';
+                $status = 'Tạm Ẩn';
                 break;
             case (1):
-                $status = "Đang nhập hàng";
-                break;
-            case (2):
-                $status = "Tạm Ngưng Nhập Hàng";
+                $status = "Kích hoạt";
                 break;
         }
 
@@ -35,13 +32,10 @@ class SupplierRepository extends BaseRepository implements SupplierRepositoryInt
         while ($i <= 3) {
             switch (true) {
                 case ($i == 0 && $i !== $status):
-                    $arrayStatus[$i] =  'Không Nhập Hàng';
+                    $arrayStatus[$i] =  'Tạm ẩn';
                     break;
                 case ($i == 1 && $i !== $status):
-                    $arrayStatus[$i] =  "Đang nhập hàng";
-                    break;
-                case ($i == 2 && $i !== $status):
-                    $arrayStatus[$i] =  "Tạm Ngưng Nhập Hàng";
+                    $arrayStatus[$i] =  "Kích hoạt";
                     break;
             }
             $i++;
