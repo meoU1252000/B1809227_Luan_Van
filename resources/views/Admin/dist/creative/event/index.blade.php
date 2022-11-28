@@ -43,8 +43,8 @@
                                         <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 125px;">ID Sự Kiện</th>
-                                                    <th style="width: 150px;">Tên Sự Kiện</th>
+                                                    <th style="width: 80px;">Mã SK</th>
+                                                    <th>Tên Sự Kiện</th>
                                                     <th>Giới thiệu Sự Kiện</th>
                                                     <th>Ngày Bắt Đầu</th>
                                                     <th>Ngày Kết Thúc</th>
