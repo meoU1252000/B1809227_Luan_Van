@@ -46,9 +46,9 @@
                                                     <th style="width: 125px;">ID Sự Kiện</th>
                                                     <th style="width: 150px;">Tên Sự Kiện</th>
                                                     <th>Giới thiệu Sự Kiện</th>
-                                                    <th style="width: 200px;">Ngày Bắt Đầu</th>
-                                                    <th style="width: 200px;">Ngày Kết Thúc</th>
-                                                    <th style="width: 125px;">Tương Tác</th>
+                                                    <th>Ngày Bắt Đầu</th>
+                                                    <th>Ngày Kết Thúc</th>
+                                                    <th>Tương Tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
