@@ -78,7 +78,7 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                    <li class="breadcrumb-item active">Orders</li>
+                                    <li class="breadcrumb-item active">Products</li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Trang Quản Lý Sản Phẩm</h4>

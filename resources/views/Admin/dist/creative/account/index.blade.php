@@ -28,7 +28,7 @@
                                     <li class="breadcrumb-item active">Staff Edit</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Thêm Nhân Viên Mới</h4>
+                            <h4 class="page-title">Quản lý tài khoản cá nhân</h4>
                         </div>
                     </div>
                 </div>

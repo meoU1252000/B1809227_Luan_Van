@@ -17,7 +17,7 @@
                                     <li class="breadcrumb-item active">Orders</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Trang Quản Lý Thương Hiệu</h4>
+                            <h4 class="page-title">Trang Quản Lý Đơn Hàng</h4>
                         </div>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th style="width: 60px;">Mã ĐH</th>
+                                                <th style="width: 60px;">Mã KH</th>
                                                 <th style="width: 60px;">Mã ĐC</th>
                                                 <th style="width: 60px;">Mã NV</th>
                                                 <th style="width: 60px;">Mã SK</th>
@@ -48,6 +49,7 @@
                                             @foreach ($orders as $order)
                                                 <tr>
                                                     <td><a href="" class="text-body fw-bold">{{ $order->id }}</a>
+                                                    <td><a href="" class="text-body fw-bold">{{ $order->get_customer($order->address_id)->id }}</a>
                                                     <td>
                                                         <a href="" class="text-body fw-bold">{{ $order->address_id }}
                                                     </td>

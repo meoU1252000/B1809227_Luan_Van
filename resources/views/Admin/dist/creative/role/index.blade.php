@@ -15,7 +15,7 @@
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                <li class="breadcrumb-item active">Brands</li>
+                                <li class="breadcrumb-item active">Roles</li>
                             </ol>
                         </div>
                         <h4 class="page-title">Trang Quản Lý Vai Trò</h4>
@@ -37,8 +37,8 @@
                                 </div><!-- end col-->
                             </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable">
+                            <div class="table">
+                                <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable-role">
                                     <thead class="table-light">
                                         <tr>
                                             <th style="width: 125px;">ID Vai Trò</th>
@@ -75,26 +75,7 @@
                                 </table>
                             </div>
 
-                            <ul class="pagination pagination-rounded justify-content-end my-2">
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                        <span class="visually-hidden">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
+
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
                 </div> <!-- end col -->
@@ -130,4 +111,12 @@
 <div class="modal fade" id="view-assign-permission" tabindex="-1">
 
 </div>
+@endsection
+@section('footer')
+<script>
+    $(document).ready(function() {
+        $('#basic-datatable-role').DataTable({
+        });
+    });
+</script>
 @endsection

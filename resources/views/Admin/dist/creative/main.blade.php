@@ -305,6 +305,14 @@
                             </a>
                         </li>
                         @endrole
+                        @role('Super Admin|Manage Customer')
+                        <li>
+                            <a href="{{ route('customer.index') }}">
+                                <i class="mdi mdi-account-group"></i>
+                                <span> Quản Lý Khách Hàng </span>
+                            </a>
+                        </li>
+                        @endrole('Super Admin|Manage Customer')
                         @role('Super Admin|Manage Order')
                         <li>
                             <a href="{{ route('order.index') }}">

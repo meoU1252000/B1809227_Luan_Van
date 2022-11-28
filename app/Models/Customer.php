@@ -50,4 +50,8 @@ class Customer extends Model implements JwtSubject,Authenticatable
     {
         return [];
     }
+
+    public function get_address($id){
+        return Customer_Address::where('customer_id', $id)->get();
+    }
 }

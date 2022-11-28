@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CustomerController;
 
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\RoleController;
@@ -201,6 +202,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('permission.edit')->middleware('role_or_permission:Super Admin');
             Route::post('/update/{id}', [PermissionController::class, 'update'])->name('permission.update')->middleware('role_or_permission:Super Admin');
             Route::post('/delete/{id}', [PermissionController::class, 'delete'])->name('permission.delete')->middleware('role_or_permission:Super Admin');
+        });
+
+        Route::prefix('customer')->group(function() {
+            Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+            Route::get('/address/{id}', [CustomerController::class, 'address'])->name('customer.address');
         });
     });
 });

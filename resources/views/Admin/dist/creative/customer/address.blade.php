@@ -14,10 +14,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                    <li class="breadcrumb-item active">Product's Price</li>
+                                    <li class="breadcrumb-item active">Customers</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Trang Quản Lý Giá Bán</h4>
+                            <h4 class="page-title">Trang Quản Lý Khách Hàng</h4>
                         </div>
                     </div>
                 </div>
@@ -30,59 +30,46 @@
                                 <div class="row mb-2">
                                     <div class="col-12">
                                         <div class="text-lg-end">
-                                            <a href="{{ route('price.create') }}"
-                                                class="btn btn-danger waves-effect waves-light mb-2 me-2"><i
-                                                    class="mdi mdi-tag me-1"></i>Thêm Thông Tin Giá Bán Mới</a>
+                                            <button type="button" class="btn btn-light waves-effect mb-2">Export</button>
                                         </div>
                                     </div><!-- end col-->
                                 </div>
+
                                 <div class="row">
                                     <div class="table">
                                         <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;"
-                                            id="basic-datatable-price">
+                                            id="basic-datatable">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 125px;">ID Nhập Hàng</th>
-                                                    <th style="width: 125px;">ID Sản Phẩm</th>
-                                                    <th style="width: 125px;">Tên Sản Phẩm</th>
-                                                    <th style="width: 125px;">Giá Bán</th>
-                                                    <th style="width: 125px;">Tương Tác</th>
+                                                    <th style="width: 100px;">ID KH</th>
+                                                    <th style="width: 100px;">ID ĐC</th>
+                                                    <th style="width: 200px;">Tên Người Nhận</th>
+                                                    <th>Địa Chỉ</th>
+                                                    <th style="width: 150px;">SĐT</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($import_details as $import_detail)
+                                                @foreach ($addresses as $address)
                                                     <tr>
-                                                        <td><a href=""
-                                                                class="text-body fw-bold">{{ $import_detail->import_id }}</a>
-                                                        </td>
-                                                        <td><a href=""
-                                                                class="text-body fw-bold">{{ $import_detail->product_id }}</a>
+                                                        <td>{{ $address->customer_id }}</td>
+                                                        <td>{{ $address->id }}</td>
+                                                        <td
+                                                            style="word-wrap: break-word;
+                                                        white-space: normal;">
+                                                            {{ $address->receiver_name }}
                                                         </td>
                                                         <td
                                                             style="word-wrap: break-word;
                                                         white-space: normal;">
-                                                            {{ $import_detail->get_product($import_detail->product_id)->product_name }}
+                                                            {{ $address->receiver_address }}
                                                         </td>
 
                                                         <td
                                                             style="word-wrap: break-word;
-                                                    white-space: normal;">
-                                                            {{ number_format($import_detail->import_price) }}
-                                                            VND
+                                                        white-space: normal;">
+                                                            {{ $address->receiver_phone }}
                                                         </td>
-                                                        <td>
-                                                            <div style="display:flex">
-                                                                @if ($import_detail->import_product_stock > 0)
-                                                                    <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
-                                                                        class="action-icon">
-                                                                        <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                                @else
-                                                                    <a href="{{ route('price.edit', ['id' => $import_detail->import_id, 'product_id' => $import_detail->product_id]) }}"
-                                                                        class="action-icon" style="pointer-events: none">
-                                                                        <i class="mdi mdi-pencil-outline me-1"></i></a>
-                                                                @endif
-                                                            </div>
-                                                        </td>
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -122,11 +109,7 @@
         <!-- end Footer -->
 
     </div>
-@endsection
-@section('footer')
-    <script>
-        $(document).ready(function() {
-            $('#basic-datatable-price').DataTable();
-        });
-    </script>
+    <div class="modal fade" id="view-assign-role" tabindex="-1">
+
+    </div>
 @endsection
