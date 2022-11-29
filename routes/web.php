@@ -92,6 +92,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('comment')->group(function () {
             Route::get('/', [CommentController::class, 'index'])->name('comment.index')->middleware('role_or_permission:Super Admin|Manage Comment');
+            Route::get('/reply/{id}', [CommentController::class, 'replyView'])->name('comment.replyView')->middleware('role_or_permission:Super Admin|Manage Comment');
+            Route::post('/reply/{id}', [CommentController::class, 'replyComment'])->name('comment.replyComment')->middleware('role_or_permission:Super Admin|Manage Comment');
             Route::post('/delete/{id}', [CommentController::class, 'destroy'])->name('comment.delete')->middleware('role_or_permission:Super Admin|Manage Comment');
         });
 

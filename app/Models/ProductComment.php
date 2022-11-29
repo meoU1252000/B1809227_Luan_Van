@@ -14,10 +14,23 @@ class ProductComment extends Model
         'comment_parent',
         'product_id',
         'customer_id',
+        'staff_id',
         'comment_content'
     ];
 
     public function get_customer(){
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
+    public function get_staff(){
+        return $this->belongsTo(User::class, 'staff_id', 'id');
+    }
+
+    public function get_comment_reply($comment_id,$staff_id){
+        return ProductComment::where('comment_parent', $comment_id)->where('staff_id', $staff_id)->first();
+    }
+    public function get_staff_reply($comment_id,$staff_id){
+        $comment = ProductComment::where('comment_parent', $comment_id)->where('staff_id', $staff_id)->first();
+         return User::find($comment->staff_id);
     }
 }

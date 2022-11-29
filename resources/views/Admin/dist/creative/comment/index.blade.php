@@ -29,31 +29,66 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="table">
-                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;" id="basic-datatable-comment">
+                                        <table class="table table-centered table-nowrap mb-0" style="table-layout:fixed;"
+                                            id="basic-datatable-comment">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 150px;">ID Bình Luận</th>
-                                                    <th style="width: 150px;">Khách Hàng</th>
-                                                    <th>Nội Dung Bình Luận</th>
+                                                    <th style="width: 90px;">ID BL</th>
+                                                    <th style="width: 90px;">ID NV</th>
+                                                    <th style="width: 90px;">ID KH</th>
+                                                    <th>Khách Bình Luận</th>
+                                                    <th>Trả Lời</th>
                                                     <th style="width: 125px;">Tương Tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($comments as $comment)
                                                     <tr>
-                                                        <td><a href="" class="text-body fw-bold">{{ $comment->id }}</a>
+                                                        <td><a href=""
+                                                                class="text-body fw-bold">{{ $comment->id }}</a>
+                                                        </td>
+                                                        <td
+                                                            style="word-wrap: break-word;
+                                                    white-space: normal;">
+                                                            @if (isset($comment->get_staff->id))
+                                                                {{ $comment->get_staff->id }}
+                                                            @endif
                                                         </td>
                                                         <td
                                                             style="word-wrap: break-word;
                                                         white-space: normal;">
-                                                            {{ $comment->get_customer->customer_name }}
+                                                            @if (isset($comment->get_customer->id))
+                                                                {{ $comment->get_customer->id }}
+                                                            @endif
                                                         </td>
                                                         <td style="white-space: inherit;">
-                                                            {{ $comment->comment_content }}
+                                                            @if (isset($comment->get_customer->id))
+                                                                <h5> {{ $comment->get_customer->customer_name }}:</h5>
+                                                                {{ $comment->comment_content }}
+                                                            @elseif (isset($comment->get_staff->id))
+                                                                <h5> {{ $comment->get_staff->name }}:</h5>
+                                                                {{ $comment->comment_content }}
+                                                            @endif
                                                         </td>
-
+                                                        <td style="word-wrap: break-word;
+                                                        white-space: normal;">
+                                                            @if (isset($comment->get_comment_reply($comment->id, auth()->user()->id)->comment_content))
+                                                                <h5> {{ $comment->get_staff_reply($comment->id, auth()->user()->id)->name }}:
+                                                                </h5>
+                                                                {{ $comment->get_comment_reply($comment->id, auth()->user()->id)->comment_content }}
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <div style="display:flex">
+                                                                @if(isset($comment->get_comment_reply($comment->id, auth()->user()->id)->comment_content))
+                                                                <a href="{{ route('comment.replyView', $comment->id) }}"
+                                                                    class="assign_role action-icon" style="pointer-events: none;">
+                                                                    <i class="mdi mdi-pencil-outline me-1" ></i></a>
+                                                                @else
+                                                                <a href="{{ route('comment.replyView', $comment->id) }}"
+                                                                    class="assign_role action-icon">
+                                                                    <i class="mdi mdi-pencil-outline me-1"></i></a>
+                                                                @endif
                                                                 <form action="{{ route('comment.delete', $comment->id) }}"
                                                                     method="POST" enctype="multipart/form-data">
                                                                     @csrf
@@ -101,7 +136,9 @@
             </div>
         </footer>
         <!-- end Footer -->
+        <div class="modal fade" id="view-assign-role" tabindex="-1">
 
+        </div>
     </div>
     <script>
         $(document).ready(function() {

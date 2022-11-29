@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Comment\CommentRepositoryInterface;
-
+use App\Models\ProductComment;
+use App\Models\Product;
 
 class CommentController extends Controller
 {
@@ -25,6 +26,22 @@ class CommentController extends Controller
         return view('Admin.dist.creative.comment.index',[
             'title'=>'Trang Quản Lý Bình Luận'
         ],compact('comments'));
+    }
+
+    public function replyView($id){
+        $comment = $this->commentRepo->find($id);
+        // $roles = Role::all();
+        return view('Admin.dist.creative.comment.reply', compact('comment'))->render();
+    }
+
+    public function replyComment($id,Request $request){
+        $data = $request->all();
+        $commentParent = $this->commentRepo->find($id);
+        $product = Product::find($commentParent->product_id);
+        $data['comment_parent'] = $id;
+        $data['product_id'] = $product->id;
+        $reply = $this->commentRepo->create($data);
+        return redirect()->route('comment.index');
     }
 
     /**
