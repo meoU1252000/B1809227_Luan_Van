@@ -80,7 +80,7 @@
                                                         </td>
                                                         <td>
                                                             <div style="display:flex">
-                                                                <a href="{{ route('staff.edit', $customer->id) }}"
+                                                                <a href="{{ route('customer.revenue', $customer->id) }}"
                                                                     class="action-icon">
                                                                     <i class="fe-dollar-sign"></i></a>
 

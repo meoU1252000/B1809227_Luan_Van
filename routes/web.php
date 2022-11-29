@@ -207,6 +207,8 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('customer')->group(function() {
             Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
             Route::get('/address/{id}', [CustomerController::class, 'address'])->name('customer.address');
+            Route::get('/revenue/{id}', [CustomerController::class, 'revenue'])->name('customer.revenue');
+            Route::get('/dashboard/{id}', [CustomerController::class, 'dashboard_filter'])->name('customer.dashboard_filter');
         });
     });
 });
