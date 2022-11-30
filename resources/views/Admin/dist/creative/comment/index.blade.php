@@ -72,15 +72,15 @@
                                                         </td>
                                                         <td style="word-wrap: break-word;
                                                         white-space: normal;">
-                                                            @if (isset($comment->get_comment_reply($comment->id, auth()->user()->id)->comment_content))
-                                                                <h5> {{ $comment->get_staff_reply($comment->id, auth()->user()->id)->name }}:
+                                                            @if (isset($comment->get_comment_reply($comment->id)->comment_content))
+                                                                <h5> {{ $comment->get_staff_reply($comment->id)->name }}:
                                                                 </h5>
-                                                                {{ $comment->get_comment_reply($comment->id, auth()->user()->id)->comment_content }}
+                                                                {{ $comment->get_comment_reply($comment->id)->comment_content }}
                                                             @endif
                                                         </td>
                                                         <td>
                                                             <div style="display:flex">
-                                                                @if(isset($comment->get_comment_reply($comment->id, auth()->user()->id)->comment_content))
+                                                                @if(isset($comment->get_comment_reply($comment->id)->comment_content))
                                                                 <a href="{{ route('comment.replyView', $comment->id) }}"
                                                                     class="assign_role action-icon" style="pointer-events: none;">
                                                                     <i class="mdi mdi-pencil-outline me-1" ></i></a>
