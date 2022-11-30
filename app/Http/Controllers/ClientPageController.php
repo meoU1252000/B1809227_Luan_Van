@@ -423,7 +423,7 @@ class ClientPageController extends AbstractApiController
     }
 
     public function getListEvents(){
-        $events = Event::where('event_end','<=',Carbon::now())->get();
+        $events = Event::where('event_end','>=',Carbon::now())->get();
         return EventResource::collection($events);
     }
 
