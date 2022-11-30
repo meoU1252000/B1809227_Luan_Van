@@ -40,6 +40,7 @@ class CommentController extends Controller
         $product = Product::find($commentParent->product_id);
         $data['comment_parent'] = $id;
         $data['product_id'] = $product->id;
+        $data['staff_id'] = auth()->user()->id;
         $reply = $this->commentRepo->create($data);
         return redirect()->route('comment.index');
     }
