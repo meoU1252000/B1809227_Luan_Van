@@ -312,7 +312,7 @@
                                 <span> Quản Lý Khách Hàng </span>
                             </a>
                         </li>
-                        @endrole('Super Admin|Manage Customer')
+                        @endrole
                         @role('Super Admin|Manage Order')
                         <li>
                             <a href="{{ route('order.index') }}">
