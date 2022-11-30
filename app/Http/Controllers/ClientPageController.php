@@ -408,9 +408,13 @@ class ClientPageController extends AbstractApiController
 
     public function sendEmail($orders,$order_id){
         $user = Customer::findOrFail(Auth::guard('api')->id());
+        $address = Customer_Address::find($order_id->address_id);
         $email = $user->email;
         $mailData = [
             'greeting' => 'Hi ' . $user->customer_name,
+            'receiver_name' => $address->receiver_name,
+            'receiver_phone' => $address->receiver_phone,
+            'receiver_address' => $address->receiver_address,
             'body' => $orders,
             'order_id' => $order_id->id,
             'total_price' => $order_id->total_price,
@@ -418,6 +422,11 @@ class ClientPageController extends AbstractApiController
             'actionurl' => 'https://luanvan-frontend-datlestore.herokuapp.com/',
             'lastline' => 'Cảm ơn bạn đã mua hàng. Nếu có thắc mắc, vui lòng gọi: 0984978407',
         ];
+        if($order->payment == 1){
+            $mailData['payment'] = "Thanh toán khi nhận hàng";
+        }else {
+            $mailData['payment'] = "Đã thanh toán đủ bằng PayPal";
+        }
         Mail::to($user->email)->send(new SendEmail($mailData));
         return $mailData;
     }

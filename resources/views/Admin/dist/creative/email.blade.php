@@ -41,8 +41,13 @@
 <body>
     <h3>{{ $mailData['greeting'] }}</h3>
     <h3>{{ $mailData['lastline'] }}</h3>
-
+    <ul>Thông tin giao hàng:
+        <li>Tên người nhận: {{$mailData['receiver_name'] }}</li>
+        <li>Số điện thoại: {{$mailData['receiver_phone'] }}</li>
+        <li>Địa chỉ nhận hàng: {{$mailData['receiver_address']}}</li>
+    </ul>
     <ul>
+        Thông tin đơn hàng:
         @foreach ($mailData['body'] as $product)
             <li>
                 Sản phẩm: {{ $product['name'] }}
@@ -55,6 +60,7 @@
     </ul>
 
     <h3>Tổng Giá Trị Đơn Hàng: {{ number_format($mailData['total_price']) }} VNĐ</h3>
+    <h3>Hình thức thanh toán: {{$mailData['payment']}}</h3>
     <h3>{{ $mailData['actiontext'] }}</h3>
     <a href="{{ $mailData['actionurl'] }}">Đạt Lê Store</a>
 </body>
