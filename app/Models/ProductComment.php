@@ -26,8 +26,9 @@ class ProductComment extends Model
         return $this->belongsTo(User::class, 'staff_id', 'id');
     }
 
-    public function get_comment_reply($comment_id,$staff_id){
-        return ProductComment::where('comment_parent', $comment_id)->where('staff_id', $staff_id)->first();
+    public function get_comment_reply($comment_id){
+        $users = User::all(['id']);
+        return ProductComment::where('comment_parent', $comment_id)->whereIn('staff_id', $users)->first();
     }
     public function get_staff_reply($comment_id){
         $comment = ProductComment::where('comment_parent', $comment_id)->first();
