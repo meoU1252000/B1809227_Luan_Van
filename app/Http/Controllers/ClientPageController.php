@@ -422,7 +422,7 @@ class ClientPageController extends AbstractApiController
             'actionurl' => 'https://luanvan-frontend-datlestore.herokuapp.com/',
             'lastline' => 'Cảm ơn bạn đã mua hàng. Nếu có thắc mắc, vui lòng gọi: 0984978407',
         ];
-        if($order->payment == 1){
+        if($order_id->payment == 1){
             $mailData['payment'] = "Thanh toán khi nhận hàng";
         }else {
             $mailData['payment'] = "Đã thanh toán đủ bằng PayPal";
