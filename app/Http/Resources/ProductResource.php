@@ -34,6 +34,7 @@ class ProductResource extends JsonResource
             "brand" => $this->getBrand($this->brand_id),
             "kind" => $this->getKind($this->category_id),
             "category" => $this->getCategory($this->category_id),
+            "category_root" => $this->getCategoryRoot($this->category_id),
             "product_name" => $this->product_name,
             "product_quantity_stock" => $this->getProductQuantityStock($this->id),
             "product_sold" => $this->product_sold,
@@ -54,6 +55,14 @@ class ProductResource extends JsonResource
     {
         $brand = Brand::find($id);
         return $brand;
+    }
+
+    public function getCategoryRoot($id){
+        $category = Category::find($id);
+        if($category->category_parent == 0 ){
+            return $category->category_name;
+        }
+        return $this->getCategoryRoot($category->category_parent);
     }
 
     public function getProductStarContent($id){
