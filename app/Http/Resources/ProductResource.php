@@ -61,7 +61,7 @@ class ProductResource extends JsonResource
     }
 
     public function getProductPrice($id){
-        $import_detail = ImportDetail::where('product_id', $id)->where('import_product_stock','>',0)->oldest()->first();
+        $import_detail = ImportDetail::where('product_id', $id)->where('import_product_quantity','>',0)->oldest()->first();
         if($import_detail){
             return $import_detail->import_price_sell;
         }
@@ -69,7 +69,7 @@ class ProductResource extends JsonResource
     }
 
     public function getProductQuantityStock($id){
-        $import_detail = ImportDetail::where('product_id', $id)->where('import_product_stock','>',0)->oldest()->first();
+        $import_detail = ImportDetail::where('product_id', $id)->where('import_product_quantity','>',0)->oldest()->first();
         if($import_detail){
             return $import_detail->import_product_stock;
         }
@@ -140,48 +140,48 @@ class ProductResource extends JsonResource
         return $data;
     }
 
-    public function getProductFamily($id, $product_id)
-    {
-        $family = ProductFamily::find($id);
-        if ($family) {
-            $product_in_family = Product::where('product_family_id', $id)->get();
-            $data = [
-                "family" => $family,
-                "attribute" => []
-            ];
-            $product_ids_dict = [];
-            foreach ($product_in_family as $product) {
-                $params = AttributeParams::where('product_id', $product->id)->get();
-                foreach ($params as $param) {
-                    $category_attribute = CategoryAttribute::find($param->attribute_id);
+    // public function getProductFamily($id, $product_id)
+    // {
+    //     $family = ProductFamily::find($id);
+    //     if ($family) {
+    //         $product_in_family = Product::where('product_family_id', $id)->get();
+    //         $data = [
+    //             "family" => $family,
+    //             "attribute" => []
+    //         ];
+    //         $product_ids_dict = [];
+    //         foreach ($product_in_family as $product) {
+    //             $params = AttributeParams::where('product_id', $product->id)->get();
+    //             foreach ($params as $param) {
+    //                 $category_attribute = CategoryAttribute::find($param->attribute_id);
 
-                    $value = [
-                        "attribute_name" => $category_attribute->attribute_name,
-                        "param" => [[
-                            "product_id" => $param->product_id,
-                            "param_value" => $param->param_value
-                        ]]
-                    ];
+    //                 $value = [
+    //                     "attribute_name" => $category_attribute->attribute_name,
+    //                     "param" => [[
+    //                         "product_id" => $param->product_id,
+    //                         "param_value" => $param->param_value
+    //                     ]]
+    //                 ];
 
 
-                    $attribute_name = $value['attribute_name'];
-                    if (array_key_exists($attribute_name, $product_ids_dict)) {
-                        $attribute_index = $product_ids_dict[$attribute_name]['attribute_index'];
-                        ++$product_ids_dict[$attribute_name]["count"];
-                        $data['attribute'][$attribute_index]['param'] = array_merge($data['attribute'][$attribute_index]['param'], $value['param']);
-                    } else {
-                        $product_ids_dict[$attribute_name] = [
-                            "attribute_index" => count($data['attribute']),
-                            "count" => 1
-                        ];
-                        array_push($data['attribute'], $value);
-                    }
-                }
-            }
-            return $data;
-        }
-        return null;
-    }
+    //                 $attribute_name = $value['attribute_name'];
+    //                 if (array_key_exists($attribute_name, $product_ids_dict)) {
+    //                     $attribute_index = $product_ids_dict[$attribute_name]['attribute_index'];
+    //                     ++$product_ids_dict[$attribute_name]["count"];
+    //                     $data['attribute'][$attribute_index]['param'] = array_merge($data['attribute'][$attribute_index]['param'], $value['param']);
+    //                 } else {
+    //                     $product_ids_dict[$attribute_name] = [
+    //                         "attribute_index" => count($data['attribute']),
+    //                         "count" => 1
+    //                     ];
+    //                     array_push($data['attribute'], $value);
+    //                 }
+    //             }
+    //         }
+    //         return $data;
+    //     }
+    //     return null;
+    // }
 
     public function getCategory($id)
     {
