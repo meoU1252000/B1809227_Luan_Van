@@ -75,10 +75,12 @@
                                                 white-space: normal;">
                                                         {{ $import_detail->import_product_quantity }}
                                                     </td>
+                                                    @iF($import_detail->import_price_sell)
+                                                    <td>{{ number_format($import_detail->import_price_sell) }}</td>
 
-                                                    <td>{{ number_format($import_detail->import_price) }}</td>
-
-
+                                                    @else
+                                                    <td>Chưa có giá bán</td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>
