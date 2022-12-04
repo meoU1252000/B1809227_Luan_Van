@@ -96,6 +96,15 @@ class ClientPageController extends AbstractApiController
         return $this->respond();
     }
 
+    public function getBrand($name){
+        $brand = BrandResource::collection(Brand::where('brand_name','=',$name)->get());
+        $this->setStatusCode(JsonResponse::HTTP_OK);
+        $this->setStatus('success');
+        $this->setMessage('Get brand successful');
+        $this->setData($brand);
+        return $this->respond();
+    }
+
     public function getProduct($id){
         $product = new ProductResource(Product::find($id));
         $this->setStatusCode(JsonResponse::HTTP_OK);

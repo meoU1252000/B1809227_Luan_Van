@@ -25,6 +25,7 @@ Route::prefix('/client')->group(function () {
     Route::get('/get-list-brand',[ClientPageController::class,'getListBrands'])->name('client.getListBrands');
     Route::get('/get-list-event',[ClientPageController::class,'getListEvents'])->name('client.getListEvents');
     Route::get('/get-category/{name}',[ClientPageController::class,'getCategory'])->name('client.getCategory');
+    Route::get('/get-brand/{name}',[ClientPageController::class,'getBrand'])->name('client.getBrand');
     Route::get('/get-product/{id}',[ClientPageController::class,'getProduct'])->name('client.getProduct');
     Route::post('/register',[ClientPageController::class,'register'])->name('client.register');
     Route::post('/login',[ClientPageController::class,'login'])->name('client.login');
