@@ -67,8 +67,11 @@
                                                         <td
                                                             style="word-wrap: break-word;
                                                     white-space: normal;">
-                                                            {{ number_format($import_detail->import_price) }}
-                                                            VND
+                                                            @iF($import_detail->import_price_sell)
+                                                            <td>{{ number_format($import_detail->import_price_sell) }} VND</td>
+
+                                                            @else
+                                                            <td>Chưa có giá bán</td>
                                                         </td>
                                                         <td>
                                                             <div style="display:flex">
