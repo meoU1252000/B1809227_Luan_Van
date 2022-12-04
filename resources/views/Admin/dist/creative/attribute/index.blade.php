@@ -45,7 +45,7 @@
                                                 <tr>
                                                     <th style="width: 125px;">ID Danh Mục</th>
                                                     <th
-                                                        style="width: 150px;word-wrap: break-word;
+                                                        style="width: 250px;word-wrap: break-word;
                                                     white-space: normal;">
                                                         Tên Danh Mục</th>
                                                     <th>Thuộc Tính Danh Mục</th>
