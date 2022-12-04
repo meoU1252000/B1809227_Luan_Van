@@ -72,6 +72,7 @@
 
                                                             @else
                                                             <td>Chưa có giá bán</td>
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <div style="display:flex">
