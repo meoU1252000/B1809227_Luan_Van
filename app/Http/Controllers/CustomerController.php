@@ -49,19 +49,19 @@ class CustomerController extends Controller
         $percent_order_done = $order_done/$total_order * 100;
         $this_year= Carbon::now('Asia/Ho_Chi_Minh')->startOfYear()->year;
         $case= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
-           "Sum(Case Month(a.created_at) when 1 then b.product_price*b.product_number else 0 end) as T1,
-            Sum(Case Month(a.created_at) when 2 then  b.product_price*b.product_number else 0 end) as T2,
-            Sum(Case Month(a.created_at) when 3 then b.product_price*b.product_number else 0 end) as T3,
-            Sum(Case Month(a.created_at) when 4 then  b.product_price*b.product_number else 0 end) as T4,
-            Sum(Case Month(a.created_at) when 5 then b.product_price*b.product_number else 0 end) as T5,
-            Sum(Case Month(a.created_at) when 6 then  b.product_price*b.product_number else 0 end) as T6,
-            Sum(Case Month(a.created_at) when 7 then  b.product_price*b.product_number else 0 end) as T7,
-            Sum(Case Month(a.created_at) when 8 then  b.product_price*b.product_number else 0 end) as T8,
-            Sum(Case Month(a.created_at) when 9 then  b.product_price*b.product_number else 0 end) as T9,
-            Sum(Case Month(a.created_at) when 10 then  b.product_price*b.product_number else 0 end) as T10,
-            Sum(Case Month(a.created_at) when 11 then  b.product_price*b.product_number else 0 end) as T11,
-            Sum(Case Month(a.created_at) when 12 then  b.product_price*b.product_number else 0 end) as T12"
-        )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereYear('a.created_at',$this_year)->get();
+           "Sum(Case Month(a.receive_date) when 1 then b.product_price*b.product_number else 0 end) as T1,
+            Sum(Case Month(a.receive_date) when 2 then  b.product_price*b.product_number else 0 end) as T2,
+            Sum(Case Month(a.receive_date) when 3 then b.product_price*b.product_number else 0 end) as T3,
+            Sum(Case Month(a.receive_date) when 4 then  b.product_price*b.product_number else 0 end) as T4,
+            Sum(Case Month(a.receive_date) when 5 then b.product_price*b.product_number else 0 end) as T5,
+            Sum(Case Month(a.receive_date) when 6 then  b.product_price*b.product_number else 0 end) as T6,
+            Sum(Case Month(a.receive_date) when 7 then  b.product_price*b.product_number else 0 end) as T7,
+            Sum(Case Month(a.receive_date) when 8 then  b.product_price*b.product_number else 0 end) as T8,
+            Sum(Case Month(a.receive_date) when 9 then  b.product_price*b.product_number else 0 end) as T9,
+            Sum(Case Month(a.receive_date) when 10 then  b.product_price*b.product_number else 0 end) as T10,
+            Sum(Case Month(a.receive_date) when 11 then  b.product_price*b.product_number else 0 end) as T11,
+            Sum(Case Month(a.receive_date) when 12 then  b.product_price*b.product_number else 0 end) as T12"
+        )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereYear('a.receive_date',$this_year)->get();
         $json_encode_case = json_encode($case);
         $json_decode = json_decode($json_encode_case,true);
         $row = $json_decode[0];
@@ -85,109 +85,109 @@ class CustomerController extends Controller
 
         if($request['dashboard_value'] == 'thisweek'){
             $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
-                "Sum(Case WEEKDAY(a.created_at) when 0 then b.product_price*b.product_number else 0 end) as N1,
-                Sum(Case WEEKDAY(a.created_at) when 1 then  b.product_price*b.product_number else 0 end) as N2,
-                Sum(Case WEEKDAY(a.created_at) when 2 then b.product_price*b.product_number else 0 end) as N3,
-                Sum(Case WEEKDAY(a.created_at) when 3 then  b.product_price*b.product_number else 0 end) as N4,
-                Sum(Case WEEKDAY(a.created_at) when 4 then b.product_price*b.product_number else 0 end) as N5,
-                Sum(Case WEEKDAY(a.created_at) when 5 then  b.product_price*b.product_number else 0 end) as N6,
-                Sum(Case WEEKDAY(a.created_at) when 6 then  b.product_price*b.product_number else 0 end) as N7"
-             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereBetween('a.created_at',[Carbon::now()->startOfWeek()->format('Y-m-d H:i:s'), Carbon::now()->endOfWeek()->format('Y-m-d H:i:s')])->get();
+                "Sum(Case WEEKDAY(a.receive_date) when 0 then b.product_price*b.product_number else 0 end) as N1,
+                Sum(Case WEEKDAY(a.receive_date) when 1 then  b.product_price*b.product_number else 0 end) as N2,
+                Sum(Case WEEKDAY(a.receive_date) when 2 then b.product_price*b.product_number else 0 end) as N3,
+                Sum(Case WEEKDAY(a.receive_date) when 3 then  b.product_price*b.product_number else 0 end) as N4,
+                Sum(Case WEEKDAY(a.receive_date) when 4 then b.product_price*b.product_number else 0 end) as N5,
+                Sum(Case WEEKDAY(a.receive_date) when 5 then  b.product_price*b.product_number else 0 end) as N6,
+                Sum(Case WEEKDAY(a.receive_date) when 6 then  b.product_price*b.product_number else 0 end) as N7"
+             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereBetween('a.receive_date',[Carbon::now()->startOfWeek()->format('Y-m-d H:i:s'), Carbon::now()->endOfWeek()->format('Y-m-d H:i:s')])->get();
         }
         elseif($request['dashboard_value'] == 'weekago'){
             $get =DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
-                "Sum(Case WEEKDAY(a.created_at) when 0 then b.product_price*b.product_number else 0 end) as N1,
-                Sum(Case WEEKDAY(a.created_at) when 1 then  b.product_price*b.product_number else 0 end) as N2,
-                Sum(Case WEEKDAY(a.created_at) when 2 then b.product_price*b.product_number else 0 end) as N3,
-                Sum(Case WEEKDAY(a.created_at) when 3 then  b.product_price*b.product_number else 0 end) as N4,
-                Sum(Case WEEKDAY(a.created_at) when 4 then b.product_price*b.product_number else 0 end) as N5,
-                Sum(Case WEEKDAY(a.created_at) when 5 then  b.product_price*b.product_number else 0 end) as N6,
-                Sum(Case WEEKDAY(a.created_at) when 6 then  b.product_price*b.product_number else 0 end) as N7"
-             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereBetween('a.created_at',[Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d H:i:s'),Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d H:i:s')])->get();
+                "Sum(Case WEEKDAY(a.receive_date) when 0 then b.product_price*b.product_number else 0 end) as N1,
+                Sum(Case WEEKDAY(a.receive_date) when 1 then  b.product_price*b.product_number else 0 end) as N2,
+                Sum(Case WEEKDAY(a.receive_date) when 2 then b.product_price*b.product_number else 0 end) as N3,
+                Sum(Case WEEKDAY(a.receive_date) when 3 then  b.product_price*b.product_number else 0 end) as N4,
+                Sum(Case WEEKDAY(a.receive_date) when 4 then b.product_price*b.product_number else 0 end) as N5,
+                Sum(Case WEEKDAY(a.receive_date) when 5 then  b.product_price*b.product_number else 0 end) as N6,
+                Sum(Case WEEKDAY(a.receive_date) when 6 then  b.product_price*b.product_number else 0 end) as N7"
+             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereBetween('a.receive_date',[Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d H:i:s'),Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d H:i:s')])->get();
         }
         elseif($request['dashboard_value'] == 'thismonth'){
             $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
-                "Sum(Case DAY(a.created_at) when 1 then b.product_price*b.product_number else 0 end) as N1,
-                Sum(Case DAY(a.created_at) when 2 then  b.product_price*b.product_number else 0 end) as N2,
-                Sum(Case DAY(a.created_at) when 3 then b.product_price*b.product_number else 0 end) as N3,
-                Sum(Case DAY(a.created_at) when 4 then  b.product_price*b.product_number else 0 end) as N4,
-                Sum(Case DAY(a.created_at) when 5 then b.product_price*b.product_number else 0 end) as N5,
-                Sum(Case DAY(a.created_at) when 6 then  b.product_price*b.product_number else 0 end) as N6,
-                Sum(Case DAY(a.created_at) when 7 then  b.product_price*b.product_number else 0 end) as N7,
-                Sum(Case DAY(a.created_at) when 8 then  b.product_price*b.product_number else 0 end) as N8,
-                Sum(Case DAY(a.created_at) when 9 then  b.product_price*b.product_number else 0 end) as N9,
-                Sum(Case DAY(a.created_at) when 10 then  b.product_price*b.product_number else 0 end) as N10,
-                Sum(Case DAY(a.created_at) when 11 then  b.product_price*b.product_number else 0 end) as N11,
-                Sum(Case DAY(a.created_at) when 12 then  b.product_price*b.product_number else 0 end) as N12,
-                Sum(Case DAY(a.created_at) when 13 then b.product_price*b.product_number else 0 end) as N13,
-                Sum(Case DAY(a.created_at) when 14 then  b.product_price*b.product_number else 0 end) as N14,
-                Sum(Case DAY(a.created_at) when 15 then b.product_price*b.product_number else 0 end) as N15,
-                Sum(Case DAY(a.created_at) when 16 then  b.product_price*b.product_number else 0 end) as N16,
-                Sum(Case DAY(a.created_at) when 17 then b.product_price*b.product_number else 0 end) as N17,
-                Sum(Case DAY(a.created_at) when 18 then  b.product_price*b.product_number else 0 end) as N18,
-                Sum(Case DAY(a.created_at) when 19 then  b.product_price*b.product_number else 0 end) as N19,
-                Sum(Case DAY(a.created_at) when 20 then  b.product_price*b.product_number else 0 end) as N20,
-                Sum(Case DAY(a.created_at) when 21 then  b.product_price*b.product_number else 0 end) as N21,
-                Sum(Case DAY(a.created_at) when 22 then  b.product_price*b.product_number else 0 end) as N22,
-                Sum(Case DAY(a.created_at) when 23 then  b.product_price*b.product_number else 0 end) as N23,
-                Sum(Case DAY(a.created_at) when 24 then  b.product_price*b.product_number else 0 end) as N24,
-                Sum(Case DAY(a.created_at) when 25 then b.product_price*b.product_number else 0 end) as N25,
-                Sum(Case DAY(a.created_at) when 26 then  b.product_price*b.product_number else 0 end) as N26,
-                Sum(Case DAY(a.created_at) when 27 then  b.product_price*b.product_number else 0 end) as N27,
-                Sum(Case DAY(a.created_at) when 28 then  b.product_price*b.product_number else 0 end) as N28,
-                Sum(Case DAY(a.created_at) when 29 then  b.product_price*b.product_number else 0 end) as N29,
-                Sum(Case DAY(a.created_at) when 30 then  b.product_price*b.product_number else 0 end) as N30"
-             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereMonth('a.created_at',$this_month)->get();
+                "Sum(Case DAY(a.receive_date) when 1 then b.product_price*b.product_number else 0 end) as N1,
+                Sum(Case DAY(a.receive_date) when 2 then  b.product_price*b.product_number else 0 end) as N2,
+                Sum(Case DAY(a.receive_date) when 3 then b.product_price*b.product_number else 0 end) as N3,
+                Sum(Case DAY(a.receive_date) when 4 then  b.product_price*b.product_number else 0 end) as N4,
+                Sum(Case DAY(a.receive_date) when 5 then b.product_price*b.product_number else 0 end) as N5,
+                Sum(Case DAY(a.receive_date) when 6 then  b.product_price*b.product_number else 0 end) as N6,
+                Sum(Case DAY(a.receive_date) when 7 then  b.product_price*b.product_number else 0 end) as N7,
+                Sum(Case DAY(a.receive_date) when 8 then  b.product_price*b.product_number else 0 end) as N8,
+                Sum(Case DAY(a.receive_date) when 9 then  b.product_price*b.product_number else 0 end) as N9,
+                Sum(Case DAY(a.receive_date) when 10 then  b.product_price*b.product_number else 0 end) as N10,
+                Sum(Case DAY(a.receive_date) when 11 then  b.product_price*b.product_number else 0 end) as N11,
+                Sum(Case DAY(a.receive_date) when 12 then  b.product_price*b.product_number else 0 end) as N12,
+                Sum(Case DAY(a.receive_date) when 13 then b.product_price*b.product_number else 0 end) as N13,
+                Sum(Case DAY(a.receive_date) when 14 then  b.product_price*b.product_number else 0 end) as N14,
+                Sum(Case DAY(a.receive_date) when 15 then b.product_price*b.product_number else 0 end) as N15,
+                Sum(Case DAY(a.receive_date) when 16 then  b.product_price*b.product_number else 0 end) as N16,
+                Sum(Case DAY(a.receive_date) when 17 then b.product_price*b.product_number else 0 end) as N17,
+                Sum(Case DAY(a.receive_date) when 18 then  b.product_price*b.product_number else 0 end) as N18,
+                Sum(Case DAY(a.receive_date) when 19 then  b.product_price*b.product_number else 0 end) as N19,
+                Sum(Case DAY(a.receive_date) when 20 then  b.product_price*b.product_number else 0 end) as N20,
+                Sum(Case DAY(a.receive_date) when 21 then  b.product_price*b.product_number else 0 end) as N21,
+                Sum(Case DAY(a.receive_date) when 22 then  b.product_price*b.product_number else 0 end) as N22,
+                Sum(Case DAY(a.receive_date) when 23 then  b.product_price*b.product_number else 0 end) as N23,
+                Sum(Case DAY(a.receive_date) when 24 then  b.product_price*b.product_number else 0 end) as N24,
+                Sum(Case DAY(a.receive_date) when 25 then b.product_price*b.product_number else 0 end) as N25,
+                Sum(Case DAY(a.receive_date) when 26 then  b.product_price*b.product_number else 0 end) as N26,
+                Sum(Case DAY(a.receive_date) when 27 then  b.product_price*b.product_number else 0 end) as N27,
+                Sum(Case DAY(a.receive_date) when 28 then  b.product_price*b.product_number else 0 end) as N28,
+                Sum(Case DAY(a.receive_date) when 29 then  b.product_price*b.product_number else 0 end) as N29,
+                Sum(Case DAY(a.receive_date) when 30 then  b.product_price*b.product_number else 0 end) as N30"
+             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereMonth('a.receive_date',$this_month)->get();
         }
         elseif($request['dashboard_value'] == 'monthago'){
             $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
-                "Sum(Case DAY(a.created_at) when 1 then b.product_price*b.product_number else 0 end) as N1,
-                Sum(Case DAY(a.created_at) when 2 then  b.product_price*b.product_number else 0 end) as N2,
-                Sum(Case DAY(a.created_at) when 3 then b.product_price*b.product_number else 0 end) as N3,
-                Sum(Case DAY(a.created_at) when 4 then  b.product_price*b.product_number else 0 end) as N4,
-                Sum(Case DAY(a.created_at) when 5 then b.product_price*b.product_number else 0 end) as N5,
-                Sum(Case DAY(a.created_at) when 6 then  b.product_price*b.product_number else 0 end) as N6,
-                Sum(Case DAY(a.created_at) when 7 then  b.product_price*b.product_number else 0 end) as N7,
-                Sum(Case DAY(a.created_at) when 8 then  b.product_price*b.product_number else 0 end) as N8,
-                Sum(Case DAY(a.created_at) when 9 then  b.product_price*b.product_number else 0 end) as N9,
-                Sum(Case DAY(a.created_at) when 10 then  b.product_price*b.product_number else 0 end) as N10,
-                Sum(Case DAY(a.created_at) when 11 then  b.product_price*b.product_number else 0 end) as N11,
-                Sum(Case DAY(a.created_at) when 12 then  b.product_price*b.product_number else 0 end) as N12,
-                Sum(Case DAY(a.created_at) when 13 then b.product_price*b.product_number else 0 end) as N13,
-                Sum(Case DAY(a.created_at) when 14 then  b.product_price*b.product_number else 0 end) as N14,
-                Sum(Case DAY(a.created_at) when 15 then b.product_price*b.product_number else 0 end) as N15,
-                Sum(Case DAY(a.created_at) when 16 then  b.product_price*b.product_number else 0 end) as N16,
-                Sum(Case DAY(a.created_at) when 17 then b.product_price*b.product_number else 0 end) as N17,
-                Sum(Case DAY(a.created_at) when 18 then  b.product_price*b.product_number else 0 end) as N18,
-                Sum(Case DAY(a.created_at) when 19 then  b.product_price*b.product_number else 0 end) as N19,
-                Sum(Case DAY(a.created_at) when 20 then  b.product_price*b.product_number else 0 end) as N20,
-                Sum(Case DAY(a.created_at) when 21 then  b.product_price*b.product_number else 0 end) as N21,
-                Sum(Case DAY(a.created_at) when 22 then  b.product_price*b.product_number else 0 end) as N22,
-                Sum(Case DAY(a.created_at) when 23 then  b.product_price*b.product_number else 0 end) as N23,
-                Sum(Case DAY(a.created_at) when 24 then  b.product_price*b.product_number else 0 end) as N24,
-                Sum(Case DAY(a.created_at) when 25 then b.product_price*b.product_number else 0 end) as N25,
-                Sum(Case DAY(a.created_at) when 26 then  b.product_price*b.product_number else 0 end) as N26,
-                Sum(Case DAY(a.created_at) when 27 then  b.product_price*b.product_number else 0 end) as N27,
-                Sum(Case DAY(a.created_at) when 28 then  b.product_price*b.product_number else 0 end) as N28,
-                Sum(Case DAY(a.created_at) when 29 then  b.product_price*b.product_number else 0 end) as N29,
-                Sum(Case DAY(a.created_at) when 30 then  b.product_price*b.product_number else 0 end) as N30"
-             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereMonth('a.created_at', $previous_month)->get();
+                "Sum(Case DAY(a.receive_date) when 1 then b.product_price*b.product_number else 0 end) as N1,
+                Sum(Case DAY(a.receive_date) when 2 then  b.product_price*b.product_number else 0 end) as N2,
+                Sum(Case DAY(a.receive_date) when 3 then b.product_price*b.product_number else 0 end) as N3,
+                Sum(Case DAY(a.receive_date) when 4 then  b.product_price*b.product_number else 0 end) as N4,
+                Sum(Case DAY(a.receive_date) when 5 then b.product_price*b.product_number else 0 end) as N5,
+                Sum(Case DAY(a.receive_date) when 6 then  b.product_price*b.product_number else 0 end) as N6,
+                Sum(Case DAY(a.receive_date) when 7 then  b.product_price*b.product_number else 0 end) as N7,
+                Sum(Case DAY(a.receive_date) when 8 then  b.product_price*b.product_number else 0 end) as N8,
+                Sum(Case DAY(a.receive_date) when 9 then  b.product_price*b.product_number else 0 end) as N9,
+                Sum(Case DAY(a.receive_date) when 10 then  b.product_price*b.product_number else 0 end) as N10,
+                Sum(Case DAY(a.receive_date) when 11 then  b.product_price*b.product_number else 0 end) as N11,
+                Sum(Case DAY(a.receive_date) when 12 then  b.product_price*b.product_number else 0 end) as N12,
+                Sum(Case DAY(a.receive_date) when 13 then b.product_price*b.product_number else 0 end) as N13,
+                Sum(Case DAY(a.receive_date) when 14 then  b.product_price*b.product_number else 0 end) as N14,
+                Sum(Case DAY(a.receive_date) when 15 then b.product_price*b.product_number else 0 end) as N15,
+                Sum(Case DAY(a.receive_date) when 16 then  b.product_price*b.product_number else 0 end) as N16,
+                Sum(Case DAY(a.receive_date) when 17 then b.product_price*b.product_number else 0 end) as N17,
+                Sum(Case DAY(a.receive_date) when 18 then  b.product_price*b.product_number else 0 end) as N18,
+                Sum(Case DAY(a.receive_date) when 19 then  b.product_price*b.product_number else 0 end) as N19,
+                Sum(Case DAY(a.receive_date) when 20 then  b.product_price*b.product_number else 0 end) as N20,
+                Sum(Case DAY(a.receive_date) when 21 then  b.product_price*b.product_number else 0 end) as N21,
+                Sum(Case DAY(a.receive_date) when 22 then  b.product_price*b.product_number else 0 end) as N22,
+                Sum(Case DAY(a.receive_date) when 23 then  b.product_price*b.product_number else 0 end) as N23,
+                Sum(Case DAY(a.receive_date) when 24 then  b.product_price*b.product_number else 0 end) as N24,
+                Sum(Case DAY(a.receive_date) when 25 then b.product_price*b.product_number else 0 end) as N25,
+                Sum(Case DAY(a.receive_date) when 26 then  b.product_price*b.product_number else 0 end) as N26,
+                Sum(Case DAY(a.receive_date) when 27 then  b.product_price*b.product_number else 0 end) as N27,
+                Sum(Case DAY(a.receive_date) when 28 then  b.product_price*b.product_number else 0 end) as N28,
+                Sum(Case DAY(a.receive_date) when 29 then  b.product_price*b.product_number else 0 end) as N29,
+                Sum(Case DAY(a.receive_date) when 30 then  b.product_price*b.product_number else 0 end) as N30"
+             )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereMonth('a.receive_date', $previous_month)->get();
         }
         else if($request['dashboard_value'] == 'thisyear'){
             $get= DB::table('order as a')->join('order_details as b', 'a.id', '=', 'b.order_id')->selectRaw(
-               "Sum(Case Month(a.created_at) when 1 then b.product_price*b.product_number else 0 end) as T1,
-                Sum(Case Month(a.created_at) when 2 then  b.product_price*b.product_number else 0 end) as T2,
-                Sum(Case Month(a.created_at) when 3 then b.product_price*b.product_number else 0 end) as T3,
-                Sum(Case Month(a.created_at) when 4 then  b.product_price*b.product_number else 0 end) as T4,
-                Sum(Case Month(a.created_at) when 5 then b.product_price*b.product_number else 0 end) as T5,
-                Sum(Case Month(a.created_at) when 6 then  b.product_price*b.product_number else 0 end) as T6,
-                Sum(Case Month(a.created_at) when 7 then  b.product_price*b.product_number else 0 end) as T7,
-                Sum(Case Month(a.created_at) when 8 then  b.product_price*b.product_number else 0 end) as T8,
-                Sum(Case Month(a.created_at) when 9 then  b.product_price*b.product_number else 0 end) as T9,
-                Sum(Case Month(a.created_at) when 10 then  b.product_price*b.product_number else 0 end) as T10,
-                Sum(Case Month(a.created_at) when 11 then  b.product_price*b.product_number else 0 end) as T11,
-                Sum(Case Month(a.created_at) when 12 then  b.product_price*b.product_number else 0 end) as T12"
-            )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereYear('a.created_at',$this_year)->get();
+               "Sum(Case Month(a.receive_date) when 1 then b.product_price*b.product_number else 0 end) as T1,
+                Sum(Case Month(a.receive_date) when 2 then  b.product_price*b.product_number else 0 end) as T2,
+                Sum(Case Month(a.receive_date) when 3 then b.product_price*b.product_number else 0 end) as T3,
+                Sum(Case Month(a.receive_date) when 4 then  b.product_price*b.product_number else 0 end) as T4,
+                Sum(Case Month(a.receive_date) when 5 then b.product_price*b.product_number else 0 end) as T5,
+                Sum(Case Month(a.receive_date) when 6 then  b.product_price*b.product_number else 0 end) as T6,
+                Sum(Case Month(a.receive_date) when 7 then  b.product_price*b.product_number else 0 end) as T7,
+                Sum(Case Month(a.receive_date) when 8 then  b.product_price*b.product_number else 0 end) as T8,
+                Sum(Case Month(a.receive_date) when 9 then  b.product_price*b.product_number else 0 end) as T9,
+                Sum(Case Month(a.receive_date) when 10 then  b.product_price*b.product_number else 0 end) as T10,
+                Sum(Case Month(a.receive_date) when 11 then  b.product_price*b.product_number else 0 end) as T11,
+                Sum(Case Month(a.receive_date) when 12 then  b.product_price*b.product_number else 0 end) as T12"
+            )->where('a.order_status','Đã Giao')->whereIn('address_id',$customer_address)->whereYear('a.receive_date',$this_year)->get();
         }
         $json_encode_case = json_encode($get);
         $json_decode = json_decode($json_encode_case,true);
