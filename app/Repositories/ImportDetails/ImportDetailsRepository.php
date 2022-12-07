@@ -44,6 +44,7 @@ class ImportDetailsRepository extends BaseRepository implements ImportDetailsRep
             $arr['product_id'] = $attributes['product_id'][$i];
             $arr['import_price'] =  $attributes['import_price'][$i];
             $arr['import_product_quantity'] = $attributes['import_product_quantity'][$i];
+            $arr['import_product_stock'] = $attributes['import_product_quantity'][$i];
             $product = Product::find($arr['product_id']);
             // $product_quantity_new = ($product->product_quantity_stock) + (int)$arr['import_product_quantity'];
             // $update_product_quantity = Product::where('id', $arr['product_id'])->update([
