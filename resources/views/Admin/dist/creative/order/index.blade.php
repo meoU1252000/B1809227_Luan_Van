@@ -42,7 +42,7 @@
                                                 <th style="width:180px">Ngày Giao</th>
                                                 <th>Tình Trạng</th>
                                                 <th>Tổng Giá Trị</th>
-                                                <th style="width: 60px;">Tương Tác</th>
+                                                <th>Tương Tác</th>
                                             </tr>
                                         </thead>
                                         <tbody>
