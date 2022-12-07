@@ -38,11 +38,11 @@
                                                 <th style="width: 60px;">Mã NV</th>
                                                 <th style="width: 60px;">Mã SK</th>
                                                 <th class="d-none">SĐT</th>
-                                                <th>Ngày Đặt</th>
-                                                <th>Ngày Giao</th>
+                                                <th style="width:180px">Ngày Đặt</th>
+                                                <th style="width:180px">Ngày Giao</th>
                                                 <th>Tình Trạng</th>
                                                 <th>Tổng Giá Trị</th>
-                                                <th>Tương Tác</th>
+                                                <th style="width: 60px;">Tương Tác</th>
                                             </tr>
                                         </thead>
                                         <tbody>
