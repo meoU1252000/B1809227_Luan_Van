@@ -41,12 +41,6 @@ class CategoryResource extends JsonResource
         return $products;
     }
 
-    public function children($id)
-    {
-        $categories = Category::where('category_id', '=', $id)->get();
-        return $categories;
-    }
-
     public function getHighestProductPrice($id)
     {
         $product = Product::select('product_price')->where('category_id', $id)->where('product_price', Product::where('category_id', $id)->max('product_price'))->first();

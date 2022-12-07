@@ -64,6 +64,7 @@ class BrandResource extends JsonResource
 
                 $data[$index]['params'] = array_merge($data[$index]['params'],$param->toArray());
 
+                $data[$index]['params'] = array_map("unserialize", array_unique(array_map("serialize", $data[$index]['params'])));
             }
         }
         return $data;
