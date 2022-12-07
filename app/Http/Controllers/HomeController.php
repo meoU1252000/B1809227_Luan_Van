@@ -316,18 +316,33 @@ class HomeController extends Controller
                 $cost_prices = json_decode(json_encode($cost_prices),true);
                 if(isset($cost_prices[0])){
                     foreach($cost_prices as $cost_price){
-                        $value = [
-                            "id" => $product->id,
-                            "import_id" => $cost_price['import_id'],
-                            "import_product_quantity" => $cost_price['import_product_quantity'],
-                            "import_price" => $cost_price['import_price'],
-                            "product_name" => $product->product_name,
-                            "cost_price" => $cost_price['cost_price'],
-                            "sell_price" => $cost_price['import_price_sell'],
-                            'product_sold' =>($cost_price['import_product_quantity'] - $cost_price['import_product_stock']),
-                            "product_turnover" => ($cost_price['import_product_quantity'] - $cost_price['import_product_stock']) * $cost_price['import_price_sell'],
-                            "total_price" => ($cost_price['import_product_quantity'] - $cost_price['import_product_stock']) * $cost_price['import_price_sell'] - $cost_price['cost_price'],
-                        ];
+                        if($cost_price['import_product_stock'] != null) {
+                            $value = [
+                                "id" => $product->id,
+                                "import_id" => $cost_price['import_id'],
+                                "import_product_quantity" => $cost_price['import_product_quantity'],
+                                "import_price" => $cost_price['import_price'],
+                                "product_name" => $product->product_name,
+                                "cost_price" => $cost_price['cost_price'],
+                                "sell_price" => $cost_price['import_price_sell'],
+                                'product_sold' =>($cost_price['import_product_quantity'] - $cost_price['import_product_stock']),
+                                "product_turnover" => ($cost_price['import_product_quantity'] - $cost_price['import_product_stock']) * $cost_price['import_price_sell'],
+                                "total_price" => ($cost_price['import_product_quantity'] - $cost_price['import_product_stock']) * $cost_price['import_price_sell'] - $cost_price['cost_price'],
+                            ];
+                        }else{
+                            $value = [
+                                "id" => $product->id,
+                                "import_id" => $cost_price['import_id'],
+                                "import_product_quantity" => $cost_price['import_product_quantity'],
+                                "import_price" => $cost_price['import_price'],
+                                "product_name" => $product->product_name,
+                                "cost_price" => $cost_price['cost_price'],
+                                "sell_price" => $cost_price['import_price_sell'],
+                                'product_sold' => 0,
+                                "product_turnover" => -($cost_price['import_product_quantity']  * $cost_price['import_price_sell']),
+                                "total_price" => -($cost_price['import_product_quantity']  * $cost_price['import_price_sell']),
+                            ];
+                        }
                         array_push($data,$value);
                     }
                 }else{
