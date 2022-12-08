@@ -27,11 +27,15 @@ class CategoryResource extends JsonResource
             "category_name" => $this->category_name,
             "category_status" => $this->category_status,
             "products" => $this->getProduct($this->id),
-            'children' => $this->getChildrenCategory($this->id),
+            'children' => $this->getChildren($this->id),
             "highest_product_price" => $this->getHighestProductPrice($this->id),
             "category_attributes" => $this->getCategoryAttributes($this->id),
         ];
         return $data;
+    }
+
+    public function getChildren($id){
+        return Category::where('category_parent',$id)->where('category_status',1)->with('products')->with('children')->get();
     }
 
     public function getProduct($id)
