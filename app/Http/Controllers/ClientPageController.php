@@ -69,7 +69,7 @@ class ClientPageController extends AbstractApiController
     }
 
     public function getListCategories(){
-        $categories = CategoryResource::collection(Category::where('category_parent', 0)->where('category_status',1)->with('children')->get());
+        $categories = CategoryResource::collection(Category::where('category_status',1)->with('children')->get());
         // dd($categories);
         $this->setStatusCode(JsonResponse::HTTP_OK);
         $this->setStatus('success');
