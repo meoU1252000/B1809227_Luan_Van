@@ -27,19 +27,11 @@ class CategoryResource extends JsonResource
             "category_name" => $this->category_name,
             "category_status" => $this->category_status,
             "products" => $this->getProduct($this->id),
-            'children' => $this->getChildren($this->children),
+            'children' => $this->getChildrenCategory($this->id),
             "highest_product_price" => $this->getHighestProductPrice($this->id),
             "category_attributes" => $this->getCategoryAttributes($this->id),
         ];
         return $data;
-    }
-
-    public function getChildren($children){
-        $arrId = array();
-        foreach($children as $category){
-            array_push($arrId, $category->id);
-        }
-        return Category::whereIn('id', $arrId)->with('children','products')->get();
     }
 
     public function getProduct($id)
@@ -78,10 +70,10 @@ class CategoryResource extends JsonResource
         return $data;
     }
 
-    // public function getChildrenCategory($id)
-    // {
+    public function getChildrenCategory($id)
+    {
 
-    //     $categories = CategoryResource::collection(Category::where('category_parent', $id)->with('childrenCategories')->get());
-    //     return $categories;
-    // }
+        $categories = CategoryResource::collection(Category::where('category_parent', $id)->where('category_status',1)->get());
+        return $categories;
+    }
 }
