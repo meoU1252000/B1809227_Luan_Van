@@ -28,6 +28,8 @@ class Category extends Model
     public function childrenCategories() {
         if(with('childrenCategories')){
             return $this->hasMany(Self::class,'category_parent','id')->with('childrenCategories');
+        }else if((with('children'))){
+            return $this->hasMany(Self::class,'category_parent','id')->with('children');
         }
     }
 }
