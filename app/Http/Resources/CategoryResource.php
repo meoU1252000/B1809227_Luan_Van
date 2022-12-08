@@ -35,10 +35,11 @@ class CategoryResource extends JsonResource
     }
 
     public function getChildren($children){
-       if(count($children)){
-        return true;
-       }
-       return false;
+        $arrId = array();
+        foreach($children as $category){
+            array_push($arrId, $category->id);
+        }
+        return Category::whereIn('id', $arrId)->with('children')->get();
     }
 
     public function getProduct($id)
