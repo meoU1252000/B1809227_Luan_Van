@@ -39,7 +39,7 @@ class CategoryResource extends JsonResource
         foreach($children as $category){
             array_push($arrId, $category->id);
         }
-        return Category::whereIn('id', $arrId)->with('children')->get();
+        return Category::whereIn('id', $arrId)->with('children','products')->get();
     }
 
     public function getProduct($id)

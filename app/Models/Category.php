@@ -36,4 +36,9 @@ class Category extends Model
             return $this->hasMany(Self::class,'category_parent','id')->with('children');
         }
     }
+
+    public function products() {
+       return $this->hasMany(Product::class,'category_id','id');
+
+    }
 }
