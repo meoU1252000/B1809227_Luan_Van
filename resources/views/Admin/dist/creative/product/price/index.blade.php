@@ -42,11 +42,11 @@
                                             id="basic-datatable-price">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th style="width: 125px;">ID Nhập Hàng</th>
-                                                    <th style="width: 125px;">ID Sản Phẩm</th>
-                                                    <th style="width: 125px;">Tên Sản Phẩm</th>
-                                                    <th style="width: 125px;">Giá Bán</th>
-                                                    <th style="width: 125px;">Tương Tác</th>
+                                                    <th>ID Nhập Hàng</th>
+                                                    <th>ID Sản Phẩm</th>
+                                                    <th>Tên Sản Phẩm</th>
+                                                    <th>Giá Bán</th>
+                                                    <th>Tương Tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
