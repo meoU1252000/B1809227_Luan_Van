@@ -27,7 +27,7 @@ class CategoryResource extends JsonResource
             "category_name" => $this->category_name,
             "category_status" => $this->category_status,
             "products" => $this->getProduct($this->id),
-            'children' => $this->getChildrenCategory($this->id),
+            // 'children' => $this->getChildrenCategory($this->id),
             "highest_product_price" => $this->getHighestProductPrice($this->id),
             "category_attributes" => $this->getCategoryAttributes($this->id),
         ];
@@ -70,9 +70,10 @@ class CategoryResource extends JsonResource
         return $data;
     }
 
-    public function getChildrenCategory($id)
-    {
-        $categories = CategoryResource::collection(Category::where('category_parent', '=', $id)->where('category_status',1)->get());
-        return $categories;
-    }
+    // public function getChildrenCategory($id)
+    // {
+
+    //     $categories = CategoryResource::collection(Category::where('category_parent', $id)->with('childrenCategories')->get());
+    //     return $categories;
+    // }
 }
