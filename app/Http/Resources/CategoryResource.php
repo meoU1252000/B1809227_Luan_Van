@@ -27,7 +27,7 @@ class CategoryResource extends JsonResource
             "category_name" => $this->category_name,
             "category_status" => $this->category_status,
             "products" => $this->getProduct($this->id),
-            'children' => $this->getChildren($this->children),
+            // 'children' => $this->getChildren($this->children),
             "highest_product_price" => $this->getHighestProductPrice($this->id),
             "category_attributes" => $this->getCategoryAttributes($this->id),
         ];
