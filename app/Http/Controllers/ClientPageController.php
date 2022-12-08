@@ -312,6 +312,7 @@ class ClientPageController extends AbstractApiController
             $orderStore = $this->orderRepo->create($data);
             $value = array();
             $updateProductSold = array();
+            $updateProduct= array();
             foreach($data['cart_list'] as $cart){
                 $value['order_id'] = $orderStore->id;
                 $value['product_id'] = $cart['productId'];
@@ -320,9 +321,11 @@ class ClientPageController extends AbstractApiController
                 $value['product_number'] = $cart['quantity'];
                 $orderDetailStore = $this->orderDetailsRepo->create($value);
                 $import_detail = ImportDetail::where('product_id', $product->id)->where('import_product_stock','>',0)->oldest()->first();
-                // $updateProduct['product_quantity_stock'] = $product->product_quantity_stock - $value['product_number'];
+                $updateProduct['product_quantity_stock'] = $product->product_quantity_stock - $value['product_number'];
+                $updateProduct['product_sold'] = $product->product_sold + $value['product_number'];
                 $updateProductSold['import_product_stock'] = $import_detail->import_product_stock - $value['product_number'];
                 $updateProductNumber =  $import_detail->update($updateProductSold);
+                $update_product = $this->productRepo->update($product->id, $updateProduct);
             }
             $this->setStatusCode(JsonResponse::HTTP_CREATED);
             $this->setStatus('success');
@@ -354,6 +357,7 @@ class ClientPageController extends AbstractApiController
         // $order = Order::find($data['id']);
         $order_details = OrderDetail::where('order_id',$data['id'])->get();
         $data['order_status'] = "Đã Hủy";
+        $updateProduct= array();
         $updateProductSold = array();
         foreach($order_details as $order){
             $product_in_order = $order['product_number'];
@@ -362,8 +366,11 @@ class ClientPageController extends AbstractApiController
             // $updateProduct['product_quantity_stock'] = $product_quantity_stock + $product_in_order;
             $import_detail = ImportDetail::where('product_id', $product->id)->where('import_product_stock','>',0)->oldest()->first();
             $updateProductSold['import_product_stock'] = $import_detail['import_product_stock'] + $product_in_order;
+            $updateProduct['product_quantity_stock'] = $product->product_quantity_stock + $product_in_order;
+            $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
             // dd($updateProductSold);
-            $update_product = $import_detail->update($updateProductSold);
+            $update_import = $import_detail->update($updateProductSold);
+            $update_product = $this->productRepo->update($product->id, $updateProduct);
         }
         $updateOrderStatus = $this->orderRepo->update($data['id'],$data);
         $this->setStatusCode(JsonResponse::HTTP_CREATED);

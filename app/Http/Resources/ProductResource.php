@@ -80,7 +80,7 @@ class ProductResource extends JsonResource
     public function getProductQuantityStock($id){
         $import_detail = ImportDetail::where('product_id', $id)->where('import_product_quantity','>',0)->oldest()->first();
         if($import_detail){
-            return $import_detail->import_product_quantity;
+            return $import_detail->import_product_stock;
         }
         return 0;
     }

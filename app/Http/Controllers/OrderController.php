@@ -93,6 +93,20 @@ class OrderController extends Controller
         $data['staff_id'] = Auth()->user()->id;
         if($data['order_status'] == "Đã Giao"){
             $data['receive_date'] = Carbon::now()->format('Y-m-d H:i:s');
+        }else if($data['order_status'] == "Đã Hủy"){
+            $order_details = OrderDetail::where('order_id',$data['id'])->get();
+            $updateProduct= array();
+            $updateProductSold = array();
+            foreach($order_details as $order){
+                $product_in_order = $order['product_number'];
+                $product = Product::find($order['product_id']);
+                $import_detail = ImportDetail::where('product_id', $product->id)->where('import_product_stock','>',0)->oldest()->first();
+                $updateProductSold['import_product_stock'] = $import_detail['import_product_stock'] + $product_in_order;
+                $updateProduct['product_quantity_stock'] = $product->product_quantity_stock + $product_in_order;
+                $updateProduct['product_sold'] = $product->product_sold - $product_in_order;
+                $update_product = $this->productRepo->update($product->id, $updateProduct);
+                $update_import = $import_detail->update($updateProductSold);
+            }
         }
         $update = $this->orderRepo->update($id,$data);
         return redirect()->route('order.index');
