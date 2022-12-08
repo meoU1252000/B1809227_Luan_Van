@@ -33,7 +33,7 @@ class Category extends Model
 
     public function children() {
         if(with('children')){
-            return $this->hasMany(Self::class,'category_parent','id')->with('children');
+            return $this->hasMany(Self::class,'category_parent','id')->with('children')->with('products');
         }
     }
 

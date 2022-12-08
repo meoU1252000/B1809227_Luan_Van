@@ -35,7 +35,7 @@ class CategoryResource extends JsonResource
     }
 
     public function getChildren($id){
-        return Category::where('category_parent',$id)->where('category_status',1)->with('products')->with('children')->get();
+        return Category::where('category_parent',$id)->where('category_status',1)->with('products','children')->get();
     }
 
     public function getProduct($id)
