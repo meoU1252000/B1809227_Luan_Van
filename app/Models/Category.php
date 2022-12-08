@@ -38,7 +38,7 @@ class Category extends Model
     }
 
     public function products() {
-       return $this->hasMany(Product::class,'category_id','id')->wherePivot('product_status',1);
+       return $this->hasMany(Product::class,'category_id','id')->where('product_status',1);
 
     }
 }
