@@ -321,6 +321,14 @@
                             </a>
                         </li>
                         @endrole
+                        @role('Super Admin|Manage Rating')
+                        <li>
+                            <a href="{{ route('rating.index') }}">
+                                <i class="mdi mdi-package"></i>
+                                <span> Quản Lý Đánh Giá </span>
+                            </a>
+                        </li>
+                        @endrole
                         @role('Super Admin|Manage Event')
                         <li>
                             <a href="{{ route('event.index') }}">

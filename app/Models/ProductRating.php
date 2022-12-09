@@ -17,4 +17,12 @@ class ProductRating extends Model
         'star_rating_number',
         'rating_comment'
     ];
+
+    public function get_customer(){
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
+    public function get_product(){
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

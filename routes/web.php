@@ -18,6 +18,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RatingController;
 
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\RoleController;
@@ -207,10 +208,14 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::prefix('customer')->group(function() {
-            Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
-            Route::get('/address/{id}', [CustomerController::class, 'address'])->name('customer.address');
-            Route::get('/revenue/{id}', [CustomerController::class, 'revenue'])->name('customer.revenue');
-            Route::get('/dashboard/{id}', [CustomerController::class, 'dashboard_filter'])->name('customer.dashboard_filter');
+            Route::get('/', [CustomerController::class, 'index'])->name('customer.index')->middleware('role_or_permission:Super Admin|Manage Customer|Delete Customer');
+            Route::get('/address/{id}', [CustomerController::class, 'address'])->name('customer.address')->middleware('role_or_permission:Super Admin|Manage Customer|Delete Customer');
+            Route::get('/revenue/{id}', [CustomerController::class, 'revenue'])->name('customer.revenue')->middleware('role_or_permission:Super Admin|Manage Customer|Delete Customer');
+            Route::get('/dashboard/{id}', [CustomerController::class, 'dashboard_filter'])->name('customer.dashboard_filter')->middleware('role_or_permission:Super Admin|Manage Customer|Delete Customer');
+        });
+        Route::prefix('rating')->group(function() {
+            Route::get('/', [RatingController::class, 'index'])->name('rating.index')->middleware('role_or_permission:Super Admin|Manage Rating|Delete Rating');
+            Route::post('/delete/{id}', [RatingController::class, 'destroy'])->name('rating.delete')->middleware('role_or_permission:Super Admin|Manage Rating|Delete Rating');
         });
     });
 });
