@@ -68,10 +68,10 @@
                                                             style="word-wrap: break-word;
                                                     white-space: normal;">
                                                             @iF($import_detail->import_price_sell)
-                                                            <td>{{ number_format($import_detail->import_price_sell) }} VND</td>
+                                                            {{ number_format($import_detail->import_price_sell) }} VND
 
                                                             @else
-                                                            <td>Chưa có giá bán</td>
+                                                            Chưa có giá bán
                                                             @endif
                                                         </td>
                                                         <td>
@@ -126,11 +126,12 @@
         <!-- end Footer -->
 
     </div>
+
 @endsection
 @section('footer')
-    <script>
-        $(document).ready(function() {
-            $('#basic-datatable-price').DataTable();
-        });
-    </script>
+<script>
+    $(document).ready(function() {
+         $('#basic-datatable-price').DataTable();
+     });
+ </script>
 @endsection
