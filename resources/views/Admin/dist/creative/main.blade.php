@@ -163,7 +163,7 @@
                         </li> --}}
                         <li>
                             <a href="{{ route('staff.index') }}">
-                                <i class="mdi mdi-package"></i>
+                                <i class="mdi mdi-account-box"></i>
                                 <span> Quản Lý Nhân Viên </span>
                             </a>
                         </li>
@@ -247,7 +247,7 @@
                         @role('Super Admin|Manage Comment')
                         <li>
                             <a href="{{ route('comment.index') }}">
-                                <i class="mdi mdi-package"></i>
+                                <i class="mdi mdi-comment"></i>
                                 <span> Quản Lý Bình Luận </span>
                             </a>
                         </li>
@@ -324,7 +324,7 @@
                         @role('Super Admin|Manage Rating')
                         <li>
                             <a href="{{ route('rating.index') }}">
-                                <i class="mdi mdi-package"></i>
+                                <i class="mdi mdi-star-box"></i>
                                 <span> Quản Lý Đánh Giá </span>
                             </a>
                         </li>
