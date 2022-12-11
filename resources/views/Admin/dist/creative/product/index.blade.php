@@ -255,7 +255,7 @@
 
     })
     $(document).ready(function() {
-            $('#basic-datatable-order').DataTable({
+            $('#basic-datatable').DataTable({
 
                 order: [
                     [0, 'desc']
