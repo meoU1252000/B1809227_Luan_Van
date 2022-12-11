@@ -47,15 +47,16 @@ class HomeController extends Controller
             $sum += $value;
             array_push($data,$value);
         }
-        $this_day = Carbon::now()->toDateTimeString();
-        $case_day = Order::where('receive_date','>=',$this_day)->get();
-        $total_price_day = 0;
+        // $this_day = Carbon::today();
+        // $case_day = Order::where('receive_date','>=',$this_day)->get();
+        // $total_price_day = 0;
         $total_product = Product::where('product_status','1')->get()->count();
         $order_waiting = Order::where('order_status','Chưa Xử Lý')->get()->count();
         $total_staff = User::where('status','1')->get()->count();
-        foreach($case_day as $day){
-            $total_price_day += $day->total_price;
-        }
+        // foreach($case_day as $day){
+        //     $total_price_day += $day->total_price;
+        // }
+        $total_price_day = Order::where('order_status','Đã Giao')->where('receive_date','>=',Carbon::today())->sum('total_price');
 
         $products = Product::all();
 

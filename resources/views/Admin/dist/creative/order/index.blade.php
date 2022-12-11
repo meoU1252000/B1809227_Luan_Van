@@ -57,7 +57,7 @@
                                                         <a href="" class="text-body fw-bold">{{ $order->staff_id }}
                                                     </td>
                                                     <td>
-                                                        <a href="" class="text-body fw-bold">{{ $order->event_id }}
+                                                        <a href="" class="text-body fw-bold">{{ $order->code_id }}
                                                     </td>
                                                     <td class="d-none">
                                                         {{ $order->get_address->receiver_phone }}
