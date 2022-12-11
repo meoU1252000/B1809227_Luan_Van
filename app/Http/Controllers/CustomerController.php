@@ -43,7 +43,7 @@ class CustomerController extends Controller
         $customer_address = Customer_Address::where('customer_id', $id)->get(['id']);
         $order_waiting = Order::where('order_status','Chưa Xử Lý')->whereIn('address_id',$customer_address)->get()->count();
         $total_revenue = Order::where('order_status','Đã Giao')->whereIn('address_id',$customer_address)->sum('total_price');
-        $today_revenue = Order::where('order_status','Đã Giao')->whereIn('address_id',$customer_address)->where('receive_date',Carbon::now())->sum('total_price');
+        $today_revenue = Order::where('order_status','Đã Giao')->whereIn('address_id',$customer_address)->where('receive_date','>=',Carbon::now())->sum('total_price');
         $order_done = Order::where('order_status','Đã Giao')->whereIn('address_id',$customer_address)->get()->count();
         $total_order = Order::whereIn('address_id',$customer_address)->get()->count();
         $percent_order_done = $order_done/$total_order * 100;

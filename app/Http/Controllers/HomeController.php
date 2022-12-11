@@ -48,7 +48,7 @@ class HomeController extends Controller
             array_push($data,$value);
         }
         $this_day = Carbon::now()->toDateTimeString();
-        $case_day = Order::where('created_at',$this_day)->get();
+        $case_day = Order::where('receive_date','>=',$this_day)->get();
         $total_price_day = 0;
         $total_product = Product::where('product_status','1')->get()->count();
         $order_waiting = Order::where('order_status','Chưa Xử Lý')->get()->count();
