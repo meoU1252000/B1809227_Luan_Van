@@ -75,8 +75,10 @@
                                                 white-space: normal;">
                                                         {{ $import_detail->import_product_quantity }}
                                                     </td>
+                                                    <td>
 
-                                                    {{ number_format($import_detail->import_price) }}
+                                                        {{ number_format($import_detail->import_price) }}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
