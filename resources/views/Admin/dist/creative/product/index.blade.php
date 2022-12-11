@@ -254,14 +254,7 @@
         })
 
     })
-    $(document).ready(function() {
-            $('#basic-datatable').DataTable({
 
-                order: [
-                    [0, 'desc']
-                ],
-            });
-        });
 </script>
 
 @endsection
